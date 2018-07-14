@@ -32,7 +32,7 @@ create table employees
 	[deleted] int not null,
 	
 )
-drop table employees
+
 create table Roles
 (
 	[role_id] varchar(10) primary key not null,
@@ -66,7 +66,7 @@ create table [Tables]
 	
 
 )
-drop table [Tables]
+
 create table Zones
 (
 	zone_id varchar(10) primary key not null,
@@ -87,14 +87,18 @@ create table Orders
 	emp_id varchar(10) foreign key references Employees(emp_id),
 	tab_id varchar(10) foreign key references Tables(tab_id),
 )
-drop table Orders
+
 create table Order_Details
 (
-	order_id varchar(10) foreign key references Orders(order_id),
-	pro_id varchar(10) foreign key references Products(pro_id),
+	order_id varchar(10) not null,
+	pro_id varchar(10) not null,
+	
+	Constraint [PK.Order_Details] primary key ([order_id],[pro_id]),
 	quantity int not null,
 	price money not null,
 	discount float not null,
 	[option] nvarchar(150),
 )
-drop table Order_Details
+ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Orders_order_id] foreign key (order_id) references [dbo].[Orders](order_id)
+
+ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Products_pro_id] foreign key (order_id) references [dbo].[Products](pro_id)
