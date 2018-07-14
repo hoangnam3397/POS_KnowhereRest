@@ -63,5 +63,5 @@ _Xuất report cho quá trình nhập nguyen liệu vào kho(các nguyen liệu 
 _Hiển thị sơ đồ thống kê tổng doanh thu , các món ăn,sản phẩm bán chạy (có thể bổ sung thêm)
 
 
-
+link demo:http://www.dar-elweb.com/demos/zarest/
 
