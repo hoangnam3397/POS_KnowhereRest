@@ -29,6 +29,7 @@ public class insertStoreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        //add store
         String sto_id=request.getParameter("sto_id");
         String sto_name=request.getParameter("sto_name");
         String address=request.getParameter("address");
@@ -36,6 +37,8 @@ public class insertStoreServlet extends HttpServlet {
         int delete = 0;
         Stores sto = new Stores(sto_id, sto_name, address, phonesto, delete);
         storesFacade.create(sto);
+        //back viewStore
+        request.getRequestDispatcher("viewStoreServlet").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

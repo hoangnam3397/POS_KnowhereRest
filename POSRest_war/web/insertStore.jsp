@@ -31,7 +31,7 @@
                     <td><input type="text" name="phonesto"</td>
                 </tr>
             </table>
-            <input type="submit" value="Add Store"/>
+            <input type="submit" name="action" value="Add Store"/>
         </form>
     </body>
 </html>

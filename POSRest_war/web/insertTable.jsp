@@ -32,7 +32,7 @@
                         </select></td>
                 </tr>
             </table>
-            <input type="submit" value="Submit"/>            
+            <input type="submit" name="action" value="Submit"/>            
         </form>
     </body>
 </html>

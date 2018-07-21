@@ -24,7 +24,7 @@
                     <td><input type="text" name="zone_name"</td>
                 </tr>
             </table>
-            <input type="submit" value="Add"/>
+            <input type="submit" name="action" value="Submit"/>
         </form>
     </body>
 </html>

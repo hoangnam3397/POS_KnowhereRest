@@ -19,6 +19,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,24 +31,23 @@ public class deleteZoneServlet extends HttpServlet {
 
     @EJB ZonesFacadeLocal zoneFacade;
     @EJB TablesFacadeLocal tabFacade;
+    String sto_id="";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String id = request.getParameter("id");
+        String zone_id = request.getParameter("zone_id");
         int delete = 1;
-        Zones delZone = zoneFacade.find(id);
+        sto_id= zoneFacade.find(zone_id).getStoId().getStoId();
+        Zones delZone = zoneFacade.find(zone_id);
         delZone.setDeleted(delete);
-        
         //delete table of zone
-        if(tabFacade.deleteTableOfZone(zoneFacade.find(id).getZoneId())==true){
-            //delete zone
-            zoneFacade.edit(delZone);
-            request.getRequestDispatcher("getTableServlet").forward(request, response);
-        }else{
-            request.getRequestDispatcher("viewStoreServlet").forward(request, response);
-        }
+        tabFacade.deleteTableOfZone(zoneFacade.find(zone_id).getZoneId());
+        //delete zone
+        zoneFacade.edit(delZone);
+        //back getTable
+        request.getRequestDispatcher("getTableServlet?sto_id="+sto_id).forward(request, response);      
           
     }
 

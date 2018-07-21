@@ -23,18 +23,22 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "deleteTableServlet", urlPatterns = {"/deleteTableServlet"})
 public class deleteTableServlet extends HttpServlet {
-
+    String sto_id="";
     @EJB TablesFacadeLocal tableFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String tabId= request.getParameter("id");
+        
+        String tabId= request.getParameter("tab_id");
+        sto_id=tableFacade.find(tabId).getZoneId().getStoId().getStoId();
+        //del table
         int delete = 1;
         Tables delTab = tableFacade.find(tabId);
         delTab.setDeleted(delete);
         tableFacade.edit(delTab);
-        request.getRequestDispatcher("getTableServlet").forward(request, response);
+        //back getTable
+        request.getRequestDispatcher("getTableServlet?sto_id="+sto_id).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

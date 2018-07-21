@@ -29,11 +29,13 @@ public class deleteStoreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String id = request.getParameter("id");
-        Stores sto = storeFacade.find(id);
+        //del store
+        String sto_id = request.getParameter("sto_id");
+        Stores sto = storeFacade.find(sto_id);
         int delete = 1;
         sto.setDeleted(delete);
         storeFacade.edit(sto);
+        //back viewStore
         request.getRequestDispatcher("viewStoreServlet").forward(request, response);
     }
 
