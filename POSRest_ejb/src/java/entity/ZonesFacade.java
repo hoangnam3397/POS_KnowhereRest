@@ -31,9 +31,10 @@ public class ZonesFacade extends AbstractFacade<Zones> implements ZonesFacadeLoc
     }
 
     @Override
-    public List<Zones> showAllZones() {
-        Query q = getEntityManager().createQuery("SELECT z FROM Zones z WHERE z.deleted= :del");
+    public List<Zones> showAllZones(String sto_id) {
+        Query q = getEntityManager().createQuery("SELECT z FROM Zones z WHERE z.deleted= :del AND z.stoId.stoId =:stoid");
         int del=0;
+        q.setParameter("stoid", sto_id);
         q.setParameter("del", del);
         return q.getResultList();
     }
