@@ -30,6 +30,6 @@ public interface ZonesFacadeLocal {
 
     int count();
 
-    List<Zones> showAllZones();
+    List<Zones> showAllZones(String sto_id);
     
 }
