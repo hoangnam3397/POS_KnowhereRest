@@ -33,5 +33,6 @@ public interface TablesFacadeLocal {
     List<Tables> showAllTables();
 
     boolean deleteTableOfZone(String zone_id);
+    List<Tables> searchTableOfZone(String id);
     
 }
