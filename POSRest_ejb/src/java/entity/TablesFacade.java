@@ -44,7 +44,7 @@ public class TablesFacade extends AbstractFacade<Tables> implements TablesFacade
         
         try {
             int del=1;
-            Query q = em.createQuery("UPDATE Tables Set deleted = :del Where zone_id = :zone");
+            Query q = em.createQuery("UPDATE Tables Set deleted = :del Where zoneId.zoneId = :zone");
             q.setParameter("del", del);
             q.setParameter("zone", zone_id);         
             if(q.executeUpdate()> 0){
@@ -56,6 +56,13 @@ public class TablesFacade extends AbstractFacade<Tables> implements TablesFacade
             e.printStackTrace();
         }
         return false;
+    }
+
+    @Override
+    public List<Tables> searchTableOfZone(String id) {
+        Query q = getEntityManager().createQuery("SELECT t FROM Tables t WHERE t.zoneId.zoneId =:zoId");
+        q.setParameter("zoId", id);
+        return q.getResultList();
     }
     
 }
