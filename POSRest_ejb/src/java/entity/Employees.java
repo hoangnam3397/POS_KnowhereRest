@@ -41,6 +41,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findByPhone", query = "SELECT e FROM Employees e WHERE e.phone = :phone"),
     @NamedQuery(name = "Employees.findByDeleted", query = "SELECT e FROM Employees e WHERE e.deleted = :deleted")})
 public class Employees implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "username", nullable = false, length = 50)
+    private String username;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -207,6 +212,14 @@ public class Employees implements Serializable {
     @Override
     public String toString() {
         return "entity.Employees[ empId=" + empId + " ]";
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
     
 }

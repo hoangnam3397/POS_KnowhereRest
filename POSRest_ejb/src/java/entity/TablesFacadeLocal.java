@@ -29,5 +29,9 @@ public interface TablesFacadeLocal {
     List<Tables> findRange(int[] range);
 
     int count();
+
+    List<Tables> showAllTables();
+
+    boolean deleteTableOfZone(String zone_id);
     
 }

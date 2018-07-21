@@ -65,6 +65,13 @@ public class Tables implements Serializable {
         this.tabId = tabId;
     }
 
+    public Tables(String tabId, String tabName, int deleted, Zones zoneId) {
+        this.tabId = tabId;
+        this.tabName = tabName;
+        this.deleted = deleted;
+        this.zoneId = zoneId;
+    }
+
     public Tables(String tabId, String tabName, int deleted) {
         this.tabId = tabId;
         this.tabName = tabName;

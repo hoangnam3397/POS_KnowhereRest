@@ -46,14 +46,25 @@ public class Zones implements Serializable {
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "zone_name", nullable = false, length = 50)
-    private String zoneName;
+    private String zoneName;  
     @OneToMany(mappedBy = "zoneId")
     private Collection<Tables> tablesCollection;
     @JoinColumn(name = "sto_id", referencedColumnName = "sto_id")
     @ManyToOne
     private Stores stoId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "deleted", nullable = false)
+    private int deleted;
 
     public Zones() {
+    }
+
+    public Zones(String zoneId, String zoneName, Stores stoId, int deleted) {
+        this.zoneId = zoneId;
+        this.zoneName = zoneName;
+        this.stoId = stoId;
+        this.deleted = deleted;
     }
 
     public Zones(String zoneId) {
@@ -121,6 +132,14 @@ public class Zones implements Serializable {
     @Override
     public String toString() {
         return "entity.Zones[ zoneId=" + zoneId + " ]";
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
     
 }

@@ -6,9 +6,11 @@
 
 package entity;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,14 @@ public class StoresFacade extends AbstractFacade<Stores> implements StoresFacade
 
     public StoresFacade() {
         super(Stores.class);
+    }
+
+    @Override
+    public List<Stores> showAllStore() {
+        Query q = getEntityManager().createQuery("SELECT s FROM Stores s WHERE s.deleted = :del");
+        int del=0;
+        q.setParameter("del", del);
+        return q.getResultList();
     }
     
 }

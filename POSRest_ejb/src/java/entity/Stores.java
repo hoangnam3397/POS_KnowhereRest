@@ -68,6 +68,14 @@ public class Stores implements Serializable {
         this.stoId = stoId;
     }
 
+    public Stores(String stoId, String stoName, String address, String phonesto, int deleted) {
+        this.stoId = stoId;
+        this.stoName = stoName;
+        this.address = address;
+        this.phonesto = phonesto;
+        this.deleted = deleted;
+    }
+
     public Stores(String stoId, String stoName, int deleted) {
         this.stoId = stoId;
         this.stoName = stoName;

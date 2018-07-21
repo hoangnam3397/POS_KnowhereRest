@@ -63,6 +63,13 @@ public class Categories implements Serializable {
     public Categories() {
     }
 
+    public Categories(String catId, String catName, Date createday, int deleted) {
+        this.catId = catId;
+        this.catName = catName;
+        this.createday = createday;
+        this.deleted = deleted;
+    }
+
     public Categories(String catId) {
         this.catId = catId;
     }

@@ -6,9 +6,11 @@
 
 package entity;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,14 @@ public class CategoriesFacade extends AbstractFacade<Categories> implements Cate
 
     public CategoriesFacade() {
         super(Categories.class);
+    }
+
+    @Override
+    public List<Categories> showAllCategories() {
+        Query q = getEntityManager().createQuery("SELECT c FROM Categories c WHERE c.deleted = :del");
+        int del=0;
+        q.setParameter("del", del);
+        return q.getResultList();
     }
     
 }

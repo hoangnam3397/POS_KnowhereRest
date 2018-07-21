@@ -29,5 +29,7 @@ public interface ZonesFacadeLocal {
     List<Zones> findRange(int[] range);
 
     int count();
+
+    List<Zones> showAllZones();
     
 }

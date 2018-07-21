@@ -6,9 +6,11 @@
 
 package entity;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +28,14 @@ public class ZonesFacade extends AbstractFacade<Zones> implements ZonesFacadeLoc
 
     public ZonesFacade() {
         super(Zones.class);
+    }
+
+    @Override
+    public List<Zones> showAllZones() {
+        Query q = getEntityManager().createQuery("SELECT z FROM Zones z WHERE z.deleted= :del");
+        int del=0;
+        q.setParameter("del", del);
+        return q.getResultList();
     }
     
 }
