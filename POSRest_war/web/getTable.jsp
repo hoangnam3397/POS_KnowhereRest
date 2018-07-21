@@ -22,7 +22,7 @@
             </c:forEach>
             <a href="insertZoneServlet?id=${id}">Add Zone</a>
             <h1>Store Tables</h1>
-            <a href="insertTableServlet">Add Table</a>
+            <a href="insertTableServlet?sto_id=${id}">Add Table</a>
             <table border="1">
                 <tr>
                     <td>Table name/Number</td>
@@ -33,7 +33,7 @@
                     <tr>
                         <td>${t.tabName}</td>
                         <td>${t.zoneId.zoneName}</td>
-                        <td><a href="editTableServlet?id=${t.tabId}">Edit</a>
+                        <td><a href="editTableServlet?tab_id=${t.tabId}&sto_id=${id}">Edit</a>
                             <a href="deleteTableServlet?id=${t.tabId}">Delete</a></td>
                     </tr>
                 </c:forEach>

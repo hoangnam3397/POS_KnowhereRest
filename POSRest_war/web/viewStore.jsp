@@ -29,7 +29,7 @@
                         <td>${s.phonesto}</td>
                         <td><a href="deleteStoreServlet?id=${s.stoId}">Delete</a>
                             <a href="editStoreServlet?id=${s.stoId}">Edit</a>
-                            <a href="getTableServlet?id=${s.stoId}">Edit Table Manager</a></td>
+                            <a href="getTableServlet?sto_id=${s.stoId}">Edit Table Manager</a></td>
                     </tr>
                 </c:forEach>
             </table>

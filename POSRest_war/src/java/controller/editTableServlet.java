@@ -41,9 +41,10 @@ public class editTableServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         tab_id = request.getParameter("id");
+        String sto_id = request.getParameter("sto_id");
         request.setAttribute("tabName", tableFacade.find(tab_id).getTabName());
         request.setAttribute("zoID", tableFacade.find(tab_id).getZoneId().getZoneId());
-        request.setAttribute("listZone", zoneFacade.showAllZones());
+        request.setAttribute("listZone", zoneFacade.showAllZones(sto_id));
         request.getRequestDispatcher("editTable.jsp").forward(request, response);
     }
 
