@@ -54,6 +54,7 @@ public class insertZoneServlet extends HttpServlet {
         int del = 0;
         Zones zo = new Zones(zone_id, zone_name, storeFacade.find(this.Sto_id), del);
         zoneFacade.create(zo);
+        request.setAttribute("sto_id", Sto_id);
         request.getRequestDispatcher("getTableServlet").forward(request, response);
     }
 

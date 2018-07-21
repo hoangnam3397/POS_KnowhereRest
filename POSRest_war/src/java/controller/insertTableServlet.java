@@ -39,7 +39,8 @@ public class insertTableServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        request.setAttribute("listZone", zoneFacade.showAllZones());
+        String sto_id=request.getParameter("id");
+        request.setAttribute("listZone", zoneFacade.showAllZones(sto_id));
         request.getRequestDispatcher("insertTable.jsp").forward(request, response);
     }
 

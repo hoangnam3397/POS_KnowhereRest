@@ -29,10 +29,10 @@ public class getTableServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String id = request.getParameter("id");
-        request.setAttribute("listZone", zoneFacade.showAllZones());
-        request.setAttribute("listTable", tableFacade.showAllTables());
-        request.setAttribute("id", id);
+        String sto_id = request.getParameter("sto_id");
+        request.setAttribute("listZone", zoneFacade.showAllZones(sto_id));
+        request.setAttribute("listTable", tableFacade.showAllTables());       
+        request.setAttribute("sto_id", sto_id);
         request.getRequestDispatcher("getTable.jsp").forward(request, response);
     }
 
