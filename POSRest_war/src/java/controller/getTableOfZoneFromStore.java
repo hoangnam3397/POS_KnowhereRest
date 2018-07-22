@@ -6,6 +6,7 @@
 
 package controller;
 
+import entity.TablesFacadeLocal;
 import entity.ZonesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -25,12 +26,15 @@ public class getTableOfZoneFromStore extends HttpServlet {
 
     @EJB 
    private ZonesFacadeLocal zonesFacadeLocal;
+    @EJB 
+   private TablesFacadeLocal tableFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String storeid=request.getParameter("storeid");
         request.setAttribute("zonelist", zonesFacadeLocal.showAllZones(storeid));
+        request.setAttribute("listTable", tableFacade.showAllTables());  
         request.getRequestDispatcher("TablePage.jsp").forward(request, response);
     }
 
