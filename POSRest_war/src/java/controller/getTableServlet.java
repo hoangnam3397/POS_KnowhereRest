@@ -25,14 +25,16 @@ import javax.servlet.http.HttpServletResponse;
 public class getTableServlet extends HttpServlet {
     @EJB ZonesFacadeLocal zoneFacade;
     @EJB TablesFacadeLocal tableFacade;
+    String sto_id="";
+    String zone_id="";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String sto_id = request.getParameter("sto_id");
+        sto_id = request.getParameter("sto_id");
         request.setAttribute("listZone", zoneFacade.showAllZones(sto_id));
         request.setAttribute("listTable", tableFacade.showAllTables());       
-        request.setAttribute("sto_id", sto_id);
+        request.setAttribute("sto_id", this.sto_id); 
         request.getRequestDispatcher("getTable.jsp").forward(request, response);
     }
 

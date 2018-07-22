@@ -15,10 +15,6 @@
         <form action="insertStoreServlet" method="post">
             <table>
                 <tr>
-                    <td>Store ID</td>
-                    <td><input type="text" name="sto_id"/></td>
-                </tr>
-                <tr>
                     <td>Store Name</td>
                     <td><input type="text" name="sto_name"/></td>
                 </tr>
@@ -31,7 +27,7 @@
                     <td><input type="text" name="phonesto"</td>
                 </tr>
             </table>
-            <input type="submit" value="Add Store"/>
+            <input type="submit" name="action" value="Add Store"/>
         </form>
     </body>
 </html>

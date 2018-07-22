@@ -29,7 +29,7 @@ public class deleteCategoryServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String cate_id=request.getParameter("id");
+        String cate_id=request.getParameter("cate_id");
         Categories cate=cateFacade.find(cate_id);
         int del=1;
         cate.setDeleted(del);

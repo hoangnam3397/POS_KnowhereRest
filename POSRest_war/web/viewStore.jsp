@@ -27,12 +27,13 @@
                         <td>${s.stoName}</td>
                         <td>${s.address}</td>
                         <td>${s.phonesto}</td>
-                        <td><a href="deleteStoreServlet?id=${s.stoId}">Delete</a>
-                            <a href="editStoreServlet?id=${s.stoId}">Edit</a>
+                        <td><a href="deleteStoreServlet?sto_id=${s.stoId}">Delete</a>
+                            <a href="editStoreServlet?sto_id=${s.stoId}&action=get">Edit</a>
                             <a href="getTableServlet?sto_id=${s.stoId}">Edit Table Manager</a></td>
                     </tr>
                 </c:forEach>
             </table>
+            <a href="insertStore.jsp">Add Store</a>
         </form>
     </body>
 </html>

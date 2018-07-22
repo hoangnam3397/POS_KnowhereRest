@@ -14,7 +14,7 @@
     <body>
         <form action="editCategoryServlet" method="post">
             Category Name<input type="text" name="cate_name" value="${cateName}"/>
-            <input type="submit" value="Submit"/>
+            <input type="submit" name="submit" value="Submit"/>
         </form>
     </body>
 </html>

@@ -13,7 +13,6 @@
     </head>
     <body>
         <form action="insertCategoryServlet" method="post">
-            Category ID<input type="text" name="cate_id"/>
             Category Name<input type="text" name="cate_name"/>
             <input type="submit" value="Submit"/>
         </form>

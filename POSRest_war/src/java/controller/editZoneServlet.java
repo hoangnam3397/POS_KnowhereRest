@@ -25,32 +25,42 @@ import javax.servlet.http.HttpServletResponse;
 public class editZoneServlet extends HttpServlet {
     @EJB ZonesFacadeLocal zoneFacade;
     String zone_id="";
+    String action="";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        action=request.getParameter("action");
+        if(action.equals("Submit")){
+            //edit Zone
+            String zone_name=request.getParameter("zone_name");
+            Zones zo =zoneFacade.find(zone_id);
+            zo.setZoneName(zone_name);
+            zoneFacade.edit(zo);
+            //Back page getTable
+            String sto_id= zo.getStoId().getStoId();
+            request.getRequestDispatcher("getTableServlet?sto_id="+sto_id).forward(request, response);
+        }
+        else if(action.equals("get")){
+            //load page editZone
+            zone_id=request.getParameter("zone_id");
+            request.setAttribute("zoneName", zoneFacade.find(zone_id).getZoneName());
+            request.getRequestDispatcher("editZone.jsp").forward(request, response);    
+             }
     }
 
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        zone_id=request.getParameter("id");
-        request.setAttribute("zoneName", zoneFacade.find(zone_id).getZoneName());
-        request.getRequestDispatcher("editZone.jsp").forward(request, response);
+        processRequest(request, response);       
     }
 
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        String zone_name=request.getParameter("zone_name");
-        Zones zo =zoneFacade.find(zone_id);
-        zo.setZoneName(zone_name);
-        zoneFacade.edit(zo);
-        request.getRequestDispatcher("getTableServlet").forward(request, response);
+        processRequest(request, response);     
     }
 
     /**

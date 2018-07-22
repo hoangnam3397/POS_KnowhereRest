@@ -29,7 +29,7 @@
                 </tr>
                 
             </table>
-                <input type="submit" value="Edit"/>
+                <input type="submit" name="action" value="Submit"/>
         </form>
     </body>
 </html>

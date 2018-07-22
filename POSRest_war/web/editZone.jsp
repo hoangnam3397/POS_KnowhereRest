@@ -14,7 +14,7 @@
     <body>
         <form action="editZoneServlet" method="post">
             Zone Name<input type="text" name="zone_name" value="${zoneName}"/>
-            <input type="submit" value="Submit"/>
+            <input type="submit" name="action" value="Submit"/>
         </form>
     </body>
 </html>

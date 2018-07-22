@@ -24,8 +24,8 @@
                     <tr>
                         <td>${cat.catName}</td>
                         <td>${cat.createday}</td>
-                        <td><a href="editCategoryServlet?id=${cat.catId}">Edit</a>
-                            <a href="deleteCategoryServlet?id=${cat.catId}">Delete</a></td>
+                        <td><a href="editCategoryServlet?cate_id=${cat.catId}&action=get">Edit</a>
+                            <a href="deleteCategoryServlet?cate_id=${cat.catId}">Delete</a></td>
                     </tr>
                 </c:forEach>
             </table>

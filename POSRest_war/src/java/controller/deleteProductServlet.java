@@ -28,9 +28,8 @@ public class deleteProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        
-        String pro_id =request.getParameter("id");
+        PrintWriter out = response.getWriter();      
+        String pro_id =request.getParameter("pro_id");
         Products pro =productFacade.find(pro_id);
         int del=1;
         pro.setDeleted(del);

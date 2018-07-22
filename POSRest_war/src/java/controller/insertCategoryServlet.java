@@ -32,8 +32,16 @@ public class insertCategoryServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        String cate_id =request.getParameter("cate_id");
+        //auto create cate_id 
+        int num=cateFacade.count()+1;
+        String id=num+"";
+        int lenNum=5;
+        int lenZero= lenNum- id.length();
+        for (int i = 0; i < lenZero; i++) {
+            id= "0"+id;
+        }
+        String cate_id="CAT"+id;
+        //create cate
         String cate_name =request.getParameter("cate_name");       
         Date createDay = new Date();
         int del =0;

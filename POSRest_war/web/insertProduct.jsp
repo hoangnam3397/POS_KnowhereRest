@@ -16,10 +16,6 @@
         <form action="insertProductServlet" method="post">
             <table>
                 <tr>
-                    <td>Code</td>
-                    <td><input type="text" name="pro_id"/></td>
-                </tr>
-                <tr>
                     <td>Product Name</td>
                     <td><input type="text" name="pro_name"/></td>
                 </tr>
@@ -49,7 +45,7 @@
                     <td><input type="file" name="image" value="Choose"/></td>
                 </tr>
             </table>
-            <input type="submit" value="Submit"/>
+            <input type="submit" name="action" value="Submit"/>
         </form>
     </body>
 </html>

@@ -6,10 +6,13 @@
 
 package controller;
 
+import entity.Categories;
 import entity.CategoriesFacadeLocal;
+import entity.Products;
 import entity.ProductsFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,11 +28,40 @@ import javax.servlet.http.HttpServletResponse;
 public class editProductServlet extends HttpServlet {
     @EJB ProductsFacadeLocal productFacade;
     @EJB CategoriesFacadeLocal cateFacade;
+    String pro_id="";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        String action=request.getParameter("action");
+        if(action.equals("get")){
+            //load page editProduct
+            pro_id=request.getParameter("pro_id");
+            request.setAttribute("proName", productFacade.find(pro_id).getProName());
+            request.setAttribute("price", productFacade.find(pro_id).getPrice());
+            request.setAttribute("dis", productFacade.find(pro_id).getDiscount());
+            request.setAttribute("des", productFacade.find(pro_id).getDescription());
+            request.setAttribute("cateid", productFacade.find(pro_id).getCatId().getCatId());
+            request.setAttribute("listCate", cateFacade.showAllCategories());
+            request.getRequestDispatcher("editProduct.jsp").forward(request, response);
+        }
+        else if(action.equals("Submit")){
+            //edit Product
+            String pro_name=request.getParameter("pro_name");
+            double discount = Double.parseDouble(request.getParameter("discount"));
+            BigDecimal price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
+            String description = request.getParameter("des");
+            String cate_id = request.getParameter("cate");
+            Categories cat =cateFacade.find(cate_id);
+            Products pro = productFacade.find(pro_id);
+            pro.setProName(pro_name);
+            pro.setDescription(description);
+            pro.setPrice(price);
+            pro.setDiscount(discount);
+            pro.setCatId(cat);
+            productFacade.edit(pro);
+            request.getRequestDispatcher("getProductServlet").forward(request, response);
+        }
     }
 
     
@@ -37,16 +69,6 @@ public class editProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        String pro_id=request.getParameter("id");
-        request.setAttribute("code", productFacade.find(pro_id).getProId());
-        request.setAttribute("proName", productFacade.find(pro_id).getProName());
-        request.setAttribute("price", productFacade.find(pro_id).getPrice());
-        request.setAttribute("dis", productFacade.find(pro_id).getDiscount());
-        request.setAttribute("des", productFacade.find(pro_id).getDescription());
-        request.setAttribute("cateid", productFacade.find(pro_id).getCatId().getCatId());
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.getRequestDispatcher("editProduct.jsp").forward(request, response);
     }
 
     

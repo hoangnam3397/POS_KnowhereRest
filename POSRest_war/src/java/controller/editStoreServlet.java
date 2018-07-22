@@ -30,6 +30,25 @@ public class editStoreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        String action=request.getParameter("action");
+        if(action.equals("get")){
+            //load page editStore
+            sto_id= request.getParameter("sto_id");
+            request.setAttribute("s", storeFacade.find(sto_id));
+            request.getRequestDispatcher("editStore.jsp").forward(request, response);
+        }else if(action.equals("Submit")){
+            //edit Store
+            String sto_name = request.getParameter("sto_name");
+            String address = request.getParameter("address");
+            String phone = request.getParameter("phone");
+            Stores sto = storeFacade.find(sto_id);
+            sto.setStoName(sto_name);
+            sto.setAddress(address);
+            sto.setPhonesto(phone);
+            storeFacade.edit(sto);
+            //back viewStore
+            request.getRequestDispatcher("viewStoreServlet").forward(request, response);
+        }
     }
 
     
@@ -37,9 +56,7 @@ public class editStoreServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        sto_id= request.getParameter("id");
-        request.setAttribute("s", storeFacade.find(sto_id));
-        request.getRequestDispatcher("editStore.jsp").forward(request, response);
+        
     }
 
     
@@ -47,15 +64,7 @@ public class editStoreServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String sto_name = request.getParameter("sto_name");
-        String address = request.getParameter("address");
-        String phone = request.getParameter("phone");
-        Stores sto = storeFacade.find(sto_id);
-        sto.setStoName(sto_name);
-        sto.setAddress(address);
-        sto.setPhonesto(phone);
-        storeFacade.edit(sto);
-        request.getRequestDispatcher("viewStoreServlet").forward(request, response);
+        
     }
 
     
