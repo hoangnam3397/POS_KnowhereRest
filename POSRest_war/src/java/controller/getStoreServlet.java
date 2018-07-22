@@ -28,7 +28,7 @@ public class getStoreServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        request.setAttribute("listStore", storesFacadeLocal.findAll());
+        request.setAttribute("listStore", storesFacadeLocal.showAllStore());
         request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 

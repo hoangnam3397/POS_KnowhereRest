@@ -132,7 +132,7 @@
       <div class="row">
           <c:forEach items="${listStore}" var="store">
                <ul id="storeline">
-                                   <a href="#">
+                                   <a href="getTableOfZoneFromStore?storeid=${store.stoId}">
               <li class="listing clearfix">
                 <div class="image_wrapper">
                     <img src="images/retail-shop-icon-3.png" alt="store">

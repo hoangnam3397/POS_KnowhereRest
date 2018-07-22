@@ -132,8 +132,11 @@
          	<li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
          </ul>
          <a class="btn btn-green float-right" style="margin-top:60px" href="pos/selectTable/0">Walk in Customer</a>
-                           <div class="row">
-            <h1 class="choose_store"> 1 </h1><hr>
+         <c:forEach var="zone" items="${zonelist}">
+             <div class="row">
+            <h1 class="choose_store"> ${zone.zoneName} </h1><hr>
+         </c:forEach>
+                           
          </div>
          <div class="row tablesrow">
                                        <div class="col-sm-2 col-xs-4 tableList">
@@ -144,7 +147,7 @@
             </div>
                                  </div>
                <div class="row">
-            <h1 class="choose_store"> 2 </h1><hr>
+            
          </div>
          <div class="row tablesrow">
                                                 </div>
