@@ -33,16 +33,41 @@ public class insertProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+        String action=request.getParameter("action");
+        if(action.equals("get")){
+            request.setAttribute("listCate", cateFacade.showAllCategories());
+            request.getRequestDispatcher("insertProduct.jsp").forward(request, response);
+        }
+        else if(action.equals("Submit")){
+            //auto create pro_id 
+            int num=productFacade.count()+1;
+            String id=num+"";
+            int lenNum=5;
+            int lenZero= lenNum- id.length();
+            for (int i = 0; i < lenZero; i++) {
+                id= "0"+id;
+            }
+            String pro_id="P"+id;
+            //create pro_id
+            String pro_name=request.getParameter("pro_name");
+            String cate_id = request.getParameter("cate");
+            Categories cat =cateFacade.find(cate_id);
+            String description = request.getParameter("des");
+            int del =0;
+            double discount = Double.parseDouble(request.getParameter("discount"));
+            BigDecimal price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
+            String imagelink = null;
+            Products product = new Products(pro_id, pro_name, price, imagelink, discount, del, description, cat);
+            productFacade.create(product);
+            request.getRequestDispatcher("getProductServlet").forward(request, response);
+        }
     }
 
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.getRequestDispatcher("insertProduct.jsp").forward(request, response);
+        processRequest(request, response);    
     }
 
     
@@ -50,18 +75,7 @@ public class insertProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        String pro_id = request.getParameter("pro_id");
-        String pro_name=request.getParameter("pro_name");
-        String cate_id = request.getParameter("cate");
-        Categories cat =cateFacade.find(cate_id);
-        String description = request.getParameter("des");
-        int del =0;
-        double discount = Double.parseDouble(request.getParameter("discount"));
-        BigDecimal price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
-        String imagelink = null;
-        Products product = new Products(pro_id, pro_name, price, imagelink, discount, del, description, cat);
-        productFacade.create(product);
-        request.getRequestDispatcher("getProductServlet").forward(request, response);
+        
     }
 
     

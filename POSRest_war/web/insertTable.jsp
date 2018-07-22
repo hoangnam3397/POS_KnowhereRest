@@ -16,10 +16,6 @@
         <form action="insertTableServlet" method="post">
             <table>
                 <tr>
-                    <td>Table ID</td>
-                    <td><input type="text" name="tab_id"/></td>
-                </tr>
-                <tr>
                     <td>Table name/Number</td>
                     <td><input type="text" name="tab_name"/></td>
                 </tr>

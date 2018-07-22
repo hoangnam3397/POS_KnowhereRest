@@ -16,10 +16,6 @@
         <form action="insertZoneServlet" method="post">
             <table>
                 <tr>
-                    <td>Zone ID</td>
-                    <td><input type="text" name="zone_id"</td>
-                </tr>
-                <tr>
                     <td>Zone Name</td>
                     <td><input type="text" name="zone_name"</td>
                 </tr>

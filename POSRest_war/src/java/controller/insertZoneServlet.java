@@ -39,8 +39,16 @@ public class insertZoneServlet extends HttpServlet {
             request.getRequestDispatcher("insertZone.jsp").forward(request, response);
         }
         else if(action.equals("Submit")){
+            //auto create zone_id
+            int num=zoneFacade.count()+1;
+            String id=num+"";
+            int lenNum=5;
+            int lenZero= lenNum- id.length();
+            for (int i = 0; i < lenZero; i++) {
+                id= "0"+id;
+            }
+            String zone_id="Z"+id;
             //add Zone in database
-            String zone_id=request.getParameter("zone_id");
             String zone_name=request.getParameter("zone_name");
             int del = 0;
             Zones zo = new Zones(zone_id, zone_name, storeFacade.find(this.sto_id), del);

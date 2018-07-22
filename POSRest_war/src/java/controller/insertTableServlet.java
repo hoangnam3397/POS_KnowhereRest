@@ -40,8 +40,16 @@ public class insertTableServlet extends HttpServlet {
             request.getRequestDispatcher("insertTable.jsp").forward(request, response);
         }
         else if(action.equals("Submit")){
+            //auto create tab_id 
+            int num=tableFacade.count()+1;
+            String id=num+"";
+            int lenNum=5;
+            int lenZero= lenNum- id.length();
+            for (int i = 0; i < lenZero; i++) {
+                id= "0"+id;
+            }
+            String tab_id="TAB"+id;
             //add table
-            String tab_id= request.getParameter("tab_id");
             String tab_name=request.getParameter("tab_name");
             int delete = 0;
             String zone_id = request.getParameter("zone_id");
