@@ -32,13 +32,8 @@ public class insertZoneServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String action=request.getParameter("action");
-        if(action.equals("get")){
-            //load page insertZone
-            sto_id= request.getParameter("sto_id");
-            request.getRequestDispatcher("insertZone.jsp").forward(request, response);
-        }
-        else if(action.equals("Submit")){
+        sto_id= request.getParameter("sto_id");
+
             //auto create zone_id
             int num=zoneFacade.count()+1;
             String id=num+"";
@@ -55,7 +50,7 @@ public class insertZoneServlet extends HttpServlet {
             zoneFacade.create(zo);
             //back page getTable
             request.getRequestDispatcher("getTableServlet?sto_id="+sto_id).forward(request, response);
-        }
+        
     }
 
     

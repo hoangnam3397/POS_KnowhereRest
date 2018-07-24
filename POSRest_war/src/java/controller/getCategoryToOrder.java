@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
-import entity.Zones;
-import entity.ZonesFacadeLocal;
+import entity.CategoriesFacadeLocal;
+import entity.ProductsFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,36 +19,47 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Duy
+ * @author Nam_Nguyen
  */
-@WebServlet(name = "editZoneServlet", urlPatterns = {"/editZoneServlet"})
-public class editZoneServlet extends HttpServlet {
+@WebServlet(name = "getCategoryToOrder", urlPatterns = {"/getCategoryToOrder"})
+public class getCategoryToOrder extends HttpServlet {
 
-    @EJB
-    ZonesFacadeLocal zoneFacade;
-
+    @EJB CategoriesFacadeLocal cateFacade;
+    @EJB ProductsFacadeLocal productFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        //edit Zone
-        String name = request.getParameter("zone_name");
-        String id = request.getParameter("zone_id");
-        Zones zo = zoneFacade.find(id);
-        String store_id=zo.getStoId().getStoId();
-        zo.setZoneName(name);
-        zoneFacade.edit(zo);
-        request.getRequestDispatcher("getTableServlet?sto_id="+store_id).forward(request, response);
-      
-
+        String table=request.getParameter("table");
+        request.setAttribute("table", table);
+        request.setAttribute("listCate", cateFacade.showAllCategories());
+        request.setAttribute("listPro", productFacade.showAllProduct());
+        request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

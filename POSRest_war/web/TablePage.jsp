@@ -80,7 +80,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li class="flat-box"><a href="#"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                    <li class="flat-box"><a href="http://www.dar-elweb.com/demos/zarest/products"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
-                        <li class="flat-box"><a href="#"><i class="fa fa-hospital-o"></i> <span class="menu-text">Stores</span></a></li>
+                        <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text">Stores</span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> <span class="menu-text">People</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -141,7 +141,7 @@
                         
                             <c:if test="${zone.zoneId==table.zoneId.zoneId}">
                                 <div class="col-sm-2 col-xs-4 tableList">
-                                    <a href="pos/selectTable/45">
+                                    <a href="getCategoryToOrder?table=${table.tabName}">
                                         <img src="images/restaurant.png" alt="store">
                                         <h2>${table.tabName}</h2>
                                     </a>

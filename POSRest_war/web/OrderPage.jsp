@@ -125,38 +125,170 @@
 
 
         <!-- Page Content -->
-        <div class="container container-small">
-            <div class="row" style="margin-top:100px;">
-                <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                    <i class="fa fa-arrow-left"></i> Back</a>
-                <form action="editTableServlet" method="post">      
-                    <div class="form-group">
-                        <label for="TableName">Table name/number *</label>
-                        <input type="text" name="tab_name" class="form-control" id="TableName" value="${tabName}" placeholder="Table name/number" required>
+        <!-- *************************************************** if a table was choosen ********************************** -->
+        <div class="container-fluid">
+            <div class="row text-center">
+                <h3 style="font-family: 'Kaushan Script', cursive;">Table - ${table}</h3>
+            </div>
+            <div class="row">
+                <ul class="cbp-vimenu2">
+                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Cancel&nbsp;All"><a href="javascript:void(0)" onclick="CloseTable()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
+                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="pos/switshtable"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
+                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
+                </ul>
+                <div class="col-md-5 left-side">
+                    <div class="row">
+                        <div class="row row-horizon">
+                            <span class="holdList">
+                                <!-- list Holds goes here -->
+                            </span>
+                            <span class="Hold pl" onclick="AddHold()">+</i></span>
+                            <span class="Hold pl" onclick="RemoveHold()">-</span>
+                        </div>
                     </div>
-                    <label for="Zones">Choose a zone</label>
-                    <select class="form-control" id="Zones" name="zone">
-                        <option value=''>Choose a zone</option>
-                        <c:forEach var="z" items="${listZone}">
-                            <c:if test="${z.zoneId==zoID}">
-                                <option selected value="${z.zoneId}">${z.zoneName}</option>
-                            </c:if>
-                            <c:if test="${z.zoneId!=zoID}">
-                                <option value="${z.zoneId}">${z.zoneName}</option>
-                            </c:if>
+                    <div class="col-xs-8">
+                        <h2>Choose Client</h2>
+                    </div>
+                    <div class="col-xs-4 client-add">
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#AddCustomer">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top" title="Add New Customer">
+                                <i class="fa fa-square fa-stack-2x grey"></i>
+                                <i class="fa fa-user-plus fa-stack-1x fa-inverse dark-blue"></i>
+                            </span>
+                        </a>
+                        <a href="javascript:void(0)" onclick="showticket()">
+                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top" title="Show last Receipt">
+                                <i class="fa fa-square fa-stack-2x grey"></i>
+                                <i class="fa fa-ticket fa-stack-1x fa-inverse dark-blue"></i>
+                            </span>
+                        </a>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="js-select-options form-control" id="customerSelect">
+                            <option value="0">Walk in Customer</option>
+                            <option value="13">Floridalma Leiva Valdez / </option>
+                            <option value="14">mohsinkhan / 9167118387</option>
+                            <option value="15">roberto guardado / 943472452</option>
+                            <option value="16">JAI / 9923231883</option>
+                            <option value="17">jay / 9838389389</option>
+                        </select>
+                        <span class="hidden" id="customerS"></span>
+                    </div>
+                    <div class="col-sm-6">
+                        <select class="js-select-options form-control" id="WaiterName">
+                            <option value="0">without Waiter</option>
+                            <option value="7">Sean Wong</option>
+                        </select>
+                        <span class="hidden" id="waiterS"></span>
+                    </div>
+                    <div class="col-xs-5 table-header">
+                        <h3>Product</h3>
+                    </div>
+                    <div class="col-xs-2 table-header">
+                        <h3>Price</h3>
+                    </div>
+                    <div class="col-xs-3 table-header nopadding">
+                        <h3 class="text-left">Quantity</h3>
+                    </div>
+                    <div class="col-xs-2 table-header nopadding">
+                        <h3>Total</h3>
+                    </div>
+                    <div id="productList">
+                        <!-- product List goes here  -->
+                    </div>
+                    <div class="footer-section">
+                        <div class="table-responsive col-sm-12 totalTab">
+                            <table class="table">
+                                <tr>
+                                    <td class="active" width="40%">SubTotal</td>
+                                    <td class="whiteBg" width="60%"><span id="Subtot"></span> YTL                        <span class="float-right"><b id="ItemsNum"><span></span> items</b></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active">Order TAX</td>
+                                    <td class="whiteBg"><input type="text" value="18%" onchange="total_change()" id="num01" class="total-input TAX" placeholder="N/A"  maxlength="8">
+                                        <span class="float-right"><b id="taxValue"></b></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active">Discount</td>
+                                    <td class="whiteBg"><input type="text" value="0" onchange="total_change()" id="num02" class="total-input Remise" placeholder="N/A"  maxlength="8">
+                                        <span class="float-right"><b id="RemiseValue"></b></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="active">Total</td>
+                                    <td class="whiteBg light-blue text-bold"><span id="total"></span> YTL</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <button type="button" onclick="cancelPOS()" class="btn btn-red col-md-6 flat-box-btn"><h5 class="text-bold">CANCEL</h5></button>
+                        <button type="button" class="btn btn-green col-md-6 flat-box-btn" data-toggle="modal" data-target="#AddSale"><h5 class="text-bold">PAYMENT</h5></button>
+                    </div>
+
+                </div>
+                <div class="col-md-7 right-side nopadding">
+                    <div class="row row-horizon">
+                        <span class="categories selectedGat" id=""><i class="fa fa-home"></i></span>
+                            <c:forEach items="${listCate}" var="cate">
+                            <span class="categories" id="${cate.catId}">${cate.catName}</span>
                         </c:forEach>
-                    </select>
-                    <div class="form-group">
-                        <button type="submit" name="action" class="btn btn-add" value="Submit">Submit</button>
                     </div>
-                </form>   </div>
+                    <div class="col-sm-12">
+                        <div id="searchContaner">
+                            <div class="input-group stylish-input-group">
+                                <input type="text" id="searchProd" class="form-control"  placeholder="Search" >
+                                <span class="input-group-addon">
+                                    <button type="submit">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- product list section -->
+                    <div id="productList2">
+                        <c:forEach items="${listPro}" var="pro">
+                            <div class="col-sm-2 col-xs-4">
+                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('154')">
+                                    <div class="product color03 flat-box">
+                                        <h3 id="proname">${pro.proName}</h3>
+                                        <input type="hidden" id="idname" name="name" value="${pro.proName}" />
+                                        <input type="hidden" id="idprice" name="price" value="${pro.price}" />
+                                        <input type="hidden" id="category" name="category" value="${pro.catId}" />
+                                        <div class="mask">
+                                            <h3>${pro.price}</h3>
+                                            <p><p>"${pro.description}"</p></p>
+                                        </div>
+                                        <img src="http://www.dar-elweb.com/demos/zarest/files/products/1edf7ab30f3069cd7d448e3bd78db98b_thumb.jpg" alt="Menu 02">                        </div>
+                                </a>
+                            </div>
+                        </c:forEach>
+
+
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.Modal -->
+        <script type="text/javascript">
+            $(".categories").on("click", function() {
+// Retrieve the input field text
+                var filter = $(this).attr('id');
+                $(this).parent().children().removeClass('selectedGat');
 
-
-        <!-- Modal close register -->
-
-        <!-- /.Modal -->
+                $(this).addClass('selectedGat');
+// Loop through the list
+                $("#productList2 #category").each(function() {
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).val().search(new RegExp(filter, "i")) < 0) {
+                        $(this).parent().parent().parent().hide();
+                        // Show the list item if the phrase matches
+                    } else {
+                        $(this).parent().parent().parent().show();
+                    }
+                });
+            });
+        </script>
 
 
 

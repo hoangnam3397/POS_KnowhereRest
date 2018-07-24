@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "insertTableServlet", urlPatterns = {"/insertTableServlet"})
 public class insertTableServlet extends HttpServlet {
-    String sto_id="";
+    
     @EJB ZonesFacadeLocal zoneFacade;
     @EJB TablesFacadeLocal tableFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -33,13 +33,9 @@ public class insertTableServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String action= request.getParameter("action");
-        if(action.equals("get")){
-            //load insertpage
+        String sto_id="";       
             sto_id=request.getParameter("sto_id");
-            request.setAttribute("listZone", zoneFacade.showAllZones(sto_id));
-            request.getRequestDispatcher("insertTable.jsp").forward(request, response);
-        }
-        else if(action.equals("Submit")){
+            request.setAttribute("listZone", zoneFacade.showAllZones(sto_id));  
             //auto create tab_id 
             int num=tableFacade.count()+1;
             String id=num+"";
@@ -59,7 +55,7 @@ public class insertTableServlet extends HttpServlet {
             //back page getTable
             request.getRequestDispatcher("getTableServlet?sto_id="+sto_id).forward(request, response);
         }
-    }
+    
 
     
     @Override
