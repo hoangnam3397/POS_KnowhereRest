@@ -33,12 +33,7 @@ public class insertProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String action=request.getParameter("action");
-        if(action.equals("get")){
             request.setAttribute("listCate", cateFacade.showAllCategories());
-            request.getRequestDispatcher("insertProduct.jsp").forward(request, response);
-        }
-        else if(action.equals("Submit")){
             //auto create pro_id 
             int num=productFacade.count()+1;
             String id=num+"";
@@ -51,16 +46,17 @@ public class insertProductServlet extends HttpServlet {
             //create pro_id
             String pro_name=request.getParameter("pro_name");
             String cate_id = request.getParameter("cate");
+            String color=request.getParameter("color");
             Categories cat =cateFacade.find(cate_id);
-            String description = request.getParameter("des");
+            String description = request.getParameter("description");
             int del =0;
             double discount = Double.parseDouble(request.getParameter("discount"));
             BigDecimal price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
             String imagelink = null;
-            Products product = new Products(pro_id, pro_name, price, imagelink, discount, del, description, cat);
+            Products product = new Products(pro_id, pro_name, price, imagelink, discount, del, description,color, cat);
             productFacade.create(product);
             request.getRequestDispatcher("getProductServlet").forward(request, response);
-        }
+        
     }
 
     

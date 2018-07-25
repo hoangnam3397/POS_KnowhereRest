@@ -6,6 +6,7 @@
 
 package controller;
 
+import entity.CategoriesFacadeLocal;
 import entity.ProductsFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,11 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "getProductServlet", urlPatterns = {"/getProductServlet"})
 public class getProductServlet extends HttpServlet {
     @EJB ProductsFacadeLocal productFacade;
+    @EJB CategoriesFacadeLocal cateFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         request.setAttribute("listPro", productFacade.showAllProduct());
+        request.setAttribute("listCate", cateFacade.showAllCategories());
         request.getRequestDispatcher("getProduct.jsp").forward(request, response);            
     }
 

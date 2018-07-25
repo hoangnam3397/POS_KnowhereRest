@@ -40,7 +40,7 @@ public class editProductServlet extends HttpServlet {
             request.setAttribute("proName", productFacade.find(pro_id).getProName());
             request.setAttribute("price", productFacade.find(pro_id).getPrice());
             request.setAttribute("dis", productFacade.find(pro_id).getDiscount());
-            request.setAttribute("des", productFacade.find(pro_id).getDescription());
+            request.setAttribute("description", productFacade.find(pro_id).getDescription());
             request.setAttribute("cateid", productFacade.find(pro_id).getCatId().getCatId());
             request.setAttribute("listCate", cateFacade.showAllCategories());
             request.getRequestDispatcher("editProduct.jsp").forward(request, response);
@@ -52,6 +52,7 @@ public class editProductServlet extends HttpServlet {
             BigDecimal price = BigDecimal.valueOf(Double.parseDouble(request.getParameter("price")));
             String description = request.getParameter("des");
             String cate_id = request.getParameter("cate");
+            String color=request.getParameter("color");
             Categories cat =cateFacade.find(cate_id);
             Products pro = productFacade.find(pro_id);
             pro.setProName(pro_name);
@@ -59,6 +60,7 @@ public class editProductServlet extends HttpServlet {
             pro.setPrice(price);
             pro.setDiscount(discount);
             pro.setCatId(cat);
+            pro.setColor(color);
             productFacade.edit(pro);
             request.getRequestDispatcher("getProductServlet").forward(request, response);
         }

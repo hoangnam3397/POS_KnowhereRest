@@ -42,6 +42,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Products.findByDeleted", query = "SELECT p FROM Products p WHERE p.deleted = :deleted"),
     @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")})
 public class Products implements Serializable {
+    @Size(max = 20)
+    @Column(name = "color", length = 20)
+    private String color;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private Collection<OrderDetails> orderDetailsCollection;
     private static final long serialVersionUID = 1L;
@@ -82,7 +85,7 @@ public class Products implements Serializable {
     public Products() {
     }
 
-    public Products(String proId, String proName, BigDecimal price, String imagelink, double discount, int deleted, String description, Categories catId) {       
+    public Products(String proId, String proName, BigDecimal price, String imagelink, double discount, int deleted, String description,String color, Categories catId) {       
         this.proId = proId;
         this.proName = proName;
         this.price = price;
@@ -91,6 +94,7 @@ public class Products implements Serializable {
         this.deleted = deleted;
         this.description = description;
         this.catId = catId;
+        this.color=color;
     }
 
     public Products(String proId) {
@@ -201,6 +205,14 @@ public class Products implements Serializable {
 
     public void setOrderDetailsCollection(Collection<OrderDetails> orderDetailsCollection) {
         this.orderDetailsCollection = orderDetailsCollection;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
     
 }
