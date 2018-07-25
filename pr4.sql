@@ -62,6 +62,7 @@ create table [Tables]
 	tab_id varchar(10) primary key not null,
 	tab_name nvarchar(50) not null,
 	zone_id varchar(10) foreign key references Zones(zone_id),
+	status bit,
 	[deleted] int not null,
 	
 
