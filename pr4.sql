@@ -103,6 +103,19 @@ create table Order_Details
 ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Orders_order_id] foreign key (order_id) references [dbo].[Orders](order_id)
 
 ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Products_pro_id] foreign key (order_id) references [dbo].[Products](pro_id)
+
+create table HideProduct
+(
+	sto_id varchar(10),
+	pro_id varchar(10),
+	hide int,
+	Constraint [PK.HideProduct] primary key ([sto_id],[pro_id]),
+)
+
+ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Stores_sto_id] foreign key (sto_id) references [dbo].[Stores](sto_id)
+
+ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Products_pro_id] foreign key (pro_id) references[dbo].[Products](pro_id)
+
 insert into Stores values('S001','Knowhere CMT8','590 CMT8 Q3','083852222',0)
     insert into Stores values('S002','Knowhere Tay Ninh','Go Dau,Tay Ninh','0663852223',0)
 
