@@ -79,7 +79,8 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="flat-box"><a href="#"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                    <li class="flat-box"><a href="http://www.dar-elweb.com/demos/zarest/products"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
+                        <li class="flat-box"><a href="#"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                            
+                        <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
                         <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text">Stores</span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> <span class="menu-text">People</span> <span class="caret"></span></a>
@@ -94,7 +95,7 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bookmark"></i> <span class="menu-text">Categories </span><span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li class="flat-box"><a href="#"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
+                                <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
                                 <li class="flat-box"><a href="#"><i class="fa fa-usd"></i> <span class="menu-text">Expense</span></a></li>
                             </ul>
                         </li>
@@ -251,7 +252,7 @@
                         <c:forEach items="${listPro}" var="pro">
                             <div class="col-sm-2 col-xs-4">
                                 <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('154')">
-                                    <div class="product color03 flat-box">
+                                    <div class="product ${pro.color} flat-box">
                                         <h3 id="proname">${pro.proName}</h3>
                                         <input type="hidden" id="idname" name="name" value="${pro.proName}" />
                                         <input type="hidden" id="idprice" name="price" value="${pro.price}" />
