@@ -50,7 +50,7 @@ public class insertTableServlet extends HttpServlet {
             int delete = 0;
             String zone_id = request.getParameter("zone_id");
             Zones zo = zoneFacade.find(zone_id);
-            Tables tab = new Tables(tab_id, tab_name, delete, zo);
+            Tables tab = new Tables(tab_id, tab_name, delete,false, zo);
             tableFacade.create(tab);
             //back page getTable
             request.getRequestDispatcher("getTableServlet?sto_id="+sto_id).forward(request, response);
