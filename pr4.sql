@@ -73,6 +73,7 @@ create table Zones
 	zone_id varchar(10) primary key not null,
 	zone_name nvarchar(50) not null,
 	sto_id varchar(10) foreign key references Stores(sto_id),
+	[deleted] int not null
 )
 create table Orders 
 (
