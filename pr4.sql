@@ -102,7 +102,7 @@ create table Order_Details
 )
 ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Orders_order_id] foreign key (order_id) references [dbo].[Orders](order_id)
 
-ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Products_pro_id] foreign key (order_id) references [dbo].[Products](pro_id)
+ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Products_pro_id] foreign key (pro_id) references [dbo].[Products](pro_id)
 
 create table HideProduct
 (
