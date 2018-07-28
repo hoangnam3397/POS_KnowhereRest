@@ -130,6 +130,7 @@
         <div class="container-fluid">
             <div class="row text-center">
                 <h3 style="font-family: 'Kaushan Script', cursive;">Table - ${table}</h3>
+                
             </div>
             <div class="row">
                 <ul class="cbp-vimenu2">
@@ -138,15 +139,6 @@
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
                 </ul>
                 <div class="col-md-5 left-side">
-                    <div class="row">
-                        <div class="row row-horizon">
-                            <span class="holdList">
-                                <!-- list Holds goes here -->
-                            </span>
-                            <span class="Hold pl" onclick="AddHold()">+</i></span>
-                            <span class="Hold pl" onclick="RemoveHold()">-</span>
-                        </div>
-                    </div>
                     <div class="col-xs-8">
                         <h2>Choose Client</h2>
                     </div>
@@ -289,6 +281,7 @@
                     }
                 });
             });
+
         </script>
 
 

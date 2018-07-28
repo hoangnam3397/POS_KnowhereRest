@@ -6,6 +6,7 @@
 
 package entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,9 @@ public interface OrderDetailsFacadeLocal {
     List<OrderDetails> findRange(int[] range);
 
     int count();
+
+    List<OrderDetails> findByOrderId(String orderid);
+
+    BigDecimal sumPrice(String orderId);
     
 }

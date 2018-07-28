@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Tuan
+ * @author Nam_Nguyen
  */
 @Entity
 @Table(name = "Order_Details", catalog = "PR4", schema = "dbo")
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderDetails.findByQuantity", query = "SELECT o FROM OrderDetails o WHERE o.quantity = :quantity"),
     @NamedQuery(name = "OrderDetails.findByPrice", query = "SELECT o FROM OrderDetails o WHERE o.price = :price"),
     @NamedQuery(name = "OrderDetails.findByDiscount", query = "SELECT o FROM OrderDetails o WHERE o.discount = :discount"),
-    @NamedQuery(name = "OrderDetails.findByOption", query = "SELECT o FROM OrderDetails o WHERE o.option = :option")})
+    @NamedQuery(name = "OrderDetails.findByOptionvalue", query = "SELECT o FROM OrderDetails o WHERE o.optionvalue = :optionvalue")})
 public class OrderDetails implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
@@ -54,12 +54,12 @@ public class OrderDetails implements Serializable {
     @Column(name = "discount", nullable = false)
     private double discount;
     @Size(max = 150)
-    @Column(name = "option", length = 150)
-    private String option;
+    @Column(name = "optionvalue", length = 150)
+    private String optionvalue;
     @JoinColumn(name = "order_id", referencedColumnName = "order_id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Orders orders;
-    @JoinColumn(name = "order_id", referencedColumnName = "pro_id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Products products;
 
@@ -113,12 +113,12 @@ public class OrderDetails implements Serializable {
         this.discount = discount;
     }
 
-    public String getOption() {
-        return option;
+    public String getOptionvalue() {
+        return optionvalue;
     }
 
-    public void setOption(String option) {
-        this.option = option;
+    public void setOptionvalue(String optionvalue) {
+        this.optionvalue = optionvalue;
     }
 
     public Orders getOrders() {

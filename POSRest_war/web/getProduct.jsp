@@ -181,8 +181,6 @@
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct">Add Product</button>
 
             <div class=" float-right">
-                <a class="btn btn-add btn-xs" href="products/csv">Download CSV</a>
-                <a class="btn btn-add btn-xs" data-toggle="modal" data-target="#ImportProducts">Upload CSV file</a>
                 <a class="btn btn-red btn-xs" style="margin-bottom: 100px;" data-toggle="modal" data-target="#PrintMenu">PrintMenu</a>
             </div>
         </div>

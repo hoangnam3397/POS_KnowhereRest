@@ -111,6 +111,21 @@ public class Orders implements Serializable {
         this.total = total;
     }
 
+    public Orders( String orderId, String paymethod, Date ordertime, int deleted, BigDecimal subtotal, double orderTax, double discount, BigDecimal total, Customers cusId, Employees empId, Tables tabId) {
+        this.orderId = orderId;
+        this.paymethod = paymethod;
+        this.ordertime = ordertime;
+        this.deleted = deleted;
+        this.subtotal = subtotal;
+        this.orderTax = orderTax;
+        this.discount = discount;
+        this.total = total;
+        this.cusId = cusId;
+        this.empId = empId;
+        this.tabId = tabId;
+    }
+    
+
     public String getOrderId() {
         return orderId;
     }

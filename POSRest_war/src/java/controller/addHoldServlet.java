@@ -3,11 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package controller;
 
-import entity.CategoriesFacadeLocal;
-import entity.ProductsFacadeLocal;
 import entity.Tables;
 import entity.TablesFacadeLocal;
 import java.io.IOException;
@@ -23,27 +20,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nam_Nguyen
  */
-@WebServlet(name = "getCategoryToOrder", urlPatterns = {"/getCategoryToOrder"})
-public class getCategoryToOrder extends HttpServlet {
+@WebServlet(name = "addHoldServlet", urlPatterns = {"/addHoldServlet"})
+public class addHoldServlet extends HttpServlet {
 
-    @EJB CategoriesFacadeLocal cateFacade;
-    @EJB ProductsFacadeLocal productFacade;
     @EJB
-    TablesFacadeLocal tableFacade;
+    private TablesFacadeLocal tableFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String table=request.getParameter("table");
+        String status = request.getParameter("status");
         String tableid=request.getParameter("tableid");
-        request.setAttribute("tableId", tableid);
-        request.setAttribute("table", table);
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.setAttribute("listPro", productFacade.showAllProduct());
         Tables tables = tableFacade.find(tableid);
-        tables.setStatus(true);
+        tables.setStatus(Boolean.parseBoolean(status));
         tableFacade.edit(tables);
-        request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
