@@ -73,6 +73,7 @@ create table Zones
 	zone_id varchar(10) primary key not null,
 	zone_name nvarchar(50) not null,
 	sto_id varchar(10) foreign key references Stores(sto_id),
+	[deleted] int not null
 )
 create table Orders 
 (
@@ -102,7 +103,7 @@ create table Order_Details
 )
 ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Orders_order_id] foreign key (order_id) references [dbo].[Orders](order_id)
 
-ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Products_pro_id] foreign key (order_id) references [dbo].[Products](pro_id)
+ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Products_pro_id] foreign key (pro_id) references [dbo].[Products](pro_id)
 
 create table HideProduct
 (
