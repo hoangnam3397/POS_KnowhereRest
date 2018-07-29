@@ -193,7 +193,7 @@
                                     <div class="panel-body" style="">
                                         <div class="col-xs-5 nopadding">
                                             <div class="col-xs-2 nopadding">
-                                                <a href="javascript:void(0)" onclick="delete_posale('2891')">
+                                                <a href="javascript:void(0)" onclick="delete_posale('${o.orders.getOrderId()}', '${o.products.getProId()}')">
                                                     <span class="fa-stack fa-sm productD">
                                                         <i class="fa fa-circle fa-stack-2x delete-product"></i>
                                                         <i class="fa fa-times fa-stack-1x fa-fw fa-inverse"></i>
@@ -205,7 +205,7 @@
                                                     <i class="fa fa-square fa-stack-2x light-grey"></i>
                                                     <i class="fa fa-minus fa-stack-1x fa-inverse white"></i></span>
                                             </a>
-                                            <input type="text" id="idquan" onchange="edit_posale(2891)" class="form-control" value="${o.quantity}" placeholder="0" maxlength="3">
+                                            <input type="text" id="qt${o.orders.getOrderId()}${o.products.getProId()}" onchange="edit_posale('${o.orders.getOrderId()}', '${o.products.getProId()}')" class="form-control" value="${o.quantity}" placeholder="0" maxlength="3">
                                             <a href="javascript:void(0)">
                                                 <span class="fa-stack fa-sm incbutton">
                                                     <i class="fa fa-square fa-stack-2x light-grey"></i>
@@ -218,10 +218,10 @@
                                     </div>
                                     <button type="button" onclick="addoptions(148, 2891)" class="btn btn-success btn-xs">Options</button>
                                     <span id="pooptions-2891"> </span>
-                                
-                            </div>
-                                            </c:forEach>
-                            </form>
+
+                                </div>
+                            </c:forEach>
+                        </form>
 
                     </div>
                     <div class="footer-section">
@@ -279,7 +279,7 @@
                     <div id="productList2">
                         <c:forEach items="${listPro}" var="pro">
                             <div class="col-sm-2 col-xs-4">
-                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('${tableId}','${pro.proId}')">
+                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('${tableId}', '${pro.proId}')">
                                     <div class="product ${pro.color} flat-box">
                                         <h3 id="proname">${pro.proName}</h3>
                                         <input type="hidden" id="idname" name="name" value="${pro.proName}" />
@@ -318,16 +318,34 @@
                     }
                 });
             });
-            function add_posale(tableid,productid)
+            function delete_posale(orderid, productid)
+            {
+                // ajax delete data to database
+
+                $.ajax({
+                    url: "deleteOrderDetailServlet?orderid=" + orderid + "&productid=" + productid,
+                    type: "POST",
+                    success: function()
+                    {
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert(productid);
+                    }
+                });
+
+            }
+            function add_posale(tableid, productid)
             {
                 // ajax delete data to database
                 $.ajax({
-                    url: "AddOrderServlet?tableid=" + tableid+"&productid="+productid,
+                    url: "AddOrderServlet?tableid=" + tableid + "&productid=" + productid,
                     type: "POST",
                     //data: {name: name1, price: price1, product_id: id, number: number, registerid: 75, waiter: waiterID},
                     success: function()
                     {
-                        
+
                         location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown)
@@ -336,8 +354,27 @@
                     }
                 });
 
+
             }
-        
+            function edit_posale(orderid, productid)
+            {
+                var qt1 = $('#qt' + orderid + productid).val();
+                $.ajax({
+                    url: "editOrderDetail?orderid="+orderid+"&productid="+productid+"&quantity="+qt1,
+                    type: "POST",
+                    success: function()
+                    {
+                        
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert(orderid+"\n"+qt1+"\n"+productid);
+                    }
+                });
+
+            }
+
+
 
         </script>
 
