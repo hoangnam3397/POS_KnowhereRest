@@ -47,6 +47,7 @@ public class loadOrderDetail extends HttpServlet {
         Orders orders=ordersFacade.getByTableid(tableid);
         List<OrderDetails> list=orderDetailsFacade.findByOrderId(orders.getOrderId());
         request.setAttribute("list", list);
+        request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
         
         
     }

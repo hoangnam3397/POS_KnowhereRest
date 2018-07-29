@@ -34,11 +34,20 @@ public class OrderDetailsFacade extends AbstractFacade<OrderDetails> implements 
 
     @Override
     public List<OrderDetails> findByOrderId(String orderid) {
-        Query q=em.createQuery("SELECT o FROM OrderDetails o");
-        //q.setParameter("orderId", orderid);
+        Query q=em.createQuery("SELECT o FROM OrderDetails o WHERE o.orderDetailsPK.orderId = :orderId");
+        q.setParameter("orderId", orderid);
         List<OrderDetails> list=q.getResultList();
         return list;
     }
+    @Override
+    public List<OrderDetails> findByProduct(String proid,String orderid) {
+        Query q=em.createQuery("SELECT o FROM OrderDetails o WHERE o.orderDetailsPK.proId = :proId and o.orderDetailsPK.orderId = :orderId");
+        q.setParameter("proId", proid);
+        q.setParameter("orderId", orderid);
+        List<OrderDetails> list=q.getResultList();
+        return list;
+    }
+    
 
     @Override
     public BigDecimal sumPrice(String orderId) {

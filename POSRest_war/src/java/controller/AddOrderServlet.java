@@ -7,6 +7,7 @@ package controller;
 
 import entity.OrderDetails;
 import entity.OrderDetailsFacadeLocal;
+import entity.OrderDetailsPK;
 import entity.Orders;
 import entity.OrdersFacadeLocal;
 import entity.Products;
@@ -85,25 +86,53 @@ public class AddOrderServlet extends HttpServlet {
             ordersFacade.create(orders);
             tables.setStatus(true);
             tableFacade.edit(tables);
+            Products products = productFacade.find(productid);
+            OrderDetails od = new OrderDetails();
+            od.setOrders(orders);
+            od.setProducts(products);
+            od.setOrderDetailsPK(new OrderDetailsPK(orders.getOrderId(), productid));
+            od.setPrice(products.getPrice());
+            od.setDiscount(products.getDiscount());
+            od.setQuantity(1);
+            od.setOptionvalue("");
+            orderDetailsFacade.create(od);
         } else {
-
             Orders orderAdd = ordersFacade.getByTableid(tableid);
-            List<OrderDetails> listOrderDetail = orderDetailsFacade.findByOrderId(orderAdd.getOrderId());
-            for (int i = 0; i < listOrderDetail.size(); i++) {
-                if (productid.equals(listOrderDetail.get(i).getProducts().getProId())) {
-                    listOrderDetail.get(i).setQuantity(listOrderDetail.get(i).getQuantity() + 1);
-                    orderDetailsFacade.edit(listOrderDetail.get(i));
-                }
-            }
-        }
-        /*float subtotal = orderDetailsFacade.sumPrice(orderid).floatValue();
-         float ordertax = Float.parseFloat(request.getParameter("ordertax"));
-         float discountValue = Float.parseFloat(request.getParameter("discount"));
-         float total = subtotal - (subtotal * ordertax) - (subtotal * discountValue);
-         BigDecimal totalValue = new BigDecimal(total);
-        
-         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");*/
+            List<OrderDetails> listOrderDetail = orderDetailsFacade.findByProduct(productid, orderAdd.getOrderId());
+            if (listOrderDetail.size() > 0) {
+                listOrderDetail.get(0).setQuantity(listOrderDetail.get(0).getQuantity() + 1);
+                orderDetailsFacade.edit(listOrderDetail.get(0));
+            } else {
+                Products products = productFacade.find(productid);
+                OrderDetails od = new OrderDetails();
+                od.setOrders(orderAdd);
+                od.setProducts(products);
+                od.setOrderDetailsPK(new OrderDetailsPK(orderAdd.getOrderId(), productid));
+                od.setPrice(products.getPrice());
+                od.setDiscount(products.getDiscount());
+                od.setQuantity(1);
+                od.setOptionvalue("");
+                orderDetailsFacade.create(od);
 
+            }
+            /*for (int i = 0; i < listOrderDetail.size(); i++) {
+             if (productid.equals(listOrderDetail.get(i).getProducts().getProId())) {
+             listOrderDetail.get(i).setQuantity(listOrderDetail.get(i).getQuantity() + 1);
+             orderDetailsFacade.edit(listOrderDetail.get(i));
+             count++;
+                    
+             }
+
+             }/*/
+
+            /*float subtotal = orderDetailsFacade.sumPrice(orderid).floatValue();
+             float ordertax = Float.parseFloat(request.getParameter("ordertax"));
+             float discountValue = Float.parseFloat(request.getParameter("discount"));
+             float total = subtotal - (subtotal * ordertax) - (subtotal * discountValue);
+             BigDecimal totalValue = new BigDecimal(total);
+        
+             //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");*/
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

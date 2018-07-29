@@ -34,5 +34,6 @@ public interface OrderDetailsFacadeLocal {
     List<OrderDetails> findByOrderId(String orderid);
 
     BigDecimal sumPrice(String orderId);
+    public List<OrderDetails> findByProduct(String proid,String orderid);
     
 }

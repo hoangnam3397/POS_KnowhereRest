@@ -279,7 +279,7 @@
                     <div id="productList2">
                         <c:forEach items="${listPro}" var="pro">
                             <div class="col-sm-2 col-xs-4">
-                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('${tableId}',${pro.proId})">
+                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('${tableId}','${pro.proId}')">
                                     <div class="product ${pro.color} flat-box">
                                         <h3 id="proname">${pro.proName}</h3>
                                         <input type="hidden" id="idname" name="name" value="${pro.proName}" />
@@ -328,12 +328,11 @@
                     success: function()
                     {
                         
-                        alert("add Order successfull");
                         location.reload();
                     },
                     error: function(jqXHR, textStatus, errorThrown)
                     {
-                        alert("error");
+                        alert(tableid);
                     }
                 });
 
