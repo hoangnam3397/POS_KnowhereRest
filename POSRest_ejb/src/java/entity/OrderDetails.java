@@ -62,10 +62,10 @@ public class OrderDetails implements Serializable {
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Products products;
+    
 
     public OrderDetails() {
     }
-
     public OrderDetails(OrderDetailsPK orderDetailsPK) {
         this.orderDetailsPK = orderDetailsPK;
     }
@@ -76,6 +76,17 @@ public class OrderDetails implements Serializable {
         this.price = price;
         this.discount = discount;
     }
+
+    public OrderDetails(OrderDetailsPK orderDetailsPK, int quantity, BigDecimal price, double discount, String optionvalue, Orders orders, Products products) {
+        this.orderDetailsPK = orderDetailsPK;
+        this.quantity = quantity;
+        this.price = price;
+        this.discount = discount;
+        this.optionvalue = optionvalue;
+        this.orders = orders;
+        this.products = products;
+    }
+    
 
     public OrderDetails(String orderId, String proId) {
         this.orderDetailsPK = new OrderDetailsPK(orderId, proId);
@@ -135,6 +146,7 @@ public class OrderDetails implements Serializable {
 
     public void setProducts(Products products) {
         this.products = products;
+        
     }
 
     @Override

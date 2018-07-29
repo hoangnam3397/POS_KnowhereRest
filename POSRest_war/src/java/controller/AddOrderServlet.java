@@ -11,6 +11,7 @@ import entity.Orders;
 import entity.OrdersFacadeLocal;
 import entity.Products;
 import entity.ProductsFacadeLocal;
+import entity.Tables;
 import entity.TablesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -48,37 +49,52 @@ public class AddOrderServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String tableid=request.getParameter("tableid");
+        String tableid = request.getParameter("tableid");
+        String productid = request.getParameter("productid");
         Orders orders = null;
-        int num = ordersFacade.count() + 1;
-        String id = num + "";
-        int lenNum = 7;
-        int lenZero = lenNum - id.length();
-        for (int i = 0; i < lenZero; i++) {
-            id = "0" + id;
-        }
-        String orderid = "OD" + id;
-        List<OrderDetails> listOrderDetail = orderDetailsFacade.findByOrderId(orderid);
-        if (listOrderDetail.size() != 0) {
+
+        Tables tables = tableFacade.find(tableid);
+        //tim kim xem orderDetail đã có thông tin 
+
+        if (tables.getStatus() == false) {
+            int num = ordersFacade.count() + 1;
+            String id = num + "";
+            int lenNum = 7;
+            int lenZero = lenNum - id.length();
+            for (int i = 0; i < lenZero; i++) {
+                id = "0" + id;
+            }
+            String orderid = "OD" + id;
             Date date = new Date();
             Calendar c = Calendar.getInstance();
             c.setTime(date);
             c.add(Calendar.DATE, 1);
             date = c.getTime();
             /*orders.setOrderId(orderid);
-            orders.setPaymethod("unpaid");
-            orders.setDeleted(0);
-            orders.setOrdertime(date);
-            orders.setSubtotal(new BigDecimal(0));
-            orders.setOrderTax(0);
-            orders.setDiscount(0);
-            orders.setTotal(new BigDecimal(0));
-            orders.setTabId(tableFacade.find(request.getParameter("tableid")));
-            orders.setEmpId(null);
-            orders.setCusId(null);*/
-            orders=new Orders(orderid, "unpaid",date, 0, BigDecimal.ZERO, 0, 0, BigDecimal.ZERO,null,null,tableFacade.find(tableid));
+             orders.setPaymethod("unpaid");
+             orders.setDeleted(0);
+             orders.setOrdertime(date);
+             orders.setSubtotal(new BigDecimal(0));
+             orders.setOrderTax(0);
+             orders.setDiscount(0);
+             orders.setTotal(new BigDecimal(0));
+             orders.setTabId(tableFacade.find(request.getParameter("tableid")));
+             orders.setEmpId(null);
+             orders.setCusId(null);*/
+            orders = new Orders(orderid, "unpaid", date, 0, BigDecimal.ZERO, 0, 0, BigDecimal.ZERO, null, null, tableFacade.find(tableid));
             ordersFacade.create(orders);
+            tables.setStatus(true);
+            tableFacade.edit(tables);
+        } else {
 
+            Orders orderAdd = ordersFacade.getByTableid(tableid);
+            List<OrderDetails> listOrderDetail = orderDetailsFacade.findByOrderId(orderAdd.getOrderId());
+            for (int i = 0; i < listOrderDetail.size(); i++) {
+                if (productid.equals(listOrderDetail.get(i).getProducts().getProId())) {
+                    listOrderDetail.get(i).setQuantity(listOrderDetail.get(i).getQuantity() + 1);
+                    orderDetailsFacade.edit(listOrderDetail.get(i));
+                }
+            }
         }
         /*float subtotal = orderDetailsFacade.sumPrice(orderid).floatValue();
          float ordertax = Float.parseFloat(request.getParameter("ordertax"));

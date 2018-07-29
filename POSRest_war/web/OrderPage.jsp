@@ -130,7 +130,7 @@
         <div class="container-fluid">
             <div class="row text-center">
                 <h3 style="font-family: 'Kaushan Script', cursive;">Table - ${table}</h3>
-                
+
             </div>
             <div class="row">
                 <ul class="cbp-vimenu2">
@@ -187,9 +187,45 @@
                         <h3>Total</h3>
                     </div>
                     <div id="productList">
-                        <!-- product List goes here  -->
+                        <form action="loadOrderDetail?tableid=${tableId}" method="get">
+                            <c:forEach  items="${list}" var="o">
+                                <div class="panel panel-default product-details">
+                                    <div class="panel-body" style="">
+                                        <div class="col-xs-5 nopadding">
+                                            <div class="col-xs-2 nopadding">
+                                                <a href="javascript:void(0)" onclick="delete_posale('2891')">
+                                                    <span class="fa-stack fa-sm productD">
+                                                        <i class="fa fa-circle fa-stack-2x delete-product"></i>
+                                                        <i class="fa fa-times fa-stack-1x fa-fw fa-inverse"></i>
+                                                    </span></a></div><div class="col-xs-10 nopadding"><span class="textPD">${o.products.getProName()}</span></div>
+                                        </div><div class="col-xs-2"><span class="textPD">${o.price}</span></div>
+                                        <div class="col-xs-3 nopadding productNum">
+                                            <a href="javascript:void(0)">
+                                                <span class="fa-stack fa-sm decbutton">
+                                                    <i class="fa fa-square fa-stack-2x light-grey"></i>
+                                                    <i class="fa fa-minus fa-stack-1x fa-inverse white"></i></span>
+                                            </a>
+                                            <input type="text" id="idquan" onchange="edit_posale(2891)" class="form-control" value="${o.quantity}" placeholder="0" maxlength="3">
+                                            <a href="javascript:void(0)">
+                                                <span class="fa-stack fa-sm incbutton">
+                                                    <i class="fa fa-square fa-stack-2x light-grey"></i>
+                                                    <i class="fa fa-plus fa-stack-1x fa-inverse white"></i>
+                                                </span></a>
+                                        </div>
+                                        <div class="col-xs-2 nopadding ">
+                                            <span class="subtotal textPD">4.000     </span>
+                                        </div>
+                                    </div>
+                                    <button type="button" onclick="addoptions(148, 2891)" class="btn btn-success btn-xs">Options</button>
+                                    <span id="pooptions-2891"> </span>
+                                
+                            </div>
+                                            </c:forEach>
+                            </form>
+
                     </div>
                     <div class="footer-section">
+
                         <div class="table-responsive col-sm-12 totalTab">
                             <table class="table">
                                 <tr>
@@ -243,7 +279,7 @@
                     <div id="productList2">
                         <c:forEach items="${listPro}" var="pro">
                             <div class="col-sm-2 col-xs-4">
-                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('154')">
+                                <a href="javascript:void(0)" class="addPct" id="${pro.proId}" onclick="add_posale('${tableId}',${pro.proId})">
                                     <div class="product ${pro.color} flat-box">
                                         <h3 id="proname">${pro.proName}</h3>
                                         <input type="hidden" id="idname" name="name" value="${pro.proName}" />
@@ -264,6 +300,7 @@
             </div>
         </div>
         <script type="text/javascript">
+
             $(".categories").on("click", function() {
 // Retrieve the input field text
                 var filter = $(this).attr('id');
@@ -281,6 +318,27 @@
                     }
                 });
             });
+            function add_posale(tableid,productid)
+            {
+                // ajax delete data to database
+                $.ajax({
+                    url: "AddOrderServlet?tableid=" + tableid+"&productid="+productid,
+                    type: "POST",
+                    //data: {name: name1, price: price1, product_id: id, number: number, registerid: 75, waiter: waiterID},
+                    success: function()
+                    {
+                        
+                        alert("add Order successfull");
+                        location.reload();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
+
+            }
+        
 
         </script>
 

@@ -6,7 +6,6 @@
 
 package controller;
 
-import entity.CategoriesFacadeLocal;
 import entity.OrderDetails;
 import entity.OrderDetailsFacadeLocal;
 import entity.Orders;
@@ -28,32 +27,28 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nam_Nguyen
  */
-@WebServlet(name = "getCategoryToOrder", urlPatterns = {"/getCategoryToOrder"})
-public class getCategoryToOrder extends HttpServlet {
-
-    @EJB CategoriesFacadeLocal cateFacade;
-    @EJB ProductsFacadeLocal productFacade;
+@WebServlet(name = "loadOrderDetail", urlPatterns = {"/loadOrderDetail"})
+public class loadOrderDetail extends HttpServlet {
     @EJB
-    TablesFacadeLocal tableFacade;
-     @EJB
+    ProductsFacadeLocal productFacade;
+    @EJB
     OrdersFacadeLocal ordersFacade;
     @EJB
     OrderDetailsFacadeLocal orderDetailsFacade;
+    @EJB
+    TablesFacadeLocal tableFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String table=request.getParameter("table");
         String tableid=request.getParameter("tableid");
-        request.setAttribute("tableId", tableid);
-        request.setAttribute("table", table);
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.setAttribute("listPro", productFacade.showAllProduct());
-        Tables tables = tableFacade.find(tableid);
+        Tables tables=tableFacade.find(tableid);
         Orders orders=ordersFacade.getByTableid(tableid);
         List<OrderDetails> list=orderDetailsFacade.findByOrderId(orders.getOrderId());
         request.setAttribute("list", list);
-        request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
