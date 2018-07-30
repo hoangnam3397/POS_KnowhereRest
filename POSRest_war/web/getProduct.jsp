@@ -256,12 +256,14 @@
                                         <input type="radio" name="color" id="option8" value="color08" autocomplete="off" > C8
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>
-                            </div>
+                            </div>                           
                         </div>
-                    </form>    </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" name="action" value="Submit" class="btn btn-add">Submit</button>
+                            </div>
+                    </form>    
+                </div>
             </div>
         </div>
         <!-- /.Modal -->
