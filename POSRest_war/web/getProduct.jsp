@@ -29,6 +29,7 @@
         <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
         <!-- Bootstrap Core CSS -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <!-- bootstrap-horizon -->
         <link href="css/bootstrap-horizon.css" rel="stylesheet">
         <!-- datatable style -->
@@ -155,9 +156,9 @@
                             <th>Price</th>
                             <th>Action</th>
                         </tr>
-                    </thead>
-                    <c:forEach var="p" items="${listPro}">
-                        <tbody>
+                    </thead>                  
+                    <tbody>
+                        <c:forEach var="p" items="${listPro}">
                             <tr>
                                 <td>${p.proId}</td>
                                 <td>${p.proName}</</td>
@@ -173,8 +174,8 @@
                                     </div>
                                 </td>
                             </tr>
-                        </tbody>
-                    </c:forEach>
+                        </c:forEach>
+                    </tbody>                    
                 </table>
             </div>
             <!-- Button trigger modal -->
