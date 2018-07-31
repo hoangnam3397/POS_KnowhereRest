@@ -8,6 +8,7 @@ package controller;
 
 import entity.Categories;
 import entity.CategoriesFacadeLocal;
+import entity.ProductsFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -25,12 +26,16 @@ import javax.servlet.http.HttpServletResponse;
 public class deleteCategoryServlet extends HttpServlet {
 
     @EJB CategoriesFacadeLocal cateFacade;
+    @EJB ProductsFacadeLocal proFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String cate_id=request.getParameter("cate_id");
         Categories cate=cateFacade.find(cate_id);
+        //del Product of Cate
+        proFacade.deleteProOfCate(cate_id);
+        //del category
         int del=1;
         cate.setDeleted(del);
         cateFacade.edit(cate);

@@ -38,4 +38,22 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         return q.getResultList();
     }
     
+    @Override
+    public boolean deleteProOfCate(String cate_id) {
+        
+        try {
+            int del=1;
+            Query q = em.createQuery("UPDATE Products Set deleted = :del Where catId.catId = :cate");
+            q.setParameter("del", del);
+            q.setParameter("cate", cate_id);         
+            if(q.executeUpdate()> 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

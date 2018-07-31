@@ -128,22 +128,6 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row" style="margin-top:100px;">
-                <form action="products" method="post" class="form-inline float-right hidden-xs hidden-sm" style="margin-bottom:-50px;">
-                    <label for="Supplier">Supplier</label>
-                    <select class="form-control" id="Supplier" name="filtersupp">
-                        <option value=''>All</option>
-                        <option value="supplier 01" >supplier 01</option>
-                        <option value="Supplier 02" >Supplier 02</option>
-                    </select>
-                    <label for="Producttype">Product type</label>
-                    <select class="form-control" id="Producttype" name="filtertype">
-                        <option value=''>All</option>
-                        <option value="0" >Standard</option>
-                        <option value="1" >Service</option>
-                        <option value="2" >combination</option>
-                    </select>
-                    <button type="submit" class="btn btn-default">Apply Filter</button>
-                </form>
                 <table id="Table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
@@ -207,8 +191,8 @@
                                 <label for="Category">Category</label>
                                 <select class="form-control" value="Juices" name="cate" id="Category">
                                     <c:forEach var="cat" items="${listCate}">
-                                <option value="${cat.catId}">${cat.catName}</option>
-                            </c:forEach>
+                                        <option value="${cat.catId}">${cat.catName}</option>
+                                    </c:forEach>
                                 </select>
                             </div>
                             <div class="form-group" id="pushaceP">
@@ -257,10 +241,10 @@
                                 </div>
                             </div>                           
                         </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                <button type="submit" name="action" value="Submit" class="btn btn-add">Submit</button>
-                            </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" name="action" value="Submit" class="btn btn-add">Submit</button>
+                        </div>
                     </form>    
                 </div>
             </div>

@@ -23,25 +23,18 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "editCategoryServlet", urlPatterns = {"/editCategoryServlet"})
 public class editCategoryServlet extends HttpServlet {
-    String cate_id="";
+   
     @EJB CategoriesFacadeLocal cateFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String action=request.getParameter("action");
-        if(action.equals("get")){
-            cate_id = request.getParameter("cate_id");
-            request.setAttribute("cateName", cateFacade.find(cate_id).getCatName());
-            request.getRequestDispatcher("editCategory.jsp").forward(request, response);
-        }
-        else if(action.equals("Submit")){        
-            String cate_name=request.getParameter("cate_name");
-            Categories cate = cateFacade.find(cate_id);
-            cate.setCatName(cate_name);
-            cateFacade.edit(cate);
-            request.getRequestDispatcher("getCategoriesServlet").forward(request, response);
-        }
+        String cat_id=request.getParameter("cat_id");
+        String cate_name=request.getParameter("cate_name");
+        Categories cate = cateFacade.find(cat_id);
+        cate.setCatName(cate_name);
+        cateFacade.edit(cate);
+        request.getRequestDispatcher("getCategoriesServlet").forward(request, response);        
     }
 
     
