@@ -34,13 +34,15 @@ public class editStoreServlet extends HttpServlet {
         if(action.equals("get")){
             //load page editStore
             sto_id= request.getParameter("sto_id");
-            request.setAttribute("s", storeFacade.find(sto_id));
+            request.setAttribute("stoName", storeFacade.find(sto_id).getStoName());
+            request.setAttribute("phoneSto", storeFacade.find(sto_id).getPhonesto());
+            request.setAttribute("address", storeFacade.find(sto_id).getAddress());
             request.getRequestDispatcher("editStore.jsp").forward(request, response);
         }else if(action.equals("Submit")){
             //edit Store
             String sto_name = request.getParameter("sto_name");
             String address = request.getParameter("address");
-            String phone = request.getParameter("phone");
+            String phone = request.getParameter("phonesto");
             Stores sto = storeFacade.find(sto_id);
             sto.setStoName(sto_name);
             sto.setAddress(address);
