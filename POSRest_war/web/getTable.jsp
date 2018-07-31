@@ -155,12 +155,11 @@
                                 <th>Zone name</th>
                                 <th>Action</th>
                             </tr>
-                        </thead>
-                        <c:forEach var="s" items="${listZone}">
-                            <tbody>
+                        </thead>                        
+                        <tbody>
+                            <c:forEach var="s" items="${listZone}">
                                 <c:forEach var="t" items="${listTable}">
                                     <c:if test="${s.zoneId==t.zoneId.zoneId}">
-
                                         <tr>
                                             <td>${t.tabName}</td>
                                             <td>${t.zoneId.zoneName}</td>
@@ -169,16 +168,12 @@
                                                     <a class="btn btn-default" href="editTableServlet?tab_id=${t.tabId}&action=get" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                                 </div>
                                             </td>
-
-                                        </c:if>
-                                    </c:forEach>
-                            </tbody>
-
-
-                        </c:forEach>
+                                        </tr>    
+                                     </c:if>
+                                 </c:forEach>
+                            </c:forEach>
+                        </tbody>                       
                     </table>
-
-
                 </div>
             </div>
         </div>
@@ -228,7 +223,8 @@ $(document).on('click', '.deletezone', function () {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add table</h4>
       </div>
-      <form action="insertTableServlet?sto_id=${sto_id}" method="post">      <div class="modal-body">
+      <form action="insertTableServlet?sto_id=${sto_id}" method="post">      
+      <div class="modal-body">
             <div class="form-group">
              <label for="TableName">Table name/number *</label>
              <input type="text" name="tab_name" class="form-control" id="TableName" placeholder="Table name/number" required>
@@ -257,12 +253,13 @@ $(document).on('click', '.deletezone', function () {
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="myModalLabel">Add zone</h4>
       </div>
-      <form action="insertZoneServlet?sto_id=${sto_id}" method="post">      <div class="modal-body">
+      <form action="insertZoneServlet?sto_id=${sto_id}" method="post">      
+          <div class="modal-body">
             <div class="form-group">
              <label for="ZonesName">Zone name *</label>
-             <input type="text" name="zone_name" placeholder="Zone name" required>
+             <input type="text" name="zone_name" placeholder="Zone name" class="form-control" required>
            </div>
-      </div>
+          </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="submit" class="btn btn-add">Submit</button>
