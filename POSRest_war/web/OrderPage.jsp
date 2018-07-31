@@ -135,7 +135,7 @@
             <div class="row">
                 <ul class="cbp-vimenu2">
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Cancel&nbsp;All"><a href="javascript:void(0)" onclick="CloseTable()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
-                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="pos/switshtable"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
+                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="getTableOfZoneFromStore?storeid=${storeid}"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
                 </ul>
                 <div class="col-md-5 left-side">
@@ -213,7 +213,7 @@
                                                 </span></a>
                                         </div>
                                         <div class="col-xs-2 nopadding ">
-                                            <span class="subtotal textPD">4.000     </span>
+                                            <span class="subtotal textPD">${o.price*o.quantity}</span>
                                         </div>
                                     </div>
                                     <button type="button" onclick="addoptions(148, 2891)" class="btn btn-success btn-xs">Options</button>
@@ -230,24 +230,24 @@
                             <table class="table">
                                 <tr>
                                     <td class="active" width="40%">SubTotal</td>
-                                    <td class="whiteBg" width="60%"><span id="Subtot"></span> YTL                        <span class="float-right"><b id="ItemsNum"><span></span> items</b></span>
+                                    <td class="whiteBg" width="60%"><span id="Subtot"></span>        ${totalprice}                <span class="float-right"><b id="ItemsNum"><span></span>${quant} items</b></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="active">Order TAX</td>
-                                    <td class="whiteBg"><input type="text" value="18%" onchange="total_change()" id="num01" class="total-input TAX" placeholder="N/A"  maxlength="8">
+                                    <td class="whiteBg"><input type="text" name="tax" value="5%" onchange="total_change()" id="num01" class="total-input TAX" placeholder="N/A"  maxlength="8">
                                         <span class="float-right"><b id="taxValue"></b></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="active">Discount</td>
-                                    <td class="whiteBg"><input type="text" value="0" onchange="total_change()" id="num02" class="total-input Remise" placeholder="N/A"  maxlength="8">
+                                    <td class="whiteBg"><input type="text" name="discount" value="0" onchange="total_change()" id="num02" class="total-input Remise" placeholder="N/A"  maxlength="8">
                                         <span class="float-right"><b id="RemiseValue"></b></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="active">Total</td>
-                                    <td class="whiteBg light-blue text-bold"><span id="total"></span> YTL</td>
+                                    <td class="whiteBg light-blue text-bold"><span id="total"></span> VND</td>
                                 </tr>
                             </table>
                         </div>
@@ -300,6 +300,19 @@
             </div>
         </div>
         <script type="text/javascript">
+
+            function total_change() {
+                var subtot = $('Subtot').text();
+                var num01 = $('#num01').val();
+                var num02 = $('#num02').val();
+                $('#total').text(subtot - (subtot * num01) - (subtot * num02))
+
+
+
+
+
+            }
+
 
             $(".categories").on("click", function() {
 // Retrieve the input field text
@@ -360,18 +373,76 @@
             {
                 var qt1 = $('#qt' + orderid + productid).val();
                 $.ajax({
-                    url: "editOrderDetail?orderid="+orderid+"&productid="+productid+"&quantity="+qt1,
+                    url: "editOrderDetail?orderid=" + orderid + "&productid=" + productid + "&quantity=" + qt1,
                     type: "POST",
                     success: function()
                     {
-                        
+
                     },
                     error: function(jqXHR, textStatus, errorThrown)
                     {
-                        alert(orderid+"\n"+qt1+"\n"+productid);
+                        alert(orderid + "\n" + qt1 + "\n" + productid);
                     }
                 });
 
+            }
+            function saleBtn(type) {
+                var clientID = $('#customerSelect').find('option:selected').val();
+                var clientName = $('#customerName span').text();
+                var Tax = $('.TAX').val();
+                var Discount = $('.Remise').val();
+                var Subtotal = $('#Subtot').text();
+                var Total = $('#total').text();
+                var createdBy = 'admin Doe';
+                var totalItems = $('#ItemsNum span').text();
+                var Paid = $('#Paid').val();
+                var paidMethod = $('#paymentMethod').find('option:selected').val();
+                var Status = 0;
+                var ccnum = $('#CreditCardNum').val();
+                var ccmonth = $('#CreditCardMonth').val();
+                var ccyear = $('#CreditCardYear').val();
+                var ccv = $('#CreditCardCODECV').val();
+                var waiter = $('#WaiterName').val();
+                switch (paidMethod) {
+                    case '1':
+                        paidMethod += '~' + $('#CreditCardNum').val() + '~' + $('#CreditCardHold').val();
+                        break;
+                    case '2':
+                        paidMethod += '~' + $('#ChequeNum').val()
+                        break;
+                    case '0':
+                        var change = parseFloat(Total) - parseFloat(Paid);
+                        if (change == parseFloat(Total))
+                            Status = 1;
+                        else if (change > 0)
+                            Status = 2;
+                        else if (change <= 0)
+                            Status = 0;
+                }
+                var taxamount = $('.TAX').val().indexOf('%') != -1 ? parseFloat($('#taxValue').text()) : $('.TAX').val();
+                var discountamount = $('.Remise').val().indexOf('%') != -1 ? parseFloat($('#RemiseValue').text()) : $('.Remise').val();
+
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/pos/AddNewSale/" + type,
+                    type: "POST",
+                    data: {client_id: clientID, clientname: clientName, waiter_id: waiter, discountamount: discountamount, taxamount: taxamount, tax: Tax, discount: Discount, subtotal: Subtotal, total: Total, created_by: createdBy, totalitems: totalItems, paid: Paid, status: Status, paidmethod: paidMethod, ccnum: ccnum, ccmonth: ccmonth, ccyear: ccyear, ccv: ccv},
+                    success: function(data)
+                    {
+                        $('#printSection').html(data);
+                        $('#productList').load("http://www.dar-elweb.com/demos/zarest/pos/load_posales");
+                        $('#ItemsNum span, #ItemsNum2 span').load("http://www.dar-elweb.com/demos/zarest/pos/totiems");
+                        $('#Subtot').load("http://www.dar-elweb.com/demos/zarest/pos/subtot", null, total_change);
+                        $('#AddSale').modal('hide');
+                        $('#ticket').modal('show');
+                        $('#ReturnChange span').text('0');
+                        $('#Paid').val('0');
+                        $('.holdList').load("http://www.dar-elweb.com/demos/zarest/pos/holdList/75");
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
             }
 
 
@@ -379,7 +450,159 @@
         </script>
 
 
+        <!-- Modal -->
+        <div class="modal fade" id="AddSale" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="AddSale">Add Sale</h4>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <h2 id="customerName">Customer <span>Walk in Customer</span></h2>
+                            </div>
+                            <div class="form-group">
+                                <h3 id="ItemsNum2"><span></span> items</h3>
+                            </div>
+                            <div class="form-group">
+                                <h2 id="TotalModal"></h2>
+                            </div>
+                            <div class="form-group">
+                                <label for="paymentMethod">Payment method:</label>
+                                <select class="js-select-options form-control" id="paymentMethod">
+                                    <option value="0">Cash</option>
+                                    <option value="1">Credit Card</option>
+                                    <option value="2">Cheque</option>
+                                </select>
+                            </div>
+                            <div class="form-group Paid">
+                                <label for="Paid">Paid</label>
+                                <input type="text" value="0" name="paid" class="form-control paidk" id="Paid" placeholder="Paid">
+                            </div>
+                            <div class="form-group CreditCardNum">
+                                <i class="fa fa-cc-visa fa-2x" id="visa" aria-hidden="true"></i>
+                                <i class="fa fa-cc-mastercard fa-2x" id="mastercard" aria-hidden="true"></i>
+                                <i class="fa fa-cc-amex fa-2x" id="amex" aria-hidden="true"></i>
+                                <i class="fa fa-cc-discover fa-2x" id="discover" aria-hidden="true"></i>
+                                <label for="CreditCardNum">Credit Card Number (swipe)</label>
+                                <input type="text" class="form-control cc-num" id="CreditCardNum" placeholder="Credit Card Number (swipe)">
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="form-group CreditCardHold col-md-4 padding-s">
+                                <input type="text" class="form-control" id="CreditCardHold" placeholder="Credit Card Holder">
+                            </div>
+                            <div class="form-group CreditCardHold col-md-2 padding-s">
+                                <input type="text" class="form-control" id="CreditCardMonth" placeholder="Month">
+                            </div>
+                            <div class="form-group CreditCardHold col-md-2 padding-s">
+                                <input type="text" class="form-control" id="CreditCardYear" placeholder="Year">
+                            </div>
+                            <div class="form-group CreditCardHold col-md-4 padding-s">
+                                <input type="text" class="form-control" id="CreditCardCODECV" placeholder="CODE CV">
+                            </div>
+                            <div class="form-group ChequeNum">
+                                <label for="ChequeNum">Cheque Number</label>
+                                <input type="text" name="chequenum" class="form-control" id="ChequeNum" placeholder="Cheque Number">
+                            </div>
+                            <div class="form-group ReturnChange">
+                                <h3 id="ReturnChange">Change <span>0</span> IDR</h3>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-add" onclick="saleBtn(1)">Submit</button>
+                        </div>
+                    </form>    </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
 
+
+        <!-- Modal ticket -->
+        <div class="modal fade" id="ticket" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" id="ticketModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="ticket">Receipt</h4>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <div id="printSection">
+                            <!-- Ticket goes here -->
+                            <center><h1 style="color:#34495E">Empty</h1></center>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-add hiddenpr" href="javascript:void(0)" onClick="pdfreceipt()">PDF</button>
+                        <button type="button" class="btn btn-add hiddenpr" onclick="email()">email</button>
+                        <button type="button" class="btn btn-add hiddenpr" onclick="PrintTicket()">print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
+
+        <!-- Modal options -->
+        <div class="modal fade" id="options" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" id="ticketModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="ticket">Options</h4>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <div id="optionsSection">
+                            <!-- Ticket goes here -->
+                            <center><h1 style="color:#34495E">Empty</h1></center>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-add" onclick="addPoptions()">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
+
+        <!-- Modal add user -->
+        <div class="modal fade" id="AddCustomer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Add Customer</h4>
+                    </div>
+                    <form action="http://www.dar-elweb.com/demos/zarest/customers/add" method="post" accept-charset="utf-8" enctype="multipart/form-data">      <div class="modal-body">
+                            <div class="form-group">
+                                <label for="CustomerName">Customer Name</label>
+                                <input type="text" name="name" class="form-control" id="CustomerName" placeholder="Customer Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="CustomerPhone">Phone</label>
+                                <input type="text" name="phone" class="form-control" id="CustomerPhone" placeholder="Phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="CustomerEmail">Email</label>
+                                <input type="email" name="email" class="form-control" id="CustomerEmail" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="CustomerDiscount">Discount</label>
+                                <input type="text" name="discount" class="form-control" id="CustomerDiscount" placeholder="Discount">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-add">Submit</button>
+                        </div>
+                    </form>    </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
 
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
@@ -388,11 +611,7 @@
         <!-- Bootstrap Core JavaScript -->
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <!-- keyboard widget dependencies -->
-        <script type="text/javascript" src="js/jquery.keyboard.js"></script>
-        <script type="text/javascript" src="js/jquery.keyboard.extension-all.js"></script>
-        <script type="text/javascript" src="js/jquery.keyboard.extension-extender.js"></script>
-        <script type="text/javascript" src="js/jquery.keyboard.extension-typing.js"></script>
-        <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+
         <!-- select2 plugin script -->
         <script type="text/javascript" src="js/select2.min.js"></script>
         <!-- dalatable scripts -->

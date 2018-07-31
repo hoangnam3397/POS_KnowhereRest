@@ -47,6 +47,8 @@ public class getCategoryToOrder extends HttpServlet {
         PrintWriter out = response.getWriter();
         String table = request.getParameter("table");
         String tableid = request.getParameter("tableid");
+        String storeId=request.getParameter("storeid");
+        request.setAttribute("storeid", storeId);
         request.setAttribute("tableId", tableid);
         request.setAttribute("table", table);
         request.setAttribute("listCate", cateFacade.showAllCategories());
@@ -57,6 +59,14 @@ public class getCategoryToOrder extends HttpServlet {
         } else {
             Orders orders = ordersFacade.getByTableid(tableid);
             List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
+            int quant=0;
+            float totalprice=0;
+            for (OrderDetails o : list) {
+                quant=quant+o.getQuantity();
+                totalprice=(o.getQuantity()*o.getPrice().floatValue())+totalprice;
+            }
+            request.setAttribute("totalprice", totalprice);
+            request.setAttribute("quant", quant);
             request.setAttribute("list", list);
             request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
         }

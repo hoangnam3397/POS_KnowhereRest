@@ -33,6 +33,7 @@ public class getTableOfZoneFromStore extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String storeid=request.getParameter("storeid");
+        request.setAttribute("storeId", storeid);
         request.setAttribute("zonelist", zonesFacadeLocal.showAllZones(storeid));
         request.setAttribute("listTable", tableFacade.showAllTables());  
         request.getRequestDispatcher("TablePage.jsp").forward(request, response);

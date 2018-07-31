@@ -143,13 +143,13 @@
                             <c:if test="${zone.zoneId==table.zoneId.zoneId}">
                                 <div class="col-sm-2 col-xs-4 tableList">
                                     <c:if test="${table.status eq false}">
-                                    <a href="getCategoryToOrder?table=${table.tabName}&tableid=${table.tabId}">
+                                    <a href="getCategoryToOrder?table=${table.tabName}&tableid=${table.tabId}&storeid=${storeId}">
                                         <img src="images/table.svg" alt="store">
                                         <h2>${table.tabName}</h2>
                                     </a>
                                     </c:if>
                                     <c:if test="${table.status eq true}">
-                                    <a href="getCategoryToOrder?table=${table.tabName}&tableid=${table.tabId}">
+                                    <a href="getCategoryToOrder?table=${table.tabName}&tableid=${table.tabId}&storeid=${storeId}">
                                         <img src="images/tableB2.svg" alt="store">
                                         <h2>${table.tabName}</h2>
                                     </a>
