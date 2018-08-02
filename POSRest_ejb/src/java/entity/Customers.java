@@ -70,6 +70,16 @@ public class Customers implements Serializable {
         this.cusId = cusId;
     }
 
+    public Customers(String cusId, String cusName, String phone, String email, double discount) {
+        this.cusId = cusId;
+        this.cusName = cusName;
+        this.phone = phone;
+        this.email = email;
+        this.discount = discount;
+      
+    }
+    
+
     public Customers(String cusId, String cusName, double discount) {
         this.cusId = cusId;
         this.cusName = cusName;

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entity;
 
 import java.util.List;
@@ -29,5 +28,8 @@ public interface EmployeesFacadeLocal {
     List<Employees> findRange(int[] range);
 
     int count();
-    
+
+    Boolean login(String user, String password);
+
+    List<Employees> showAllEployees();
 }
