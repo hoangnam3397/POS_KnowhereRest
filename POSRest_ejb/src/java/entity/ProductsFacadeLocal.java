@@ -32,4 +32,5 @@ public interface ProductsFacadeLocal {
 
     List<Products> showAllProduct();
     
+    boolean deleteProOfCate(String cate_id);
 }

@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package controller;
 
-import entity.Categories;
-import entity.CategoriesFacadeLocal;
-import entity.ProductsFacadeLocal;
+import entity.CustomersFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,28 +10,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Duy
- */
-@WebServlet(name = "deleteCategoryServlet", urlPatterns = {"/deleteCategoryServlet"})
-public class deleteCategoryServlet extends HttpServlet {
+@WebServlet(name = "getCustomerServlet", urlPatterns = {"/getCustomerServlet"})
+public class getCustomerServlet extends HttpServlet {
 
-    @EJB CategoriesFacadeLocal cateFacade;
-    @EJB ProductsFacadeLocal proFacade;
+    @EJB 
+    private CustomersFacadeLocal customersFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String cate_id=request.getParameter("cate_id");
-        Categories cate=cateFacade.find(cate_id);
-        //del Product of Cate
-        proFacade.deleteProOfCate(cate_id);
-        //del category
-        int del=1;
-        cate.setDeleted(del);
-        cateFacade.edit(cate);
-        request.getRequestDispatcher("getCategoriesServlet").forward(request, response);
+        
+        request.setAttribute("list", customersFacade.findAll());
+        request.getRequestDispatcher("getCustomers.jsp").forward(request, response);
+           
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

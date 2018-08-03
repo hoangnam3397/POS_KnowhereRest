@@ -1,6 +1,13 @@
 create database PR4
 use PR4
 
+create table Categories
+(
+	cat_id varchar(10) primary key not null,
+	cat_name nvarchar(50) not null,
+	createday datetime,
+	[deleted] int not null,
+)
 create table Products
 (
 	pro_id varchar(10) primary key not null,
@@ -11,26 +18,7 @@ create table Products
 	discount float not null,
 	[deleted] int not null,
 	[description] nvarchar(200),
-)
-create table Categories
-(
-	cat_id varchar(10) primary key not null,
-	cat_name nvarchar(50) not null,
-	createday datetime,
-	[deleted] int not null,
-)
-create table employees
-(
-	emp_id varchar(10) primary key not null,
-	emp_name nvarchar(50) not null,
-	[user] varchar(50) not null,
-	[password] varchar(50) not null,
-	[role_id] varchar(10) foreign key references  Roles(role_id),
-	email varchar(50),
-	phone varchar(15) not null,
-	[avatarlink] varchar(max),
-	[deleted] int not null,
-	
+	color varchar(20)
 )
 
 create table Roles
@@ -38,6 +26,19 @@ create table Roles
 	[role_id] varchar(10) primary key not null,
 	role_name varchar(30) not null,
 	[deleted] int not null,
+)
+create table employees
+(
+	emp_id varchar(10) primary key not null,
+	emp_name nvarchar(50) not null,
+	username varchar(50) not null,
+	[password] varchar(50) not null,
+	[role_id] varchar(10) foreign key references  Roles(role_id),
+	email varchar(50),
+	phone varchar(15) not null,
+	[avatarlink] varchar(max),
+	[deleted] int not null,
+	
 )
 
 create table Customers
@@ -57,6 +58,15 @@ create table Stores
 	phonesto varchar(15),
 	[deleted] int not null,
 )
+
+create table Zones
+(
+	zone_id varchar(10) primary key not null,
+	zone_name nvarchar(50) not null,
+	sto_id varchar(10) foreign key references Stores(sto_id),
+	[deleted] int not null
+)
+
 create table [Tables]
 (
 	tab_id varchar(10) primary key not null,
@@ -68,13 +78,6 @@ create table [Tables]
 
 )
 
-create table Zones
-(
-	zone_id varchar(10) primary key not null,
-	zone_name nvarchar(50) not null,
-	sto_id varchar(10) foreign key references Stores(sto_id),
-	[deleted] int not null
-)
 create table Orders 
 (
 	order_id varchar(10) primary key not null,

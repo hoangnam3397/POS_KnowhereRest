@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package controller;
 
-import entity.Categories;
-import entity.CategoriesFacadeLocal;
-import entity.ProductsFacadeLocal;
+import entity.Customers;
+import entity.CustomersFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,39 +11,38 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Duy
- */
-@WebServlet(name = "deleteCategoryServlet", urlPatterns = {"/deleteCategoryServlet"})
-public class deleteCategoryServlet extends HttpServlet {
+@WebServlet(name = "insertCustomerServlet", urlPatterns = {"/insertCustomerServlet"})
+public class insertCustomerServlet extends HttpServlet {
 
-    @EJB CategoriesFacadeLocal cateFacade;
-    @EJB ProductsFacadeLocal proFacade;
+    @EJB
+    private CustomersFacadeLocal customersFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String cate_id=request.getParameter("cate_id");
-        Categories cate=cateFacade.find(cate_id);
-        //del Product of Cate
-        proFacade.deleteProOfCate(cate_id);
-        //del category
-        int del=1;
-        cate.setDeleted(del);
-        cateFacade.edit(cate);
-        request.getRequestDispatcher("getCategoriesServlet").forward(request, response);
+        
+        int num = customersFacade.count() + 1;
+        String id = num + "";
+        int lenNum = 8;
+        int lenZero = lenNum - id.length();
+        for (int i = 0; i < lenZero; i++) {
+            id = "0" + id;
+        }
+        String cus_id = "Cus" + id;
+        String cus_name = request.getParameter("cus_name");
+        String phone = request.getParameter("phone");
+        String email = request.getParameter("email");
+        double discount = Double.parseDouble(request.getParameter("discount"));
+        
+        Customers  cus = new Customers(cus_id, cus_name, phone, email, discount);
+
+        customersFacade.create(cus);
+        
+        request.getRequestDispatcher("getCustomerServlet").forward(request, response);
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

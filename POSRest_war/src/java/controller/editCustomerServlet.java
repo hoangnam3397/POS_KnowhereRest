@@ -1,14 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package controller;
 
-import entity.Categories;
-import entity.CategoriesFacadeLocal;
-import entity.ProductsFacadeLocal;
+import entity.Customers;
+import entity.CustomersFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,28 +11,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Duy
- */
-@WebServlet(name = "deleteCategoryServlet", urlPatterns = {"/deleteCategoryServlet"})
-public class deleteCategoryServlet extends HttpServlet {
+@WebServlet(name = "editCustomerServlet", urlPatterns = {"/editCustomerServlet"})
+public class editCustomerServlet extends HttpServlet {
 
-    @EJB CategoriesFacadeLocal cateFacade;
-    @EJB ProductsFacadeLocal proFacade;
+    @EJB
+    private CustomersFacadeLocal customersFacade;
+    String cus_id = "";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String cate_id=request.getParameter("cate_id");
-        Categories cate=cateFacade.find(cate_id);
-        //del Product of Cate
-        proFacade.deleteProOfCate(cate_id);
-        //del category
-        int del=1;
-        cate.setDeleted(del);
-        cateFacade.edit(cate);
-        request.getRequestDispatcher("getCategoriesServlet").forward(request, response);
+
+        String action = request.getParameter("action");
+        if (action.equals("get")) {
+            //load page editProduct
+            cus_id = request.getParameter("cus_id");
+            request.setAttribute("phone", customersFacade.find(cus_id).getPhone());
+            request.setAttribute("email", customersFacade.find(cus_id).getEmail());
+            request.setAttribute("dis", customersFacade.find(cus_id).getDiscount());
+
+            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
+        } else if (action.equals("Submit")) {
+            //edit Product
+            String phone = request.getParameter("phone");
+            String email = request.getParameter("email");
+            double discount = Double.parseDouble(request.getParameter("discount"));
+
+            Customers cus = customersFacade.find(cus_id);
+            cus.setPhone(phone);
+            cus.setEmail(email);
+            cus.setDiscount(discount);
+           
+            customersFacade.edit(cus);
+            request.getRequestDispatcher("getCustomerServlet").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

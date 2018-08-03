@@ -6,18 +6,16 @@
 
 package entity;
 
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
  * @author Duy
  */
 @Stateless
-public class CategoriesFacade extends AbstractFacade<Categories> implements CategoriesFacadeLocal {
+public class HideProductFacade extends AbstractFacade<HideProduct> implements HideProductFacadeLocal {
     @PersistenceContext(unitName = "POSRest_ejbPU")
     private EntityManager em;
 
@@ -26,16 +24,8 @@ public class CategoriesFacade extends AbstractFacade<Categories> implements Cate
         return em;
     }
 
-    public CategoriesFacade() {
-        super(Categories.class);
+    public HideProductFacade() {
+        super(HideProduct.class);
     }
     
-    @Override
-    public List<Categories> showAllCategories() {
-        Query q = getEntityManager().createQuery("SELECT c FROM Categories c WHERE c.deleted = :del");
-        int del=0;
-        q.setParameter("del", del);
-        return q.getResultList();
-    }
-
 }

@@ -79,7 +79,7 @@
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="flat-box"><a href="#"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                  
+                        <li class="flat-box"><a href="#"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                           
                         <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
                         <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text">Stores</span></a></li>
                         <li class="dropdown">
@@ -126,172 +126,38 @@
 
 
         <!-- Page Content -->
-        <div class="container  container-small">
-
+        <div class="container container-small">
             <div class="row" style="margin-top:100px;">
-                <div class="row">
-                    <h2>Store Zones</h2>
-                </div>
-                <div class="row">
-                    <c:forEach var="s" items="${listZone}">
-                        <span class="zone">${s.zoneName}<i id="${s.zoneId}" zone-name="${s.zoneName}" class="fa fa-pencil editzone" aria-hidden="true"></i><i id='${s.zoneId}' class="fa fa-times deletezone"></i></span>
-                            </c:forEach>
-
-                    <span data-toggle="modal" data-target="#AddZone" class="zone"><i class="fa fa-plus" style="margin-left:0px;"></i></span>
-                </div>
-                <div class="row">
-                    <h2>Store Tables</h2>
-                </div>
-                <!-- Button trigger modal -->
-                <div class="row">
-                    <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addtable" style="margin: 10px 0 !important;">
-                        Add table         </button>
-                </div>
-                <div class="row">
-                    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
-                        <thead>
-                            <tr>
-                                <th>Table name/number</th>
-                                <th>Zone name</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>                        
-                        <tbody>
-                            <c:forEach var="s" items="${listZone}">
-                                <c:forEach var="t" items="${listTable}">
-                                    <c:if test="${s.zoneId==t.zoneId.zoneId}">
-                                        <tr>
-                                            <td>${t.tabName}</td>
-                                            <td>${t.zoneId.zoneName}</td>
-                                            <td><div class="btn-group">
-                                                    <a class="btn btn-default" href="deleteTableServlet?tab_id=${t.tabId}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-times"></i></a>
-                                                    <a class="btn btn-default" href="editTableServlet?tab_id=${t.tabId}&action=get" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>    
-                                     </c:if>
-                                 </c:forEach>
-                            </c:forEach>
-                        </tbody>                       
-                    </table>
-                </div>
-            </div>
+                <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
+                    <i class="fa fa-arrow-left"></i> Back</a>
+                <form action="editCustomerServlet" method="post">      
+                    <div class="form-group">
+                        <label for="phone">Phone Customerx  </label>
+                        <input type="text" name="tab_name" class="form-control" id="TableName" value="${tabName}" placeholder="Table name/number" required>
+                    </div>
+                    <label for="Zones">Choose a zone</label>
+                    <select class="form-control" id="Zones" name="zone">
+                        <option value=''>Choose a zone</option>
+                        <c:forEach var="z" items="${listZone}">
+                            <c:if test="${z.zoneId==zoID}">
+                                <option selected value="${z.zoneId}">${z.zoneName}</option>
+                            </c:if>
+                            <c:if test="${z.zoneId!=zoID}">
+                                <option value="${z.zoneId}">${z.zoneName}</option>
+                            </c:if>
+                        </c:forEach>
+                    </select>
+                    <div class="form-group">
+                        <button type="submit" name="action" class="btn btn-add" value="Submit">Submit</button>
+                    </div>
+                </form>   </div>
         </div>
-        <script type="text/javascript">
-
-$(function() {
-   /*************** edit zone **********/
-$(document).on('click', '.deletezone', function () {
-
-      var zone_id = $(this).attr('id');
-         swal({   title: 'Are you sure ?',
-         text: 'All the tables related to this zone will be deleted',
-         type: "warning",
-         showCancelButton: true,
-         confirmButtonColor: "#DD6B55",
-         confirmButtonText: 'Yes, delete it!',
-         closeOnConfirm: false },
-         function(){
-           // ajax delete data to database
-            $.ajax({
-                url : "http://localhost:8080/POSRest_war/deleteZoneServlet?zone_id="+zone_id,
-                type: "POST",
-                success: function(data){
-                   location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown){alert("error");}
-           });
-     swal.close(); });
-  });
-  /*************** delete zone **********/
-  $(document).on('click', '.editzone', function () {
-     var id = $(this).attr('id');
-     var name = $(this).attr('zone-name');
-     $("#zone_id").val(id);
-     $("#ZoneName").val(name);
-     $('#EditZone').modal('show');
-});
-});
+        <!-- /.Modal -->
 
 
-</script>
-       <!-- add table Modal -->
-<div class="modal fade" id="Addtable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add table</h4>
-      </div>
-      <form action="insertTableServlet?sto_id=${sto_id}" method="post">      
-      <div class="modal-body">
-            <div class="form-group">
-             <label for="TableName">Table name/number *</label>
-             <input type="text" name="tab_name" class="form-control" id="TableName" placeholder="Table name/number" required>
-           </div>
-           <label for="Zones">Choose a zone *</label>
-          <select class="form-control" id="Zones" name="zone_id" required>
-             <c:forEach var="z" items="${listZone}">
-                                <option value="${z.zoneId}" >${z.zoneName}</option>                                
-                            </c:forEach>                               
-                       </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
-      </div>
-   </form>    </div>
- </div>
-</div>
-<!-- /.Modal -->
+        <!-- Modal close register -->
 
-<!-- add Zone Modal -->
-<div class="modal fade" id="AddZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add zone</h4>
-      </div>
-      <form action="insertZoneServlet?sto_id=${sto_id}" method="post">      
-          <div class="modal-body">
-            <div class="form-group">
-             <label for="ZonesName">Zone name *</label>
-             <input type="text" name="zone_name" placeholder="Zone name" class="form-control" required>
-           </div>
-          </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
-      </div>
-   </form>    </div>
- </div>
-</div>
-<!-- /.Modal -->
-
-<!-- edit Zone Modal -->
-<div class="modal fade" id="EditZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit zone</h4>
-      </div>
-      <form action="editZoneServlet" method="post">      <div class="modal-body">
-            <div class="form-group">
-             <label for="ZoneName">Zone name *</label>
-             <input type="text" name="zone_name" class="form-control" id="ZoneName" placeholder="Zone name" required>
-             <input type="hidden" name="zone_id" id="zone_id" >
-           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
-      </div>
-   </form>    </div>
- </div>
-</div>
-<!-- /.Modal -->
+        <!-- /.Modal -->
 
 
 

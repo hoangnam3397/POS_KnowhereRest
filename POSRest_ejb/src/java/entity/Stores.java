@@ -9,6 +9,7 @@ package entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -36,6 +37,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Stores.findByPhonesto", query = "SELECT s FROM Stores s WHERE s.phonesto = :phonesto"),
     @NamedQuery(name = "Stores.findByDeleted", query = "SELECT s FROM Stores s WHERE s.deleted = :deleted")})
 public class Stores implements Serializable {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "stores")
+    private Collection<HideProduct> hideProductCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -154,6 +157,15 @@ public class Stores implements Serializable {
     @Override
     public String toString() {
         return "entity.Stores[ stoId=" + stoId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<HideProduct> getHideProductCollection() {
+        return hideProductCollection;
+    }
+
+    public void setHideProductCollection(Collection<HideProduct> hideProductCollection) {
+        this.hideProductCollection = hideProductCollection;
     }
     
 }

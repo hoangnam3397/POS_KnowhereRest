@@ -14,21 +14,20 @@ import javax.ejb.Local;
  * @author Duy
  */
 @Local
-public interface CategoriesFacadeLocal {
+public interface HideProductFacadeLocal {
 
-    void create(Categories categories);
+    void create(HideProduct hideProduct);
 
-    void edit(Categories categories);
+    void edit(HideProduct hideProduct);
 
-    void remove(Categories categories);
+    void remove(HideProduct hideProduct);
 
-    Categories find(Object id);
+    HideProduct find(Object id);
 
-    List<Categories> findAll();
+    List<HideProduct> findAll();
 
-    List<Categories> findRange(int[] range);
+    List<HideProduct> findRange(int[] range);
 
     int count();
     
-    List<Categories> showAllCategories();
 }

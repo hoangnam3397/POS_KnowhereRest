@@ -6,9 +6,10 @@
 
 package controller;
 
-import entity.Categories;
-import entity.CategoriesFacadeLocal;
-import entity.ProductsFacadeLocal;
+import entity.Employees;
+import entity.EmployeesFacadeLocal;
+import entity.Roles;
+import entity.RolesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -18,28 +19,48 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author Duy
- */
-@WebServlet(name = "deleteCategoryServlet", urlPatterns = {"/deleteCategoryServlet"})
-public class deleteCategoryServlet extends HttpServlet {
 
-    @EJB CategoriesFacadeLocal cateFacade;
-    @EJB ProductsFacadeLocal proFacade;
+@WebServlet(name = "editEmployeesServlet", urlPatterns = {"/editEmployeesServlet"})
+public class editEmployeesServlet extends HttpServlet {
+    @EJB 
+    private EmployeesFacadeLocal employeesFacade;
+    @EJB
+    private RolesFacadeLocal rolesFacade;
+    String emp_id = "";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String cate_id=request.getParameter("cate_id");
-        Categories cate=cateFacade.find(cate_id);
-        //del Product of Cate
-        proFacade.deleteProOfCate(cate_id);
-        //del category
-        int del=1;
-        cate.setDeleted(del);
-        cateFacade.edit(cate);
-        request.getRequestDispatcher("getCategoriesServlet").forward(request, response);
+       PrintWriter out = response.getWriter();
+          String action=request.getParameter("action");
+        if(action.equals("get")){
+            //load page employees
+            emp_id =request.getParameter("emp_id");
+            request.setAttribute("empName", employeesFacade.find(emp_id).getEmpName());
+            request.setAttribute("email", employeesFacade.find(emp_id).getEmail());
+            request.setAttribute("phone", employeesFacade.find(emp_id).getPhone());
+            request.setAttribute("role_id", employeesFacade.find(emp_id).getRoleId().getRoleId());
+            request.setAttribute("list", rolesFacade.findAll());
+            request.getRequestDispatcher("editEmployees.jsp").forward(request, response);
+        }
+        else if(action.equals("Submit")){
+            //edit employees
+            String emp_name = request.getParameter("empName");
+            String email = request.getParameter("email");
+            String phone = request.getParameter("phone");
+            String role_id = request.getParameter("role");
+            
+            Roles rol =rolesFacade.find(role_id);
+            Employees emp = employeesFacade.find(emp_id);
+            emp.setEmpName(emp_name);
+            emp.setEmail(email);
+            emp.setPhone(phone);
+       
+            emp.setRoleId(rol);
+         
+            employeesFacade.edit(emp);
+            request.getRequestDispatcher("getEmployeesServlet").forward(request, response);
+        }
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
