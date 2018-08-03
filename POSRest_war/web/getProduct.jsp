@@ -181,11 +181,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Add Product</h4>
                     </div>
-                    <form action="insertProductServlet" method="post">      
+                    <form action="insertProductServlet" method="post" enctype="multipart/form-data">      
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="ProductName">Name</label>
-                                <input type="text" name="pro_name" value="${proName}" maxlength="25" Required class="form-control" id="ProductName" placeholder="Name">
+                                <input type="text" name="pro_name" maxlength="25" Required class="form-control" id="pro_name" placeholder="Name">
                             </div>
                             <div class="form-group">
                                 <label for="Category">Category</label>
@@ -197,19 +197,20 @@
                             </div>
                             <div class="form-group" id="pushaceP">
                                 <label for="PurchasePrice">Price (|VNĐ)</label>
-                                <input type="number" step="any" value="${price}" Required name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price">
+                                <input type="number" step="any" name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
                             </div>
                             <div class="form-group">
                                 <label for="Discount">Discount (%)</label>
-                                <input type="text" name="discount" maxlength="10" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
+                                <input type="number" name="discount" maxlength="10" class="form-control" id="Discount" placeholder="discount (%)" Required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Input Image</label>
-                                <input type="file" name="userfile" id="ImageInput">
+                                <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg" onchange="return fileValidation()">
                             </div>
                             <div class="form-group">
-                                <label for="ProductDescription">Product Description</label>
-                                <textarea class="form-control"  name="description">${des}</textarea>
+                                <label for="ProductDescription">Product Description</label>                              
+                                <textarea class="form-control" name="descrip" id="descrip">                                  
+                                </textarea>
                             </div>
                             <div class="form-group">
                                 <div class="btn-group white" data-toggle="buttons">
@@ -237,7 +238,7 @@
                                     </label>
                                     <label class="btn color08">
                                         <input type="radio" name="color" id="option8" value="color08" autocomplete="off" > C8
-                                    </label>
+                                    </label>                       
                                 </div>
                             </div>                           
                         </div>
@@ -274,7 +275,28 @@
             </div>
         </div>
 
-
+        <!-- check image -->
+        <script type="text/javascript">
+            function fileValidation() {
+                var fileInput = document.getElementById('imageInput');
+                var filePath = fileInput.value;
+                var allowedExtensions = /(\.jpg)$/i;
+                if (!allowedExtensions.exec(filePath)) {
+                    alert('Please upload file having extensions .jpg only.');
+                    fileInput.value = '';
+                    return false;
+                } else {
+                    //Image preview
+                    if (fileInput.files && fileInput.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
+                        };
+                        reader.readAsDataURL(fileInput.files[0]);
+                    }
+                }
+            }
+        </script>
 
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
