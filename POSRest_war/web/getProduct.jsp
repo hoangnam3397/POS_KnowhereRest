@@ -153,7 +153,7 @@
                                         <a class="btn btn-default" href="javascript:void(0)" data-toggle="popover" data-placement="left"  data-html="true" title='Are you sure ?' data-content='<a class="btn btn-danger" href="deleteProductServlet?pro_id=${p.proId}">Yes, delete it!</a>'><i class="fa fa-times"></i></a>                      
                                         <a class="btn btn-default" href="javascript:void(0)" onclick="Viewproduct(154)"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="View product"></i></a>
                                         <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}&action=get" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn color03 white open-modalimage"data-id="1edf7ab30f3069cd7d448e3bd78db98b.jpg" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
+                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" data-id="1edf7ab30f3069cd7d448e3bd78db98b.jpg" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
                                     </div>
                                 </td>
                             </tr>
@@ -181,11 +181,11 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Add Product</h4>
                     </div>
-                    <form action="insertProductServlet" method="post" enctype="multipart/form-data">      
+                    <form action="insertProductServlet" method="post" enctype="multipart/form-data" accept-charset="UTF-8">      
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="ProductName">Name</label>
-                                <input type="text" name="pro_name" maxlength="25" Required class="form-control" id="pro_name" placeholder="Name">
+                                <input type="text" name="pro_name" maxlength="25" Required class="form-control" id="pro_name" placeholder="Name" accept="UTF-8">
                             </div>
                             <div class="form-group">
                                 <label for="Category">Category</label>
@@ -274,6 +274,41 @@
                     </form>    </div>
             </div>
         </div>
+
+        <!-- Modal View Images -->
+        <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Image</h4>
+                    </div>    
+                    <div class="modal-body">
+                        <div class="form-group">                         
+                            <img id="imgUrl" src="" class="img-responsive center" alt="">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>    
+                </div>
+            </div>
+        </div>
+        
+        <!-- load image -->
+<script type="text/javascript">
+
+$(function() {
+  /*************** delete zone **********/
+  $(document).on('click', '.ViewImg', function () {
+     var imgLink = $(this).attr('imgLink');
+     $("#imgUrl").attr('src',imgLink);
+     $('#ImageModal').modal('show');
+});
+});
+
+</script>
 
         <!-- check image -->
         <script type="text/javascript">

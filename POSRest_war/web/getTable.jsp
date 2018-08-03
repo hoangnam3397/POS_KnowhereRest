@@ -270,7 +270,7 @@ $(document).on('click', '.deletezone', function () {
 <!-- /.Modal -->
 
 <!-- edit Zone Modal -->
-<div class="modal fade" id="EditZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade in" id="EditZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
  <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
