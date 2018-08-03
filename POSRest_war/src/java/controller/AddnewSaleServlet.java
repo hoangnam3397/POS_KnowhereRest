@@ -3,18 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
-import entity.CategoriesFacadeLocal;
 import entity.OrderDetails;
 import entity.OrderDetailsFacadeLocal;
 import entity.Orders;
 import entity.OrdersFacadeLocal;
-import entity.ProductsFacadeLocal;
 import entity.Tables;
 import entity.TablesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -27,42 +27,46 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nam_Nguyen
  */
-@WebServlet(name = "getCategoryToOrder", urlPatterns = {"/getCategoryToOrder"})
-public class getCategoryToOrder extends HttpServlet {
+@WebServlet(name = "AddnewSaleServlet", urlPatterns = {"/AddnewSaleServlet"})
+public class AddnewSaleServlet extends HttpServlet {
 
-    @EJB
-    CategoriesFacadeLocal cateFacade;
-    @EJB
-    ProductsFacadeLocal productFacade;
-    @EJB
-    TablesFacadeLocal tableFacade;
     @EJB
     OrdersFacadeLocal ordersFacade;
     @EJB
     OrderDetailsFacadeLocal orderDetailsFacade;
-
+    @EJB
+    TablesFacadeLocal tableFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String table = request.getParameter("table");
         String tableid = request.getParameter("tableid");
-        String storeId=request.getParameter("storeid");
-        request.setAttribute("storeid", storeId);
-        request.setAttribute("tableId", tableid);
-        request.setAttribute("table", table);
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.setAttribute("listPro", productFacade.showAllProduct());
+        String paymethod=request.getParameter("paymethod");
+        Double discount=Double.parseDouble(request.getParameter("discount"));
+        Double tax=Double.parseDouble(request.getParameter("tax"));
         Tables tables = tableFacade.find(tableid);
-        if (tables.getStatus() == false) {
-            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
-        } else {
-            Orders orders = ordersFacade.getByTableid(tableid);
-            List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
+        Orders orders = ordersFacade.getByTableid(tableid);
+        List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
+        float subt=0;
+        for (OrderDetails o : list) {
+            subt=subt+(o.getPrice().floatValue()*o.getQuantity());
         }
-
+        BigDecimal subtValue=BigDecimal.valueOf(subt);
+        orders.setPaymethod(paymethod);
+        orders.setDeleted(1);
+        orders.setSubtotal(subtValue);
+        orders.setDiscount(discount/100);
+        orders.setOrderTax(tax/100);
+        float total=(float) (subt-(subt*(discount/100))+(subt*(tax/100)));
+        BigDecimal totalValue=BigDecimal.valueOf(total);
+        orders.setTotal(totalValue);
+        ordersFacade.edit(orders);
+        tables.setStatus(false);
+        tableFacade.edit(tables);
+        
+        
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

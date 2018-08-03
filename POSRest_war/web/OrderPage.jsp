@@ -4,7 +4,7 @@
     Author     : Nam_Nguyen
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -187,67 +187,32 @@
                         <h3>Total</h3>
                     </div>
                     <div id="productList">
-                        <form action="loadOrderDetail?tableid=${tableId}" method="get">
-                            <c:forEach  items="${list}" var="o">
-                                <div class="panel panel-default product-details">
-                                    <div class="panel-body" style="">
-                                        <div class="col-xs-5 nopadding">
-                                            <div class="col-xs-2 nopadding">
-                                                <a href="javascript:void(0)" onclick="delete_posale('${o.orders.getOrderId()}', '${o.products.getProId()}')">
-                                                    <span class="fa-stack fa-sm productD">
-                                                        <i class="fa fa-circle fa-stack-2x delete-product"></i>
-                                                        <i class="fa fa-times fa-stack-1x fa-fw fa-inverse"></i>
-                                                    </span></a></div><div class="col-xs-10 nopadding"><span class="textPD">${o.products.getProName()}</span></div>
-                                        </div><div class="col-xs-2"><span class="textPD">${o.price}</span></div>
-                                        <div class="col-xs-3 nopadding productNum">
-                                            <a href="javascript:void(0)">
-                                                <span class="fa-stack fa-sm decbutton">
-                                                    <i class="fa fa-square fa-stack-2x light-grey"></i>
-                                                    <i class="fa fa-minus fa-stack-1x fa-inverse white"></i></span>
-                                            </a>
-                                            <input type="text" id="qt${o.orders.getOrderId()}${o.products.getProId()}" onchange="edit_posale('${o.orders.getOrderId()}', '${o.products.getProId()}')" class="form-control" value="${o.quantity}" placeholder="0" maxlength="3">
-                                            <a href="javascript:void(0)">
-                                                <span class="fa-stack fa-sm incbutton">
-                                                    <i class="fa fa-square fa-stack-2x light-grey"></i>
-                                                    <i class="fa fa-plus fa-stack-1x fa-inverse white"></i>
-                                                </span></a>
-                                        </div>
-                                        <div class="col-xs-2 nopadding ">
-                                            <span class="subtotal textPD">${o.price*o.quantity}</span>
-                                        </div>
-                                    </div>
-                                    <button type="button" onclick="addoptions(148, 2891)" class="btn btn-success btn-xs">Options</button>
-                                    <span id="pooptions-2891"> </span>
 
-                                </div>
-                            </c:forEach>
-                        </form>
 
                     </div>
                     <div class="footer-section">
-
                         <div class="table-responsive col-sm-12 totalTab">
                             <table class="table">
                                 <tr>
                                     <td class="active" width="40%">SubTotal</td>
-                                    <td class="whiteBg" width="60%"><span id="Subtot"></span>        ${totalprice}                <span class="float-right"><b id="ItemsNum"><span></span>${quant} items</b></span>
+                                    <td class="whiteBg" width="60%"><span id="Subtot"></span> VND                        <span class="float-right"><b id="ItemsNum"><span></span> items</b></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="active">Order TAX</td>
-                                    <td class="whiteBg"><input type="text" name="tax" value="5%" onchange="total_change()" id="num01" class="total-input TAX" placeholder="N/A"  maxlength="8">
+                                    <td class="whiteBg"><input type="text" name="tax" value="10" onchange="total_change()" id="tax" class="total-input TAX" placeholder="%"  maxlength="8">%
                                         <span class="float-right"><b id="taxValue"></b></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="active">Discount</td>
-                                    <td class="whiteBg"><input type="text" name="discount" value="0" onchange="total_change()" id="num02" class="total-input Remise" placeholder="N/A"  maxlength="8">
+                                    <td class="whiteBg"><input type="text" value="0" name="discount" onchange="total_change()" id="disc" class="total-input Remise" placeholder="%"  maxlength="8">%
                                         <span class="float-right"><b id="RemiseValue"></b></span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="active">Total</td>
-                                    <td class="whiteBg light-blue text-bold"><span id="total"></span> VND</td>
+                                    <td class="whiteBg light-blue text-bold"><span  id="total"></span> VND</td>
                                 </tr>
                             </table>
                         </div>
@@ -300,16 +265,148 @@
             </div>
         </div>
         <script type="text/javascript">
+            $(document).ready(function() {
+                var tableid = "${tableId}";
+                $('#productList').load("loadOrderDetail?tableid=" + tableid);
+                $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
 
+                $('.Paid').show();
+                $('.ReturnChange').show();
+                $('.CreditCardNum').hide();
+                $('.CreditCardHold').hide();
+                $('.ChequeNum').hide();
+                $('.stripe-btn').hide();
+
+
+
+                $("#paymentMethod").change(function() {
+
+                    var p_met = $(this).find('option:selected').val();
+
+                    if (p_met === '0') {
+                        $('.Paid').show();
+                        $('.ReturnChange').show();
+                        $('.CreditCardNum').hide();
+                        $('.CreditCardHold').hide();
+                        $('.CreditCardMonth').hide();
+                        $('.CreditCardYear').hide();
+                        $('.CreditCardCODECV').hide();
+                        $('#CreditCardNum').val('');
+                        $('#CreditCardHold').val('');
+                        $('#CreditCardYear').val('');
+                        $('#CreditCardMonth').val('');
+                        $('#CreditCardCODECV').val('');
+                        $('.stripe-btn').hide();
+                        $('.ChequeNum').hide();
+                    } else if (p_met === '1') {
+                        $('.Paid').show();
+                        $('.ReturnChange').hide();
+                        $('.CreditCardNum').show();
+                        $('.CreditCardHold').show();
+                        $('.CreditCardMonth').show();
+                        $('.CreditCardYear').show();
+                        $('.CreditCardCODECV').show();
+                        $('.stripe-btn').show();
+                        $('.ChequeNum').hide();
+                    } else if (p_met === '2') {
+                        $('.Paid').hide();
+                        $('.ReturnChange').hide();
+                        $('.CreditCardNum').hide();
+                        $('.CreditCardHold').hide();
+                        $('.CreditCardMonth').hide();
+                        $('.CreditCardYear').hide();
+                        $('.CreditCardCODECV').hide();
+                        $('#CreditCardNum').val('');
+                        $('#CreditCardHold').val('');
+                        $('#CreditCardYear').val('');
+                        $('#CreditCardMonth').val('');
+                        $('#CreditCardCODECV').val('');
+                        $('.stripe-btn').hide();
+                        $('.ChequeNum').show();
+                    }
+
+                });
+                /********************************* Credit Card infos section ****************************************/
+                $('#CreditCardNum').validateCreditCard(function(result) {
+                    var cardtype = result.card_type == null ? '-' : result.card_type.name;
+                    $('.CreditCardNum i').removeClass('dark-blue');
+                    $('#' + cardtype).addClass('dark-blue');
+                });
+
+                $('#CreditCardNum').keypress(function(e) {
+                    var data = $(this).val();
+                    if (data.length > 22) {
+
+                        if (e.keyCode == 13) {
+                            e.preventDefault();
+
+                            var c = new SwipeParserObj(data);
+
+                            $('#CreditCardNum').val(c.account);
+                            $('#CreditCardHold').val(c.account_name);
+                            $('#CreditCardYear').val(c.exp_year);
+                            $('#CreditCardMonth').val(c.exp_month);
+                            $('#CreditCardCODECV').val('');
+
+                        }
+                        else {
+                            $('#CreditCardNum').val('');
+                            $('#CreditCardHold').val('');
+                            $('#CreditCardYear').val('');
+                            $('#CreditCardMonth').val('');
+                            $('#CreditCardCODECV').val('');
+                        }
+
+                        $('#CreditCardCODECV').focus();
+                        $('#CreditCardNum').validateCreditCard(function(result) {
+                            var cardtype = result.card_type == null ? '-' : result.card_type.name;
+                            $('.CreditCardNum i').removeClass('dark-blue');
+                            $('#' + cardtype).addClass('dark-blue');
+                        });
+                    }
+
+                });
+
+
+                // ********************************* change calculations
+                $('#Paid').on('keyup', function() {
+                    var change = -(parseFloat($('#total').text()) - parseFloat($(this).val()));
+                    if (change < 0) {
+                        $('#ReturnChange span').text(change.toFixed(1));
+                        $('#ReturnChange span').addClass("red");
+                        $('#ReturnChange span').removeClass("light-blue");
+                    } else {
+                        $('#ReturnChange span').text(change.toFixed(1));
+                        $('#ReturnChange span').removeClass("red");
+                        $('#ReturnChange span').addClass("light-blue");
+                    }
+                });
+
+
+
+                //  search product
+                $("#searchProd").keyup(function() {
+                    // Retrieve the input field text
+                    var filter = $(this).val();
+                    // Loop through the list
+                    $("#productList2 #proname").each(function() {
+                        // If the list item does not contain the text phrase fade it out
+                        if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                            $(this).parent().parent().parent().hide();
+                            // Show the list item if the phrase matches
+                        } else {
+                            $(this).parent().parent().parent().show();
+                        }
+                    });
+                });
+            });
             function total_change() {
-                var subtot = $('Subtot').text();
-                var num01 = $('#num01').val();
-                var num02 = $('#num02').val();
-                $('#total').text(subtot - (subtot * num01) - (subtot * num02))
+                var subtot = $('#Subtot').text();
+                var tax = parseInt(subtot) * (parseFloat($('#tax').val()) / 100);
+                var discount = parseFloat(subtot) * (parseFloat($('#disc').val()) / 100);
 
-
-
-
+                $('#total').text((parseFloat(subtot) + Math.floor(tax)) - discount);
 
             }
 
@@ -334,13 +431,17 @@
             function delete_posale(orderid, productid)
             {
                 // ajax delete data to database
+                var tableid = "${tableId}";
 
                 $.ajax({
                     url: "deleteOrderDetailServlet?orderid=" + orderid + "&productid=" + productid,
                     type: "POST",
                     success: function()
                     {
-                        location.reload();
+
+                        $('#productList').load("loadOrderDetail?tableid=" + tableid);
+                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
                     },
                     error: function(jqXHR, textStatus, errorThrown)
                     {
@@ -349,6 +450,8 @@
                 });
 
             }
+
+
             function add_posale(tableid, productid)
             {
                 // ajax delete data to database
@@ -358,14 +461,16 @@
                     //data: {name: name1, price: price1, product_id: id, number: number, registerid: 75, waiter: waiterID},
                     success: function()
                     {
-
-                        location.reload();
+                        $('#productList').load("loadOrderDetail?tableid=" + tableid);
+                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
                     },
                     error: function(jqXHR, textStatus, errorThrown)
                     {
-                        alert(tableid);
+                        alert("error");
                     }
                 });
+
 
 
             }
@@ -377,7 +482,9 @@
                     type: "POST",
                     success: function()
                     {
-
+                        $('#productList').load("loadOrderDetail?tableid=" + tableid);
+                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
                     },
                     error: function(jqXHR, textStatus, errorThrown)
                     {
@@ -386,57 +493,42 @@
                 });
 
             }
-            function saleBtn(type) {
-                var clientID = $('#customerSelect').find('option:selected').val();
-                var clientName = $('#customerName span').text();
-                var Tax = $('.TAX').val();
+            function showticket() {
+                var hold = $('.selectedHold').attr("id");
+                var Total = $('#total').text();
+                var totalItems = $('#ItemsNum span').text();
+                var waiter = $('#WaiterName').val();
+                $('#printSection').load("http://www.dar-elweb.com/demos/zarest/pos/showticket/" + hold + "/" + Total + "/" + totalItems + "/" + waiter);
+                $('#ticket').modal('show');
+            }
+
+            function saleBtn() {
                 var Discount = $('.Remise').val();
                 var Subtotal = $('#Subtot').text();
-                var Total = $('#total').text();
-                var createdBy = 'admin Doe';
-                var totalItems = $('#ItemsNum span').text();
+                var Tax = $('.TAX').val();
                 var Paid = $('#Paid').val();
-                var paidMethod = $('#paymentMethod').find('option:selected').val();
-                var Status = 0;
-                var ccnum = $('#CreditCardNum').val();
-                var ccmonth = $('#CreditCardMonth').val();
-                var ccyear = $('#CreditCardYear').val();
-                var ccv = $('#CreditCardCODECV').val();
-                var waiter = $('#WaiterName').val();
-                switch (paidMethod) {
-                    case '1':
-                        paidMethod += '~' + $('#CreditCardNum').val() + '~' + $('#CreditCardHold').val();
-                        break;
-                    case '2':
-                        paidMethod += '~' + $('#ChequeNum').val()
-                        break;
-                    case '0':
-                        var change = parseFloat(Total) - parseFloat(Paid);
-                        if (change == parseFloat(Total))
-                            Status = 1;
-                        else if (change > 0)
-                            Status = 2;
-                        else if (change <= 0)
-                            Status = 0;
-                }
-                var taxamount = $('.TAX').val().indexOf('%') != -1 ? parseFloat($('#taxValue').text()) : $('.TAX').val();
-                var discountamount = $('.Remise').val().indexOf('%') != -1 ? parseFloat($('#RemiseValue').text()) : $('.Remise').val();
+                var tableid = "${tableId}";
+                var storeid = "${storeid}";
+                var change = $('#ReturnChange span').text();
+
+                $('#printSection').html();
+                $('#printSection').load("showTicketServlet?tableid=" + tableid + "&storeid=" + storeid + "&discount=" + Discount + "&paid=" + Paid + "&change=" + change + "&Tax=" + Tax);
 
                 $.ajax({
-                    url: "http://www.dar-elweb.com/demos/zarest/pos/AddNewSale/" + type,
+                    url: "AddnewSaleServlet?tableid=" + tableid + "&paymethod=Cash" + "&discount=" + Discount + "&tax=" + Tax,
                     type: "POST",
-                    data: {client_id: clientID, clientname: clientName, waiter_id: waiter, discountamount: discountamount, taxamount: taxamount, tax: Tax, discount: Discount, subtotal: Subtotal, total: Total, created_by: createdBy, totalitems: totalItems, paid: Paid, status: Status, paidmethod: paidMethod, ccnum: ccnum, ccmonth: ccmonth, ccyear: ccyear, ccv: ccv},
-                    success: function(data)
+                    success: function()
                     {
-                        $('#printSection').html(data);
-                        $('#productList').load("http://www.dar-elweb.com/demos/zarest/pos/load_posales");
-                        $('#ItemsNum span, #ItemsNum2 span').load("http://www.dar-elweb.com/demos/zarest/pos/totiems");
-                        $('#Subtot').load("http://www.dar-elweb.com/demos/zarest/pos/subtot", null, total_change);
+
+                        $('#productList').html("");
+                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
                         $('#AddSale').modal('hide');
                         $('#ticket').modal('show');
                         $('#ReturnChange span').text('0');
                         $('#Paid').val('0');
-                        $('.holdList').load("http://www.dar-elweb.com/demos/zarest/pos/holdList/75");
+
+
                     },
                     error: function(jqXHR, textStatus, errorThrown)
                     {
@@ -469,14 +561,7 @@
                             <div class="form-group">
                                 <h2 id="TotalModal"></h2>
                             </div>
-                            <div class="form-group">
-                                <label for="paymentMethod">Payment method:</label>
-                                <select class="js-select-options form-control" id="paymentMethod">
-                                    <option value="0">Cash</option>
-                                    <option value="1">Credit Card</option>
-                                    <option value="2">Cheque</option>
-                                </select>
-                            </div>
+
                             <div class="form-group Paid">
                                 <label for="Paid">Paid</label>
                                 <input type="text" value="0" name="paid" class="form-control paidk" id="Paid" placeholder="Paid">
@@ -507,13 +592,13 @@
                                 <input type="text" name="chequenum" class="form-control" id="ChequeNum" placeholder="Cheque Number">
                             </div>
                             <div class="form-group ReturnChange">
-                                <h3 id="ReturnChange">Change <span>0</span> IDR</h3>
+                                <h3 id="ReturnChange">Change <span>0</span> VND</h3>
                             </div>
                             <div class="clearfix"></div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-add" onclick="saleBtn(1)">Submit</button>
+                            <button type="button" class="btn btn-add" onclick="saleBtn()">Submit</button>
                         </div>
                     </form>    </div>
             </div>

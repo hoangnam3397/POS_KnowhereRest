@@ -96,6 +96,7 @@ public class AddOrderServlet extends HttpServlet {
             od.setQuantity(1);
             od.setOptionvalue("");
             orderDetailsFacade.create(od);
+            
         } else {
             Orders orderAdd = ordersFacade.getByTableid(tableid);
             List<OrderDetails> listOrderDetail = orderDetailsFacade.findByProduct(productid, orderAdd.getOrderId());
@@ -115,6 +116,7 @@ public class AddOrderServlet extends HttpServlet {
                 orderDetailsFacade.create(od);
 
             }
+            
             /*for (int i = 0; i < listOrderDetail.size(); i++) {
              if (productid.equals(listOrderDetail.get(i).getProducts().getProId())) {
              listOrderDetail.get(i).setQuantity(listOrderDetail.get(i).getQuantity() + 1);
@@ -133,6 +135,7 @@ public class AddOrderServlet extends HttpServlet {
         
              //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");*/
         }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
