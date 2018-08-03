@@ -123,10 +123,7 @@ public class insertProductServlet extends HttpServlet {
                         switch (item.getFieldName()){                            
                             case "pro_name":
                                 System.out.println("ProName: " + item.getString());
-//                                pro.setProName(item.getString());
-                                request.setCharacterEncoding("UTF-8"); 
-                                String value = new String(item.getString().getBytes(), "UTF-8");
-                                pro.setProName(value);
+                                pro.setProName(item.getString());             
                                 continue;
                             case "cate":
                                 System.out.println("Cate: " + item.getString());
