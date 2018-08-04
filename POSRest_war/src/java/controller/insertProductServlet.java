@@ -111,13 +111,17 @@ public class insertProductServlet extends HttpServlet {
                     // processes only fields that are not form fields
                     if (!item.isFormField()) {
                         String fileName = new File(item.getName()).getName();
-                        String filePath = uploadPath + File.separator + pro_id + ".jpg";
-                        File storeFile = new File(filePath);                        
-                        // saves the file on disk
-                        item.write(storeFile);
-                        
-                        String proLink=(UPLOAD_DIRECTORY + "/" + pro_id + ".jpg");
-                        pro.setImagelink(proLink);
+                        if(fileName.isEmpty()){
+                            pro.setImagelink(null);
+                        }else{
+                            String filePath = uploadPath + File.separator + pro_id + ".jpg";
+                            File storeFile = new File(filePath);                        
+                            // saves the file on disk
+                            item.write(storeFile);
+
+                            String proLink=(UPLOAD_DIRECTORY + "/" + pro_id + ".jpg");
+                            pro.setImagelink(proLink);
+                        }                       
                     }else{
                         // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
                         switch (item.getFieldName()){                            

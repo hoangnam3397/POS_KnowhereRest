@@ -295,20 +295,78 @@
                 </div>
             </div>
         </div>
-        
+
+        <div class="modal fade" id="PrintMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Menu</h4>
+                    </div>    
+                    <div class="modal-body" id="modal-body">
+                        <div id="printmenusection">
+                            <div id="printSectionInvoice">
+                                <center><h1 style="font-family: 'Pinyon Script', cursive;font-size:65px;">Menu</h1></center>
+                                    <c:forEach var="Cate" items="${listCate}">
+                                    <div class="headline">
+                                        <h1>
+                                            <i class="fa fa-star opacity-large"></i>
+                                            <i class="fa fa-star opacity-medium"></i>
+                                            <i class="fa fa-star opacity-medium"></i>
+                                            <i class="fa fa-star opacity-small"></i>
+                                            &nbsp;
+                                            ${Cate.catName}                  &nbsp;
+                                            <i class="fa fa-star opacity-small"></i>
+                                            <i class="fa fa-star opacity-medium"></i>
+                                            <i class="fa fa-star opacity-medium"></i>
+                                            <i class="fa fa-star opacity-large"></i>
+                                        </h1>
+                                    </div><hr>
+                                    <div class="row">
+                                        <c:forEach var="Product" items="${listPro}">                                       
+                                            <c:if test="${Cate.catId==Product.catId.catId}">
+                                                <div class="col-xs-6">
+                                                    <div class="media" style="height: 100px;">
+                                                        <div class="media-left">
+                                                            <a href="#">
+                                                                <img class="img-rounded media-object" style="max-width: 64px;max-height: 64px;" src="${Product.imagelink}" alt="food">
+                                                            </a>
+                                                        </div>
+                                                        <div class="media-body">
+                                                            <h4 class="media-heading" style="font-family: 'Kaushan Script', cursive;">${Product.proName} <span class="label label-danger pull-right">${Product.price} VND</span></h4>
+                                                            <div class="grey">${Product.description}</div>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                                                                                                        
+                                            </c:if>                                       
+                                        </c:forEach>
+                                    </div>     
+                                </c:forEach>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-add hiddenpr" onclick="PrintTicket()">print</button>
+                    </div>    
+                </div>
+            </div>
+        </div>
+
+
         <!-- load image -->
-<script type="text/javascript">
+        <script type="text/javascript">
 
-$(function() {
-  /*************** delete zone **********/
-  $(document).on('click', '.ViewImg', function () {
-     var imgLink = $(this).attr('imgLink');
-     $("#imgUrl").attr('src',imgLink);
-     $('#ImageModal').modal('show');
-});
-});
+            $(function() {
+                /*************** delete zone **********/
+                $(document).on('click', '.ViewImg', function() {
+                    var imgLink = $(this).attr('imgLink');
+                    $("#imgUrl").attr('src', imgLink);
+                    $('#ImageModal').modal('show');
+                });
+            });
 
-</script>
+        </script>
 
         <!-- check image -->
         <script type="text/javascript">
