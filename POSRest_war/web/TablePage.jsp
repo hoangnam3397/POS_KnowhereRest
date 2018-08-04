@@ -74,7 +74,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/maroon-logo.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
+                    <a class="navbar-brand" href="#"><img src="images/icons/Untitled.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
                 </div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -132,7 +132,6 @@
                 <li data-toggle="tooltip"  data-html="true" data-placement="left" title="switch&nbsp;store"><a href="pos/switshregister"><i class="fa fa-random" aria-hidden="true"></i></a></li>
                 <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
             </ul>
-            <a class="btn btn-green float-right" style="margin-top:60px" href="pos/selectTable/0">Walk in Customer</a>
 
             <c:forEach var="zone" items="${zonelist}">
                 <div class="row">

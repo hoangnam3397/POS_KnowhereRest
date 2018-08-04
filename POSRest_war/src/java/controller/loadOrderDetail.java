@@ -66,7 +66,7 @@ public class loadOrderDetail extends HttpServlet {
 "                                                    <i class=\"fa fa-square fa-stack-2x light-grey\"></i>\n" +
 "                                                    <i class=\"fa fa-minus fa-stack-1x fa-inverse white\"></i></span>\n" +
 "                                            </a>\n" +
-"                                    <input type=\"text\" id=\"qt${o.orders.getOrderId()}${o.products.getProId()}\" onchange=\"edit_posale('${o.orders.getOrderId()}', '${o.products.getProId()}')\" class=\"form-control\" value=\""+""+o.getQuantity()+""+"\" placeholder=\"0\" maxlength=\"3\">\n" +
+"                                    <input type=\"text\" id=\"qt"+o.getOrders().getOrderId()+o.getProducts().getProId()+"\" onchange=\"edit_posale("+"'"+o.getOrders().getOrderId()+"'"+"," +"'"+o.getProducts().getProId()+"')\" class=\"form-control\" value=\""+""+o.getQuantity()+""+"\" placeholder=\"0\" maxlength=\"3\">\n" +
 "                                            <a href=\"javascript:void(0)\">\n" +
 "                                                <span class=\"fa-stack fa-sm incbutton\">\n" +
 "                                                    <i class=\"fa fa-square fa-stack-2x light-grey\"></i>\n" +
@@ -77,14 +77,14 @@ public class loadOrderDetail extends HttpServlet {
 "                                            <span class=\"subtotal textPD\">"+o.getPrice().floatValue()*o.getQuantity()+"</span>\n" +
 "                                        </div>\n" +
 "                                    </div>\n" +
-"                                    <button type=\"button\" onclick=\"addoptions(148, 2891)\" class=\"btn btn-success btn-xs\">Options</button>\n" +
+"                                    <button type=\"button\" onclick=\"addoptions("+"'"+o.getOrders().getOrderId()+"'"+"," +"'"+o.getProducts().getProId()+"')\" class=\"btn btn-success btn-xs\">Options</button>\n" +
 "                                    <span id=\"pooptions-2891\"> </span>\n" +
 "\n" +
 "                                </div></div>";
            data=data+quant;
             
         }
-        data+="<script type=\"text/javascript\">$(\".incbutton\").on(\"click\", function() {var $button = $(this);var oldValue = $button.parent().parent().find(\"input\").val();var newVal = parseFloat(oldValue) + 1;$button.parent().parent().find(\"input\").val(newVal);edit_posale($button.parent().parent().find(\"input\").attr(\"id\").slice(3));});$(\".decbutton\").on(\"click\", function() {var $button = $(this);var oldValue = $button.parent().parent().find(\"input\").val();if (oldValue > 1) {var newVal = parseFloat(oldValue) - 1;} else {newVal = 1;}$button.parent().parent().find(\"input\").val(newVal);edit_posale($button.parent().parent().find(\"input\").attr(\"id\").slice(3));});</script>";
+        data+="<script type=\"text/javascript\">$(\".incbutton\").on(\"click\", function() {var $button = $(this);var oldValue = $button.parent().parent().find(\"input\").val();var newVal = parseFloat(oldValue) + 1;$button.parent().parent().find(\"input\").val(newVal);edit_posale($button.parent().parent().find(\"input\").attr(\"id\").slice(2,11),$button.parent().parent().find(\"input\").attr(\"id\").slice(11));});$(\".decbutton\").on(\"click\", function() {var $button = $(this);var oldValue = $button.parent().parent().find(\"input\").val();if (oldValue > 1) {var newVal = parseFloat(oldValue) - 1;} else {newVal = 1;}$button.parent().parent().find(\"input\").val(newVal);edit_posale($button.parent().parent().find(\"input\").attr(\"id\").slice(2,11),$button.parent().parent().find(\"input\").attr(\"id\").slice(11));});</script>";
         
         }else{
             data="<div class=\"messageVide\">  EmptyList   <span>  SelectProduct  </span></div>";

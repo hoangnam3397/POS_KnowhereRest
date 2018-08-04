@@ -74,7 +74,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/maroon-logo.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
+                    <a class="navbar-brand" href="#"><img src="images/icons/Untitled.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
                 </div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

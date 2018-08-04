@@ -74,7 +74,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="getStoreServlet"><img src="images/maroon-logo.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
+                    <a class="navbar-brand" href="getStoreServlet"><img src="images/icons/Untitled.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
                 </div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -128,7 +128,6 @@
             </div>
             <div class="row">
                 <ul class="cbp-vimenu2">
-                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Cancel&nbsp;All"><a href="javascript:void(0)" onclick="CloseTable()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="getTableOfZoneFromStore?storeid=${storeid}"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="getTableToKitchen?storeid=${storeid}"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
                 </ul>
@@ -270,7 +269,7 @@
                 $('.CreditCardHold').hide();
                 $('.ChequeNum').hide();
                 $('.stripe-btn').hide();
-                
+
 
 
 
@@ -491,6 +490,7 @@
             function edit_posale(orderid, productid)
             {
                 var qt1 = $('#qt' + orderid + productid).val();
+                var tableid = "${tableId}";
                 $.ajax({
                     url: "editOrderDetail?orderid=" + orderid + "&productid=" + productid + "&quantity=" + qt1,
                     type: "POST",
@@ -555,10 +555,48 @@
                 });
             }
             function PrintTicket() {
-                    $('.modal-body').removeAttr('id');
-                    window.print();
-                    $('.modal-body').attr('id', 'modal-body');
-                }
+                $('.modal-body').removeAttr('id');
+                window.print();
+                $('.modal-body').attr('id', 'modal-body');
+            }
+            function cancelPOS() {
+                swal({title: 'Are you sure ?',
+                    text: 'You will not be able to recover this Data later!',
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: 'Yes, delete it!',
+                    closeOnConfirm: false},
+                function() {
+
+                    var tableid = "${tableId}";
+                    $('.Remise').val('0');
+                    $('.TAX').val('0');
+                    
+
+                    $.ajax({
+                        url: "CancelServlet?tableid="+tableid,
+                        type: "POST",
+                        success: function()
+                        {
+                             $('#productList').html("");
+                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
+                        $('#ReturnChange span').text('0');
+                        $('#Paid').val('0');
+                        $('#Subtot').text('0');
+                        $('.TAX').val('0');
+                        $('.Remise').val('0')
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert("error");
+                        }
+                    });
+                    swal('Deleted!', 'the data has been deleted.', "success");
+                });
+            }
+            ;
 
 
 
