@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>POS - point of sale Dar Elweb</title>
+        <title>POS - point of sale WA</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -74,7 +74,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/maroon-logo.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
+                    <a class="navbar-brand" href="getStoreServlet"><img src="images/maroon-logo.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
                 </div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -87,19 +87,17 @@
                             <ul class="dropdown-menu">
                                 <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Waiters</span></a></li>
                                 <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
-                                <li class="flat-box"><a href="#"><i class="fa fa-truck"></i> <span class="menu-text">Suppliers</span></a></li>
                             </ul>
                         </li>
                         <li class="flat-box"><a href="#"><i class="fa fa-ticket"></i> <span class="menu-text">Sales</span></a></li>
-                        <li class="flat-box"><a href="#"><i class="fa fa-usd"></i> <span class="menu-text">Expense</span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bookmark"></i> <span class="menu-text">Categories </span><span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
-                                <li class="flat-box"><a href="#"><i class="fa fa-usd"></i> <span class="menu-text">Expense</span></a></li>
+
                             </ul>
                         </li>
-                        <li class="flat-box"><a href="#"><i class="fa fa-cogs"></i> <span class="menu-text">Setting</span></a></li>                 <li class="flat-box"><a href="http://www.dar-elweb.com/demos/zarest/stats"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
+                        <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-cogs"></i> <span class="menu-text">Setting</span></a></li>                 <li class="flat-box"><a href="http://www.dar-elweb.com/demos/zarest/stats"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">
                                 <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
@@ -110,10 +108,6 @@
                             <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 <img src="images/en.png" class="flag" alt="language">
                                 <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li class="flat-box"><a href="#"><img src="images/en.png" class="flag" alt="language"> English</a></li>
-                                <li class="flat-box"><a href="#"><img src="images/vn.png" class="flag" alt="language"> Vietnam</a></li>
-                            </ul>
                         </li>
                         <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
                     </ul>
@@ -136,7 +130,7 @@
                 <ul class="cbp-vimenu2">
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Cancel&nbsp;All"><a href="javascript:void(0)" onclick="CloseTable()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="getTableOfZoneFromStore?storeid=${storeid}"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
-                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
+                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="getTableToKitchen?storeid=${storeid}"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
                 </ul>
                 <div class="col-md-5 left-side">
                     <div class="col-xs-8">
@@ -157,20 +151,19 @@
                         </a>
                     </div>
                     <div class="col-sm-6">
-                        <select class="js-select-options form-control" id="customerSelect">
-                            <option value="0">Walk in Customer</option>
-                            <option value="13">Floridalma Leiva Valdez / </option>
-                            <option value="14">mohsinkhan / 9167118387</option>
-                            <option value="15">roberto guardado / 943472452</option>
-                            <option value="16">JAI / 9923231883</option>
-                            <option value="17">jay / 9838389389</option>
+                        <select class="js-select-options form-control"  name="customer" id="customerSelect">
+                            <c:forEach items="${listCus}" var="cus">
+                                <option value="${cus.cusId}">${cus.cusName}</option>
+                            </c:forEach>
+
                         </select>
                         <span class="hidden" id="customerS"></span>
                     </div>
                     <div class="col-sm-6">
-                        <select class="js-select-options form-control" id="WaiterName">
-                            <option value="0">without Waiter</option>
-                            <option value="7">Sean Wong</option>
+                        <select class="js-select-options form-control" name="employee" id="WaiterName">
+                            <c:forEach items="${listEmp}" var="emp">
+                                <option value="${emp.empId}">${emp.empName}</option>
+                            </c:forEach>
                         </select>
                         <span class="hidden" id="waiterS"></span>
                     </div>
@@ -277,6 +270,7 @@
                 $('.CreditCardHold').hide();
                 $('.ChequeNum').hide();
                 $('.stripe-btn').hide();
+                
 
 
 
@@ -409,6 +403,26 @@
                 $('#total').text((parseFloat(subtot) + Math.floor(tax)) - discount);
 
             }
+            $("#customerSelect").change(function() {
+                var id = $("#customerSelect option:selected").attr("value");
+                var cusname = $("#customerSelect option:selected").text();
+                $('#customerName span').text(cusname);
+
+                $.ajax({
+                    url: "loadDiscountServlet?id=" + id,
+                    type: "GET",
+                    success: function(responseText)
+                    {
+                        $('#disc').val(responseText);
+                        total_change();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error")
+                    }
+                });
+            });
+
 
 
             $(".categories").on("click", function() {
@@ -503,17 +517,18 @@
             }
 
             function saleBtn() {
+                var Cusid = $("#customerSelect option:selected").attr("value");
                 var Discount = $('.Remise').val();
                 var Subtotal = $('#Subtot').text();
                 var Tax = $('.TAX').val();
-                var Paid = $('#Paid').val();
+                var paid = $('#Paid').val();
                 var tableid = "${tableId}";
                 var storeid = "${storeid}";
                 var change = $('#ReturnChange span').text();
 
-                $('#printSection').html();
-                $('#printSection').load("showTicketServlet?tableid=" + tableid + "&storeid=" + storeid + "&discount=" + Discount + "&paid=" + Paid + "&change=" + change + "&Tax=" + Tax);
 
+                $('#printSection').html();
+                $('#printSection').load("showTicketServlet?tableid=" + tableid + "&storeid=" + storeid + "&discount=" + Discount + "&Tax=" + Tax + "&paid=" + paid + "&change=" + change + "&customerid=" + Cusid);
                 $.ajax({
                     url: "AddnewSaleServlet?tableid=" + tableid + "&paymethod=Cash" + "&discount=" + Discount + "&tax=" + Tax,
                     type: "POST",
@@ -527,6 +542,9 @@
                         $('#ticket').modal('show');
                         $('#ReturnChange span').text('0');
                         $('#Paid').val('0');
+                        $('#Subtot').text('0');
+                        $('.TAX').val('0');
+                        $('.Remise').val('0')
 
 
                     },
@@ -536,6 +554,11 @@
                     }
                 });
             }
+            function PrintTicket() {
+                    $('.modal-body').removeAttr('id');
+                    window.print();
+                    $('.modal-body').attr('id', 'modal-body');
+                }
 
 
 
@@ -622,9 +645,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-add hiddenpr" href="javascript:void(0)" onClick="pdfreceipt()">PDF</button>
-                        <button type="button" class="btn btn-add hiddenpr" onclick="email()">email</button>
-                        <button type="button" class="btn btn-add hiddenpr" onclick="PrintTicket()">print</button>
+                        <button type="button" class="btn btn-add hiddenpr" onclick="PrintTicket()">Print</button>
                     </div>
                 </div>
             </div>

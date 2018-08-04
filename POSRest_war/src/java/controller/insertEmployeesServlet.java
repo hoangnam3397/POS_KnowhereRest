@@ -25,22 +25,6 @@ public class insertEmployeesServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        request.setAttribute("list", rolesFacade.findAll());
-        request.getRequestDispatcher("insertEmployees.jsp").forward(request, response);
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
         int num = employeesFacade.count() + 1;
         String id = num + "";
         int lenNum = 7;
@@ -50,16 +34,41 @@ public class insertEmployeesServlet extends HttpServlet {
         }
         String emp_id = "EMP" + id;
         String emp_name = request.getParameter("emp_name");
-        String role_id = request.getParameter("rol");
+        String role_id = request.getParameter("role");
         Roles rol = rolesFacade.find(role_id);
         String username = request.getParameter("user");
         String password = request.getParameter("pass");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
         int del = 0;
-        Employees emp = new Employees(emp_id, emp_name, username, password, email, phone, null, del, rol);
+        Employees emp = new Employees();
+
+        emp.setEmpId(emp_id);
+        emp.setEmpName(emp_name);
+        emp.setUsername(username);
+        emp.setPassword(password);
+        emp.setEmail(email);
+        emp.setPhone(phone);
+        emp.setDeleted(del);
+        emp.setRoleId(rol);
         employeesFacade.create(emp);
         request.getRequestDispatcher("getEmployeesServlet").forward(request, response);
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+        
     }
 
     @Override

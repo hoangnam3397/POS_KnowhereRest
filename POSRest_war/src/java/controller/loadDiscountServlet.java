@@ -3,21 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
-import entity.CategoriesFacadeLocal;
 import entity.CustomersFacadeLocal;
-import entity.EmployeesFacadeLocal;
-import entity.OrderDetails;
-import entity.OrderDetailsFacadeLocal;
-import entity.Orders;
-import entity.OrdersFacadeLocal;
-import entity.ProductsFacadeLocal;
-import entity.Tables;
-import entity.TablesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,48 +20,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Nam_Nguyen
  */
-@WebServlet(name = "getCategoryToOrder", urlPatterns = {"/getCategoryToOrder"})
-public class getCategoryToOrder extends HttpServlet {
+@WebServlet(name = "loadDiscountServlet", urlPatterns = {"/loadDiscountServlet"})
+public class loadDiscountServlet extends HttpServlet {
 
-    @EJB
-    CategoriesFacadeLocal cateFacade;
-    @EJB
-    ProductsFacadeLocal productFacade;
-    @EJB
-    TablesFacadeLocal tableFacade;
-    @EJB
-    OrdersFacadeLocal ordersFacade;
-    @EJB
-    OrderDetailsFacadeLocal orderDetailsFacade;
     @EJB
     CustomersFacadeLocal customersFacade;
-    @EJB
-    EmployeesFacadeLocal employeesFacade;
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String table = request.getParameter("table");
-        String tableid = request.getParameter("tableid");
-        String storeId=request.getParameter("storeid");
-        request.setAttribute("storeid", storeId);
-        request.setAttribute("tableId", tableid);
-        request.setAttribute("table", table);
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.setAttribute("listPro", productFacade.showAllProduct());
-        request.setAttribute("listCus", customersFacade.findAll());
-        request.setAttribute("listEmp", employeesFacade.showAllEployees());
-        Tables tables = tableFacade.find(tableid);
-        if (tables.getStatus() == false) {
-            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
-        } else {
-            Orders orders = ordersFacade.getByTableid(tableid);
-            List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
-        }
-
+        String id=request.getParameter("id");
+        String discount=String.valueOf(customersFacade.find(id).getDiscount());
+        response.getWriter().print(discount);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

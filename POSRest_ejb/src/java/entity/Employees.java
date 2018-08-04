@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package entity;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,12 +16,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,18 +32,12 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findAll", query = "SELECT e FROM Employees e"),
     @NamedQuery(name = "Employees.findByEmpId", query = "SELECT e FROM Employees e WHERE e.empId = :empId"),
     @NamedQuery(name = "Employees.findByEmpName", query = "SELECT e FROM Employees e WHERE e.empName = :empName"),
-    @NamedQuery(name = "Employees.findByUser", query = "SELECT e FROM Employees e WHERE e.user = :user"),
+    @NamedQuery(name = "Employees.findByUsername", query = "SELECT e FROM Employees e WHERE e.username = :username"),
     @NamedQuery(name = "Employees.findByPassword", query = "SELECT e FROM Employees e WHERE e.password = :password"),
     @NamedQuery(name = "Employees.findByEmail", query = "SELECT e FROM Employees e WHERE e.email = :email"),
     @NamedQuery(name = "Employees.findByPhone", query = "SELECT e FROM Employees e WHERE e.phone = :phone"),
     @NamedQuery(name = "Employees.findByDeleted", query = "SELECT e FROM Employees e WHERE e.deleted = :deleted")})
 public class Employees implements Serializable {
-
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "username", nullable = false, length = 50)
-    private String username;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -61,8 +53,8 @@ public class Employees implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
-    @Column(name = "user", nullable = false, length = 50)
-    private String user;
+    @Column(name = "username", nullable = false, length = 50)
+    private String username;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -86,8 +78,6 @@ public class Employees implements Serializable {
     @NotNull
     @Column(name = "deleted", nullable = false)
     private int deleted;
-    @OneToMany(mappedBy = "empId")
-    private Collection<Orders> ordersCollection;
     @JoinColumn(name = "role_id", referencedColumnName = "role_id")
     @ManyToOne
     private Roles roleId;
@@ -99,23 +89,10 @@ public class Employees implements Serializable {
         this.empId = empId;
     }
 
-    public Employees(String empId, String empName, String username, String password, String email, String phone, String avatarlink, int deleted, Roles roleId) {
-
+    public Employees(String empId, String empName, String username, String password, String phone, int deleted) {
         this.empId = empId;
         this.empName = empName;
         this.username = username;
-        this.password = password;
-        this.email = email;
-        this.phone = phone;
-        this.avatarlink = avatarlink;
-        this.deleted = deleted;
-        this.roleId = roleId;
-    }
-
-    public Employees(String empId, String empName, String user, String password, String phone, int deleted) {
-        this.empId = empId;
-        this.empName = empName;
-        this.user = user;
         this.password = password;
         this.phone = phone;
         this.deleted = deleted;
@@ -137,12 +114,12 @@ public class Employees implements Serializable {
         this.empName = empName;
     }
 
-    public String getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(String user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -185,15 +162,6 @@ public class Employees implements Serializable {
         this.deleted = deleted;
     }
 
-    @XmlTransient
-    public Collection<Orders> getOrdersCollection() {
-        return ordersCollection;
-    }
-
-    public void setOrdersCollection(Collection<Orders> ordersCollection) {
-        this.ordersCollection = ordersCollection;
-    }
-
     public Roles getRoleId() {
         return roleId;
     }
@@ -226,13 +194,5 @@ public class Employees implements Serializable {
     public String toString() {
         return "entity.Employees[ empId=" + empId + " ]";
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    
 }

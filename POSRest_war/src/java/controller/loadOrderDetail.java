@@ -87,7 +87,7 @@ public class loadOrderDetail extends HttpServlet {
         data+="<script type=\"text/javascript\">$(\".incbutton\").on(\"click\", function() {var $button = $(this);var oldValue = $button.parent().parent().find(\"input\").val();var newVal = parseFloat(oldValue) + 1;$button.parent().parent().find(\"input\").val(newVal);edit_posale($button.parent().parent().find(\"input\").attr(\"id\").slice(3));});$(\".decbutton\").on(\"click\", function() {var $button = $(this);var oldValue = $button.parent().parent().find(\"input\").val();if (oldValue > 1) {var newVal = parseFloat(oldValue) - 1;} else {newVal = 1;}$button.parent().parent().find(\"input\").val(newVal);edit_posale($button.parent().parent().find(\"input\").attr(\"id\").slice(3));});</script>";
         
         }else{
-            data="<div class=\"messageVide\">' . label(\"EmptyList\") . ' <span>(' . label(\"SelectProduct\") . ')</span></div>";
+            data="<div class=\"messageVide\">  EmptyList   <span>  SelectProduct  </span></div>";
         }
         response.getWriter().print(data);
         

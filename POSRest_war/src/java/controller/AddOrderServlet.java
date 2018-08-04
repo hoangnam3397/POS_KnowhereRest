@@ -67,10 +67,11 @@ public class AddOrderServlet extends HttpServlet {
             }
             String orderid = "OD" + id;
             Date date = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Calendar c = Calendar.getInstance();
-            c.setTime(date);
-            c.add(Calendar.DATE, 1);
-            date = c.getTime();
+           // c.setTime(date);
+            //c.add(Calendar.DATE, 1);
+            
             /*orders.setOrderId(orderid);
              orders.setPaymethod("unpaid");
              orders.setDeleted(0);

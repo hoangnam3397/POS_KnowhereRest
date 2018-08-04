@@ -3,6 +3,7 @@
 package controller;
 
 import entity.EmployeesFacadeLocal;
+import entity.RolesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -21,12 +22,15 @@ public class getEmployeesServlet extends HttpServlet {
 
   @EJB 
   private EmployeesFacadeLocal employeesFacade;
+  @EJB 
+  private RolesFacadeLocal rolesFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         request.setAttribute("list", employeesFacade.findAll());
-        request.getRequestDispatcher("getEmployees.jsp").forward(request, response);       
+        request.setAttribute("listRole", rolesFacade.findAll());
+        request.getRequestDispatcher("setting.jsp").forward(request, response);       
     
     }
 

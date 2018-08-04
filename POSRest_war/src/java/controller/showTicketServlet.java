@@ -5,6 +5,7 @@
  */
 package controller;
 
+import entity.CustomersFacadeLocal;
 import entity.OrderDetails;
 import entity.OrderDetailsFacadeLocal;
 import entity.Orders;
@@ -15,6 +16,8 @@ import entity.Tables;
 import entity.TablesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -38,6 +41,8 @@ public class showTicketServlet extends HttpServlet {
     TablesFacadeLocal tableFacade;
     @EJB
     StoresFacadeLocal storesFacade;
+    @EJB 
+    CustomersFacadeLocal customersFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,22 +50,24 @@ public class showTicketServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String tableid = request.getParameter("tableid");
         String storeid = request.getParameter("storeid");
+        String customerid=request.getParameter("customerid");
         Double discount = Double.parseDouble(request.getParameter("discount"));
         Double Tax = Double.parseDouble(request.getParameter("Tax"));
-        String paid=request.getParameter("paid");
+            String paid=request.getParameter("paid");
         String change=request.getParameter("change");
         Stores stores = storesFacade.find(storeid);
         Tables tables = tableFacade.find(tableid);
         Orders orders = ordersFacade.getByTableid(tableid);
         List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         String ticket = "";
         if (list.size() > 0) {
             ticket = "<div class=\"col-md-12\">"
                     + "<div class=\"text-center\">" + stores.getStoName() + "</div>"
                     + "<div style=\"clear:both;\">"
                     + "<h4 class=\"text-center\">Sale No.:" + orders.getOrderId().substring(2)
-                    + "</h4> <div style=\"clear:both;\"></div><span class=\"float-left\">Date:" + orders.getOrdertime()
-                    + "</span><br><div style=\"clear:both;\"><span class=\"float-left\">Customer: Muhammad Haroon</span>"
+                    + "</h4> <div style=\"clear:both;\"></div><span class=\"float-left\">Date:" + dateFormat.format(orders.getOrdertime())
+                    + "</span><br><div style=\"clear:both;\"><span class=\"float-left\">Customer:"+ customersFacade.find(customerid).getCusName()+"</span>"
                     + "<div style=\"clear:both;\">"
                     + "<table class=\"table\" cellspacing=\"0\" border=\"0\">"
                     + "<thead>"
@@ -75,8 +82,9 @@ public class showTicketServlet extends HttpServlet {
             
             float total = 0;
             for (OrderDetails o : list) {
+                index+=1;
                 ticket += "<tr>"
-                        + "<td style=\"text-align:center; width:30px;\">" + index + 1 + "</td>"
+                        + "<td style=\"text-align:center; width:30px;\">" + index + "</td>"
                         + "<td style=\"text-align:left; width:180px;\">" + o.getProducts().getProName() + "</td>"
                         + "<td style=\"text-align:center; width:50px;\">" + o.getQuantity() + "</td>"
                         + "<td style=\"text-align:right; width:70px; \">" + o.getPrice().floatValue() * o.getQuantity() + "</td>"

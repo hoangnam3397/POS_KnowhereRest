@@ -37,9 +37,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "OrderDetails.findByDiscount", query = "SELECT o FROM OrderDetails o WHERE o.discount = :discount"),
     @NamedQuery(name = "OrderDetails.findByOptionvalue", query = "SELECT o FROM OrderDetails o WHERE o.optionvalue = :optionvalue")})
 public class OrderDetails implements Serializable {
-    @Size(max = 150)
-    @Column(name = "option", length = 150)
-    private String option;
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected OrderDetailsPK orderDetailsPK;
@@ -65,10 +62,10 @@ public class OrderDetails implements Serializable {
     @JoinColumn(name = "pro_id", referencedColumnName = "pro_id", nullable = false, insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Products products;
-    
 
     public OrderDetails() {
     }
+
     public OrderDetails(OrderDetailsPK orderDetailsPK) {
         this.orderDetailsPK = orderDetailsPK;
     }
@@ -79,17 +76,6 @@ public class OrderDetails implements Serializable {
         this.price = price;
         this.discount = discount;
     }
-
-    public OrderDetails(OrderDetailsPK orderDetailsPK, int quantity, BigDecimal price, double discount, String optionvalue, Orders orders, Products products) {
-        this.orderDetailsPK = orderDetailsPK;
-        this.quantity = quantity;
-        this.price = price;
-        this.discount = discount;
-        this.optionvalue = optionvalue;
-        this.orders = orders;
-        this.products = products;
-    }
-    
 
     public OrderDetails(String orderId, String proId) {
         this.orderDetailsPK = new OrderDetailsPK(orderId, proId);
@@ -149,7 +135,6 @@ public class OrderDetails implements Serializable {
 
     public void setProducts(Products products) {
         this.products = products;
-        
     }
 
     @Override
@@ -175,14 +160,6 @@ public class OrderDetails implements Serializable {
     @Override
     public String toString() {
         return "entity.OrderDetails[ orderDetailsPK=" + orderDetailsPK + " ]";
-    }
-
-    public String getOption() {
-        return option;
-    }
-
-    public void setOption(String option) {
-        this.option = option;
     }
     
 }
