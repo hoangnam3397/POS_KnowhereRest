@@ -152,3 +152,13 @@ insert into Stores values('S001','Knowhere CMT8','590 CMT8 Q3','083852222',0)
 	insert into Tables values('TB206','06','Z101',0)
 	insert into Tables values('TB207','07','Z103',0)
 	insert into Tables values('TB208','08','Z103',0)
+	
+	Create view TopProduct as 
+SELECT TOP 5  pro_id, SUM(quantity) as qSum
+FROM Order_Details
+GROUP BY pro_id
+ORDER BY qSum DESC
+go
+
+Create view TopProductValue as 
+Select t.pro_id,p.pro_name,t.qSum from TopProduct t join Products p on t.pro_id=p.pro_id
