@@ -137,7 +137,6 @@
                     </div>
                     <label for="Zones">Choose a zone</label>
                     <select class="form-control" id="Zones" name="zone">
-                        <option value=''>Choose a zone</option>
                         <c:forEach var="z" items="${listZone}">
                             <c:if test="${z.zoneId==zoID}">
                                 <option selected value="${z.zoneId}">${z.zoneName}</option>

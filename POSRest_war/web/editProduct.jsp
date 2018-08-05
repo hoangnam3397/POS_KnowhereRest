@@ -110,24 +110,7 @@
                                 <span class="caret"></span></a>
                         </li>
                         <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="">
-                                <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
-                                <span class="hidden-xs"> &nbsp;&nbsp;admin Doe </span>
-                            </a>
-                        </li>
-                        <li class="dropdown language">
-                            <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img src="images/en.png" class="flag" alt="language">
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li class="flat-box"><a href="#"><img src="images/en.png" class="flag" alt="language"> English</a></li>
-                                <li class="flat-box"><a href="#"><img src="images/vn.png" class="flag" alt="language"> Vietnam</a></li>
-                            </ul>
-                        </li>
-                        <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
-                    </ul>
+                    </ul>                   
                 </div>
                 <div id="loadingimg"></div>
             </div>
@@ -172,7 +155,7 @@
 
                 <div class="form-group">
                     <label for="Category">Category</label>
-                    <select class="form-control" value="Juices" name="cate" id="Category">
+                    <select class="form-control" value="" name="cate" id="Category">
                         <c:forEach var="z" items="${listCate}">
                             <c:if test="${z.catId==cateid}">
                                 <option selected value="${z.catId}">${z.catName}</option>

@@ -174,7 +174,7 @@
            </div>
            <div class="form-group">
              <label for="StorePhone">Store Phone</label>
-             <input type="text" name="phonesto" class="form-control" id="StorePhone" placeholder="Store Phone">
+             <input type="number" name="phonesto" maxlength="14" class="form-control" id="StorePhone" placeholder="Store Phone">
            </div>
            <div class="form-group">
              <label for="Address">Address</label>
