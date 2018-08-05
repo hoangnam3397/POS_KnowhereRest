@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -147,12 +147,12 @@
                                 <td>${p.proName}</</td>
                                 <td>${p.catId.catName}</td>
                                 <td class="hidden-xs"><p>${p.description}</p></td>
-                                <td>${p.discount}%</td>
-                                <td  data-order="20">${p.price} VNĐ</td>
+                                <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/>%</td>
+                                <td  data-order="20"><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
                                 <td><div class="btn-group">
                                         <a class="btn btn-default" href="javascript:void(0)" data-toggle="popover" data-placement="left"  data-html="true" title='Are you sure ?' data-content='<a class="btn btn-danger" href="deleteProductServlet?pro_id=${p.proId}">Yes, delete it!</a>'><i class="fa fa-times"></i></a>                      
                                         <a class="btn btn-default" href="javascript:void(0)" onclick="Viewproduct(154)"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="View product"></i></a>
-                                        <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}&action=get" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" data-id="1edf7ab30f3069cd7d448e3bd78db98b.jpg" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
                                     </div>
                                 </td>
@@ -181,12 +181,35 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Add Product</h4>
                     </div>
-                    <form action="insertProductServlet" method="post" enctype="multipart/form-data" accept-charset="UTF-8">      
+                    <form action="insertProductServlet" method="post" enctype="multipart/form-data">      
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="ProductName">Name</label>
-                                <input type="text" name="pro_name" maxlength="25" Required class="form-control" id="pro_name" placeholder="Name" accept="UTF-8">
+                                <label for="ProductName">Name <a style="color: red">*</a></label>
+                                <input type="text" name="pro_name" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
+                                <span id="proName-result" value="false"></span>
                             </div>
+
+                            <script type="text/javascript">
+                                /*************** check proName unique **********/
+                                $(document).ready(function() {
+                                    var x_timer;
+                                    $("#pro_name").keyup(function(e) {
+                                        clearTimeout(x_timer);
+                                        var pro_name = $(this).val();
+                                        x_timer = setTimeout(function() {
+                                            check_pro_name_ajax(pro_name);
+                                        }, 1000);
+                                    });
+
+                                    function check_pro_name_ajax(pro_name) {
+                                        $("#proName-result").html('<img src="images/ajax-loader.gif" />');
+                                        $.post('ChkInsertProName', {'pro_name': pro_name}, function(data) {
+                                            $("#proName-result").html(data);
+                                        });
+                                    }
+                                });                               
+                            </script>
+                            
                             <div class="form-group">
                                 <label for="Category">Category</label>
                                 <select class="form-control" value="Juices" name="cate" id="Category">
@@ -196,16 +219,16 @@
                                 </select>
                             </div>
                             <div class="form-group" id="pushaceP">
-                                <label for="PurchasePrice">Price (|VNĐ)</label>
-                                <input type="number" step="any" name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
+                                <label for="PurchasePrice">Price (|VNĐ)<a style="color: red">*</a></label>
+                                <input type="number" step="any" name="price" max="99999999" min="1000" maxlength="10" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
                             </div>
                             <div class="form-group">
-                                <label for="Discount">Discount (%)</label>
-                                <input type="number" name="discount" maxlength="10" class="form-control" id="Discount" placeholder="discount (%)" Required>
+                                <label for="Discount">Discount (%)<a style="color: red">*</a></label>
+                                <input type="number" name="discount" maxlength="2" max="99" min="0" class="form-control" id="Discount" placeholder="discount (%)" Required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Input Image</label>
-                                <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg" onchange="return fileValidation()">
+                                <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg,image/png" onchange="return fileValidation()">
                             </div>
                             <div class="form-group">
                                 <label for="ProductDescription">Product Description</label>                              
@@ -244,7 +267,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" name="action" value="Submit" class="btn btn-add">Submit</button>
+                            <button type="submit" name="action" value="Submit" class="btn btn-add insertPro">Submit</button>
                         </div>
                     </form>    
                 </div>
@@ -302,80 +325,69 @@
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Menu</h4>
-                    </div>    
-                    <div class="modal-body" id="modal-body">
-                        <div id="printmenusection">
-                            <div id="printSectionInvoice">
-                                <center><h1 style="font-family: 'Pinyon Script', cursive;font-size:65px;">Menu</h1></center>
-                                    <c:forEach var="Cate" items="${listCate}">
-                                    <div class="headline">
-                                        <h1>
-                                            <i class="fa fa-star opacity-large"></i>
-                                            <i class="fa fa-star opacity-medium"></i>
-                                            <i class="fa fa-star opacity-medium"></i>
-                                            <i class="fa fa-star opacity-small"></i>
-                                            &nbsp;
-                                            ${Cate.catName}                  &nbsp;
-                                            <i class="fa fa-star opacity-small"></i>
-                                            <i class="fa fa-star opacity-medium"></i>
-                                            <i class="fa fa-star opacity-medium"></i>
-                                            <i class="fa fa-star opacity-large"></i>
-                                        </h1>
-                                    </div><hr>
-                                    <div class="row">
-                                        <c:forEach var="Product" items="${listPro}">                                       
-                                            <c:if test="${Cate.catId==Product.catId.catId}">
-                                                <div class="col-xs-6">
-                                                    <div class="media" style="height: 100px;">
-                                                        <div class="media-left">
-                                                            <a href="#">
-                                                                <img class="img-rounded media-object" style="max-width: 64px;max-height: 64px;" src="${Product.imagelink}" alt="food">
-                                                            </a>
-                                                        </div>
-                                                        <div class="media-body">
-                                                            <h4 class="media-heading" style="font-family: 'Kaushan Script', cursive;">${Product.proName} <span class="label label-danger pull-right">${Product.price} VND</span></h4>
-                                                            <div class="grey">${Product.description}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>                                                                                                                                        
-                                            </c:if>                                       
-                                        </c:forEach>
-                                    </div>     
-                                </c:forEach>
-                            </div>
-                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-add hiddenpr" onclick="PrintTicket()">print</button>
-                    </div>    
+                    <form>
+                        <div class="modal-body" id="modal-body">
+                            <div id="printmenusection">
+                                <div id="printSectionInvoice">
+                                    <center><h1 style="font-family: 'Pinyon Script', cursive;font-size:65px;">Menu</h1></center>
+                                        <c:forEach var="Cate" items="${listCate}">
+                                        <div class="headline">
+                                            <h1>
+                                                <i class="fa fa-star opacity-large"></i>
+                                                <i class="fa fa-star opacity-medium"></i>
+                                                <i class="fa fa-star opacity-medium"></i>
+                                                <i class="fa fa-star opacity-small"></i>
+                                                &nbsp;
+                                                ${Cate.catName}                  &nbsp;
+                                                <i class="fa fa-star opacity-small"></i>
+                                                <i class="fa fa-star opacity-medium"></i>
+                                                <i class="fa fa-star opacity-medium"></i>
+                                                <i class="fa fa-star opacity-large"></i>
+                                            </h1>
+                                        </div><hr>
+                                        <div class="row">
+                                            <c:forEach var="Product" items="${listPro}">                                       
+                                                <c:if test="${Cate.catId==Product.catId.catId}">
+                                                    <div class="col-xs-6">
+                                                        <div class="media" style="height: 100px;">
+                                                            <div class="media-left">
+                                                                <a href="#">
+                                                                    <img class="img-rounded media-object" style="max-width: 64px;max-height: 64px;" src="${Product.imagelink}" alt="food">
+                                                                </a>
+                                                            </div>
+                                                            <div class="media-body">
+                                                                <h4 class="media-heading" style="font-family: 'Kaushan Script', cursive;">${Product.proName} <span class="label label-danger pull-right"><fmt:formatNumber value="${Product.price}" minFractionDigits="0"/> VND</span></h4>
+                                                                <div class="grey">${Product.description}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>                                                                                                                                        
+                                                </c:if>                                       
+                                            </c:forEach>
+                                        </div>     
+                                    </c:forEach>
+                                </div>
+                            </div>
+                        </div>                   
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-add hiddenpr" onclick="window.print()">print</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
 
 
-        <!-- load image -->
-        <script type="text/javascript">
-
-            $(function() {
-                /*************** delete zone **********/
-                $(document).on('click', '.ViewImg', function() {
-                    var imgLink = $(this).attr('imgLink');
-                    $("#imgUrl").attr('src', imgLink);
-                    $('#ImageModal').modal('show');
-                });
-            });
-
-        </script>
-
-        <!-- check image -->
+        <!-- // -->
         <script type="text/javascript">
             function fileValidation() {
+                /*************** check image **********/
                 var fileInput = document.getElementById('imageInput');
                 var filePath = fileInput.value;
-                var allowedExtensions = /(\.jpg)$/i;
+                var allowedExtensions = /(\.jpg|\.png)$/i;
                 if (!allowedExtensions.exec(filePath)) {
-                    alert('Please upload file having extensions .jpg only.');
+                    alert('Please upload file having extensions .jpg/.png only.');
                     fileInput.value = '';
                     return false;
                 } else {
@@ -389,6 +401,16 @@
                     }
                 }
             }
+
+            $(function() {
+                /*************** load image **********/
+                $(document).on('click', '.ViewImg', function() {
+                    var imgLink = $(this).attr('imgLink');
+                    $("#imgUrl").attr('src', imgLink);
+                    $('#ImageModal').modal('show');
+                });
+            });
+
         </script>
 
         <!-- slim scroll script -->
