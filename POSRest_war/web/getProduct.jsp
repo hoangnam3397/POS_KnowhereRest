@@ -74,46 +74,29 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="images/icons/Untitled.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
+                    <a class="navbar-brand" href="#"><img src="images/logo4.png" alt="logo"  style='max-height: 45px; max-width: 200px;margin-top:5px;'></a>
                 </div>
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="flat-box"><a href="#"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                    
+                        <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                    
                         <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
+                        <li class="flat-box"><a href="getCategoriesServlet"><i class="fa fa-bookmark"></i> <span class="menu-text">Categories</span></a></li>
                         <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text">Stores</span></a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> <span class="menu-text">People</span> <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Waiters</span></a></li>
-                                <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
-                                <li class="flat-box"><a href="#"><i class="fa fa-truck"></i> <span class="menu-text">Suppliers</span></a></li>
+                                <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-user"></i> <span class="menu-text">Employees</span></a></li>
+                                <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
                             </ul>
-                        </li>
-                        <li class="flat-box"><a href="#"><i class="fa fa-ticket"></i> <span class="menu-text">Sales</span></a></li>
-                        <li class="flat-box"><a href="#"><i class="fa fa-usd"></i> <span class="menu-text">Expense</span></a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bookmark"></i> <span class="menu-text">Categories </span><span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
-                                <li class="flat-box"><a href="#"><i class="fa fa-usd"></i> <span class="menu-text">Expense</span></a></li>
-                            </ul>
-                        </li>
-                        <li class="flat-box"><a href="#"><i class="fa fa-cogs"></i> <span class="menu-text">Setting</span></a></li>                 <li class="flat-box"><a href="http://www.dar-elweb.com/demos/zarest/stats"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
+                        </li>                      
+                        <li class="flat-box"><a href="#"><i class="fa fa-cogs"></i> <span class="menu-text">Setting</span></a></li>                 
+                        <li class="flat-box"><a href="#"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">
                                 <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
                                 <span class="hidden-xs"> &nbsp;&nbsp;admin Doe </span>
                             </a>
-                        </li>
-                        <li class="dropdown language">
-                            <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                <img src="images/en.png" class="flag" alt="language">
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li class="flat-box"><a href="#"><img src="images/en.png" class="flag" alt="language"> English</a></li>
-                                <li class="flat-box"><a href="#"><img src="images/vn.png" class="flag" alt="language"> Vietnam</a></li>
-                            </ul>
                         </li>
                         <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
                     </ul>
@@ -128,7 +111,7 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row" style="margin-top:100px;">
-                <table id="Table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <table id="xTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>Product ID</th>
@@ -151,9 +134,8 @@
                                 <td  data-order="20"><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
                                 <td><div class="btn-group">
                                         <a class="btn btn-default" href="javascript:void(0)" data-toggle="popover" data-placement="left"  data-html="true" title='Are you sure ?' data-content='<a class="btn btn-danger" href="deleteProductServlet?pro_id=${p.proId}">Yes, delete it!</a>'><i class="fa fa-times"></i></a>                      
-                                        <a class="btn btn-default" href="javascript:void(0)" onclick="Viewproduct(154)"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="View product"></i></a>
                                         <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" data-id="1edf7ab30f3069cd7d448e3bd78db98b.jpg" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
+                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
                                     </div>
                                 </td>
                             </tr>
@@ -207,9 +189,9 @@
                                             $("#proName-result").html(data);
                                         });
                                     }
-                                });                               
+                                });
                             </script>
-                            
+
                             <div class="form-group">
                                 <label for="Category">Category</label>
                                 <select class="form-control" value="" name="cate" id="Category">
@@ -273,30 +255,7 @@
                 </div>
             </div>
         </div>
-        <!-- /.Modal -->
-
-        <!-- Modal -->
-        <div class="modal fade" id="ImportProducts" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
-                    </div>
-                    <form action="http://www.dar-elweb.com/demos/zarest/products/importcsv" method="post" accept-charset="utf-8" id="addform" enctype="multipart/form-data">      <div class="modal-body">
-                            <div class="form-group">
-                                <label for="exampleInputFile">Upload CSV file</label>
-                                <input type="file" name="userfile" id="ImageInput">
-                                <p class="help-block"><a href="http://www.dar-elweb.com/demos/zarest/files/products_csv.csv">Download Sample</a></p>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-add">Submit</button>
-                        </div>
-                    </form>    </div>
-            </div>
-        </div>
+        <!-- /.Modal -->       
 
         <!-- Modal View Images -->
         <div class="modal fade" id="ImageModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -377,8 +336,7 @@
                 </div>
             </div>
         </div>
-
-
+      
         <!-- // -->
         <script type="text/javascript">
             function fileValidation() {
@@ -410,8 +368,13 @@
                     $('#ImageModal').modal('show');
                 });
             });
-
+            
+            /*************** dataTable **********/
+            $(document).ready( function () {
+                $('#xTable').DataTable();
+            } );
         </script>
+        
 
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
