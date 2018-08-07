@@ -142,7 +142,7 @@
         </div>
         <div class="form-group">
           <label for="Phone">Phone</label>
-          <input type="number" name="phonesto" maxlength="15" value="${phoneSto}" class="form-control" id="phonesto" placeholder="Phone">
+          <input type="number" name="phonesto" maxlength="14" value="${phoneSto}" class="form-control" id="phonesto" placeholder="Phone">
         </div>                                 
       <div class="form-group">
           <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>

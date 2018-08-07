@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -140,7 +140,7 @@
                         <c:forEach var="cat" items="${listCate}">
                             <tr>
                                 <td>${cat.catName}</td>
-                                <td>${cat.createday}</td>
+                                <td><fmt:formatDate value="${cat.createday}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
                                 <td><div class="btn-group">
                                         <a class="btn btn-default delCate" cat-id="${cat.catId}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-times"></i></a>
                                         <a class="btn btn-default editCate" cat-id="${cat.catId}" cat-name="${cat.catName}" data-toggle="modal" data-target="#EditCate" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>

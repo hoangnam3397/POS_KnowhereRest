@@ -7,7 +7,9 @@
 package controller;
 
 import entity.CategoriesFacadeLocal;
+import entity.HideProductFacadeLocal;
 import entity.ProductsFacadeLocal;
+import entity.StoresFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -31,7 +33,8 @@ public class getProductServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         request.setAttribute("listPro", productFacade.showAllProduct());
         request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.getRequestDispatcher("getProduct.jsp").forward(request, response);            
+        request.getRequestDispatcher("getProduct.jsp").forward(request, response);
+        
     }
 
     

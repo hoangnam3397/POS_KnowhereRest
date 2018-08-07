@@ -56,4 +56,25 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         }
         return false;
     }
+
+    @Override
+    public boolean chkProUnique(String id, String name) {
+        try {
+            int del=0;
+            Query q = em.createQuery("SELECT p FROM Products p WHERE p.proId != :id and p.proName = :name and p.deleted = :del");
+            q.setParameter("del", del);
+            q.setParameter("id", id);
+            q.setParameter("name", name);
+            if(q.getResultList().size() == 0){
+                return true;
+            }else{
+                return false;
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    
 }
