@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tables.findByTabName", query = "SELECT t FROM Tables t WHERE t.tabName = :tabName"),
     @NamedQuery(name = "Tables.findByDeleted", query = "SELECT t FROM Tables t WHERE t.deleted = :deleted")})
 public class Tables implements Serializable {
+    @OneToMany(mappedBy = "tabId")
+    private Collection<TotalToday> totalTodayCollection;
     @Column(name = "status")
     private Boolean status;
     private static final long serialVersionUID = 1L;
@@ -153,6 +155,15 @@ public class Tables implements Serializable {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    @XmlTransient
+    public Collection<TotalToday> getTotalTodayCollection() {
+        return totalTodayCollection;
+    }
+
+    public void setTotalTodayCollection(Collection<TotalToday> totalTodayCollection) {
+        this.totalTodayCollection = totalTodayCollection;
     }
     
 }

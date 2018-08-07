@@ -6,6 +6,7 @@
 
 package entity;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -36,6 +37,13 @@ public class OrdersFacade extends AbstractFacade<Orders> implements OrdersFacade
         q.setParameter("tableid", tableid);    
         return (Orders) q.getResultList().get(0);
     }
+
+    @Override
+    public List<TotalToday> getTodaySale() {
+        Query q=em.createQuery("SELECT t FROM TotalToday t");
+        return q.getResultList();
+    }
+    
     
     
 }

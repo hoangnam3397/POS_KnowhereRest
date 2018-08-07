@@ -56,6 +56,13 @@ public class OrderDetailsFacade extends AbstractFacade<OrderDetails> implements 
         BigDecimal price=new BigDecimal((BigInteger) q);
         return price;
     }
+
+    @Override
+    public List<TopProductValue> getTop5Product() {
+        Query q=em.createQuery("SELECT t FROM TopProductValue t");
+        return q.getResultList();
+    }
+    
     
     
     

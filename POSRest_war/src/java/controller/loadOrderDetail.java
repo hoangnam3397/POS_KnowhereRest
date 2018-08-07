@@ -59,7 +59,7 @@ public class loadOrderDetail extends HttpServlet {
 "                                                        <i class=\"fa fa-circle fa-stack-2x delete-product\"></i>\n" +
 "                                                        <i class=\"fa fa-times fa-stack-1x fa-fw fa-inverse\"></i>\n" +
 "                                                    </span></a></div><div class=\"col-xs-10 nopadding\"><span class=\"textPD\">"+o.getProducts().getProName()+"</span></div>\n" +
-"                                        </div><div class=\"col-xs-2\"><span class=\"textPD\">"+o.getPrice()+"</span></div>\n" +
+"                                        </div><div class=\"col-xs-2\"><span class=\"textPD\">"+o.getPrice().intValue()+"VND</span></div>\n" +
 "                                        <div class=\"col-xs-3 nopadding productNum\">\n" +
 "                                            <a href=\"javascript:void(0)\">\n" +
 "                                                <span class=\"fa-stack fa-sm decbutton\">\n" +
@@ -74,12 +74,9 @@ public class loadOrderDetail extends HttpServlet {
 "                                                </span></a>\n" +
 "                                        </div>\n" +
 "                                        <div class=\"col-xs-2 nopadding \">\n" +
-"                                            <span class=\"subtotal textPD\">"+o.getPrice().floatValue()*o.getQuantity()+"</span>\n" +
+"                                            <span class=\"subtotal textPD\">"+o.getPrice().intValue()*o.getQuantity()+"VND</span>\n" +
 "                                        </div>\n" +
 "                                    </div>\n" +
-"                                    <button type=\"button\" onclick=\"addoptions("+"'"+o.getOrders().getOrderId()+"'"+"," +"'"+o.getProducts().getProId()+"')\" class=\"btn btn-success btn-xs\">Options</button>\n" +
-"                                    <span id=\"pooptions-2891\"> </span>\n" +
-"\n" +
 "                                </div></div>";
            data=data+quant;
             

@@ -246,7 +246,7 @@
                                             <h3>${pro.price}</h3>
                                             <p><p>"${pro.description}"</p></p>
                                         </div>
-                                        <img src="http://www.dar-elweb.com/demos/zarest/files/products/1edf7ab30f3069cd7d448e3bd78db98b_thumb.jpg" alt="Menu 02">                        </div>
+                                        <img src="${pro.imagelink}" alt="Menu 02">                        </div>
                                 </a>
                             </div>
                         </c:forEach>
@@ -597,6 +597,7 @@
                 });
             }
             ;
+            
 
 
 

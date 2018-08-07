@@ -63,7 +63,8 @@ public class showTicketServlet extends HttpServlet {
         String ticket = "";
         if (list.size() > 0) {
             ticket = "<div class=\"col-md-12\">"
-                    + "<div class=\"text-center\">" + stores.getStoName() + "</div>"
+                    + "<div class=\"text-center\">" + stores.getStoName() + "</div>"+
+                    "<div class=\"text-center\">Tel: " + stores.getPhonesto() + "</div>"
                     + "<div style=\"clear:both;\">"
                     + "<h4 class=\"text-center\">Sale No.:" + orders.getOrderId().substring(2)
                     + "</h4> <div style=\"clear:both;\"></div><span class=\"float-left\">Date:" + dateFormat.format(orders.getOrdertime())
@@ -80,20 +81,19 @@ public class showTicketServlet extends HttpServlet {
             int index = 0;
             int quantity = 0;
             
-            float total = 0;
+            int total = 0;
             for (OrderDetails o : list) {
                 index+=1;
                 ticket += "<tr>"
                         + "<td style=\"text-align:center; width:30px;\">" + index + "</td>"
                         + "<td style=\"text-align:left; width:180px;\">" + o.getProducts().getProName() + "</td>"
                         + "<td style=\"text-align:center; width:50px;\">" + o.getQuantity() + "</td>"
-                        + "<td style=\"text-align:right; width:70px; \">" + o.getPrice().floatValue() * o.getQuantity() + "</td>"
+                        + "<td style=\"text-align:right; width:70px; \">" + o.getPrice().intValue() * o.getQuantity() + " VND</td>"
                         + "</tr>";
                 quantity = quantity + o.getQuantity();
-                total += o.getPrice().floatValue() * o.getQuantity();
+                total += o.getPrice().intValue() * o.getQuantity();
             }
-            double grandtot=total-(total*discount/100)+(total*Tax/100);
-            double discountValue=total * (discount/100);
+            int grandtot=(int) (total-(total*discount/100)+(total*Tax/100));
             ticket += "</tbody>"
                     + "<table class=\"table\" cellspacing=\"0\" border=\"0\" style=\"margin-bottom:8px;\">"
                     + "<tbody>"
@@ -101,7 +101,7 @@ public class showTicketServlet extends HttpServlet {
                     + "<td style=\"text-align:left;\">Total Items</td>"
                     + "<td style=\"text-align:right; padding-right:1.5%;\">" + quantity + "</td>"
                     + "<td style=\"text-align:left; padding-left:1.5%;\">Total Price</td>"
-                    + "<td style=\"text-align:right;font-weight:bold;\">" + total + "VNĐ</td></tr>"
+                    + "<td style=\"text-align:right;font-weight:bold;\">" + total + " VND</td></tr>"
                     + "<tr><td style=\"text-align:left; padding-left:1.5%;\"></td>"
                     + "<td style=\"text-align:right;font-weight:bold;\"></td>"
                     + "<td style=\"text-align:left;\">Discount</td>"
@@ -109,16 +109,15 @@ public class showTicketServlet extends HttpServlet {
                     +"<td style=\"text-align:left;\">Tax</td>"
                     + "<td style=\"text-align:right; padding-right:1.5%;font-weight:bold;\">" + Tax + "%</td>"
                     + "</tr><tr><td colspan=\"2\" style=\"text-align:left; font-weight:bold; padding-top:5px;\">Grand Total</td>"
-                    + "<td colspan=\"2\" style=\"border-top:1px dashed #000; padding-top:5px; text-align:right; font-weight:bold;\">"+grandtot+"</td>"
+                    + "<td colspan=\"2\" style=\"border-top:1px dashed #000; padding-top:5px; text-align:right; font-weight:bold;\">"+grandtot+"VND</td>"
                     + "</tr>"
                     + "<tr><td colspan=\"2\" style=\"text-align:left; font-weight:bold; padding-top:5px;\">Paid</td>"
-                    + "<td colspan=\"2\" style=\"padding-top:5px; text-align:right; font-weight:bold;\">"+paid+"VND</td>"
+                    + "<td colspan=\"2\" style=\"padding-top:5px; text-align:right; font-weight:bold;\">"+paid+" VND</td>"
                     + "</tr><tr><td colspan=\"2\" style=\"text-align:left; font-weight:bold; padding-top:5px;\">Change</td>"
-                    + "<td colspan=\"2\" style=\"padding-top:5px; text-align:right; font-weight:bold;\">"+change+"</td>"
+                    + "<td colspan=\"2\" style=\"padding-top:5px; text-align:right; font-weight:bold;\">"+change+" VND</td>"
                     + "</tr>"
                     + "</tbody>"
                     + "</table>"
-                    + "<div style=\"border-top:1px solid #000; padding-top:10px;\"><span class=\"float-right\">Tel: 01236547890</span></div>"
                     + "</div> </div> </div> </div> </div> </div> </div>";
         } else {
             ticket = "<center><h1 style=\"color:#34495E\">Empty</h1></center>";

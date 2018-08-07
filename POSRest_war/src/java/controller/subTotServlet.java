@@ -45,9 +45,9 @@ public class subTotServlet extends HttpServlet {
         Tables tables = tableFacade.find(tableid);
         Orders orders = ordersFacade.getByTableid(tableid);
         List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
-        float subtot=0;
+        int subtot=0;
         for (OrderDetails o : list) {
-            subtot=subtot+(o.getQuantity()*o.getPrice().floatValue());
+            subtot=subtot+(o.getQuantity()*o.getPrice().intValue());
         }
         response.getWriter().print(subtot);
         

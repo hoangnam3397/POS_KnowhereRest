@@ -7,16 +7,19 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,6 +34,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Roles.findByRoleName", query = "SELECT r FROM Roles r WHERE r.roleName = :roleName"),
     @NamedQuery(name = "Roles.findByDeleted", query = "SELECT r FROM Roles r WHERE r.deleted = :deleted")})
 public class Roles implements Serializable {
+    @OneToMany(mappedBy = "roleId")
+    private Collection<Employees> employeesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -108,6 +113,15 @@ public class Roles implements Serializable {
     @Override
     public String toString() {
         return "entity.Roles[ roleId=" + roleId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Employees> getEmployeesCollection() {
+        return employeesCollection;
+    }
+
+    public void setEmployeesCollection(Collection<Employees> employeesCollection) {
+        this.employeesCollection = employeesCollection;
     }
     
 }

@@ -7,6 +7,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,10 +17,12 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,6 +41,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Employees.findByPhone", query = "SELECT e FROM Employees e WHERE e.phone = :phone"),
     @NamedQuery(name = "Employees.findByDeleted", query = "SELECT e FROM Employees e WHERE e.deleted = :deleted")})
 public class Employees implements Serializable {
+    @OneToMany(mappedBy = "empId")
+    private Collection<TotalToday> totalTodayCollection;
+    @OneToMany(mappedBy = "empId")
+    private Collection<Orders> ordersCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -193,6 +200,24 @@ public class Employees implements Serializable {
     @Override
     public String toString() {
         return "entity.Employees[ empId=" + empId + " ]";
+    }
+
+    @XmlTransient
+    public Collection<Orders> getOrdersCollection() {
+        return ordersCollection;
+    }
+
+    public void setOrdersCollection(Collection<Orders> ordersCollection) {
+        this.ordersCollection = ordersCollection;
+    }
+
+    @XmlTransient
+    public Collection<TotalToday> getTotalTodayCollection() {
+        return totalTodayCollection;
+    }
+
+    public void setTotalTodayCollection(Collection<TotalToday> totalTodayCollection) {
+        this.totalTodayCollection = totalTodayCollection;
     }
     
 }

@@ -31,5 +31,7 @@ public interface OrdersFacadeLocal {
     int count();
 
     Orders getByTableid(String tableid);
+
+    List<TotalToday> getTodaySale();
     
 }
