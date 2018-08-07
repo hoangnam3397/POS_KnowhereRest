@@ -62,6 +62,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -89,8 +90,7 @@
                                 <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-user"></i> <span class="menu-text">Employees</span></a></li>
                                 <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
                             </ul>
-                        </li>                      
-                        <li class="flat-box"><a href="#"><i class="fa fa-cogs"></i> <span class="menu-text">Setting</span></a></li>                 
+                        </li>                                           
                         <li class="flat-box"><a href="#"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">
@@ -311,8 +311,8 @@
                                                     <div class="col-xs-6">
                                                         <div class="media" style="height: 100px;">
                                                             <div class="media-left">
-                                                                <a href="#">
-                                                                    <img class="img-rounded media-object" style="max-width: 64px;max-height: 64px;" src="${Product.imagelink}" alt="food">
+                                                                <a href="#" class="bg print">
+                                                                    <img class="img-rounded media-object" style="max-width: 64px;max-height: 64px;" src="${Product.imagelink}"/>
                                                                 </a>
                                                             </div>
                                                             <div class="media-body">
@@ -330,7 +330,7 @@
                         </div>                   
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-add hiddenpr" onclick="window.print()">print</button>
+                            <button type="button" class="btn btn-add hiddenpr" id="print" onclick="window.print()">print</button>
                         </div>
                     </form>
                 </div>

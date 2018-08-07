@@ -1,0 +1,11 @@
+
+.bg {
+background: url("http://fpoimg.com/1x1") top left no-repeat;
+width: 64px;
+height: 64px;
+}
+.bg.print {
+display: list-item;
+list-style-image: url("http://fpoimg.com/1x1");
+list-style-position: inside;
+}
