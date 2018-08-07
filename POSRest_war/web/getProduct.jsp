@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>POS - point of sale Dar Elweb</title>
+        <title>WAPOS - point of sale</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -54,8 +54,8 @@
         <!-- Custom CSS -->
         <link href="css/Style-Light.css" rel="stylesheet">
         <!-- favicon -->
-        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
-        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+        <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -163,35 +163,13 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Add Product</h4>
                     </div>
-                    <form action="insertProductServlet" method="post" enctype="multipart/form-data">      
+                    <form id="insertPro-form" action="insertProductServlet" method="post" enctype="multipart/form-data">      
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="ProductName">Name <a style="color: red">*</a></label>
                                 <input type="text" name="pro_name" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
                                 <span id="proName-result" value="false"></span>
                             </div>
-
-                            <script type="text/javascript">
-                                /*************** check proName unique **********/
-                                $(document).ready(function() {
-                                    var x_timer;
-                                    $("#pro_name").keyup(function(e) {
-                                        clearTimeout(x_timer);
-                                        var pro_name = $(this).val();
-                                        x_timer = setTimeout(function() {
-                                            check_pro_name_ajax(pro_name);
-                                        }, 1000);
-                                    });
-
-                                    function check_pro_name_ajax(pro_name) {
-                                        $("#proName-result").html('<img src="images/ajax-loader.gif" />');
-                                        $.post('ChkInsertProName', {'pro_name': pro_name}, function(data) {
-                                            $("#proName-result").html(data);
-                                        });
-                                    }
-                                });
-                            </script>
-
                             <div class="form-group">
                                 <label for="Category">Category</label>
                                 <select class="form-control" value="" name="cate" id="Category">
@@ -336,7 +314,7 @@
                 </div>
             </div>
         </div>
-      
+
         <!-- // -->
         <script type="text/javascript">
             function fileValidation() {
@@ -368,13 +346,40 @@
                     $('#ImageModal').modal('show');
                 });
             });
-            
+
             /*************** dataTable **********/
-            $(document).ready( function () {
+            $(document).ready(function() {
                 $('#xTable').DataTable();
-            } );
+            });
         </script>
-        
+        <script type="text/javascript">
+            /*************** check proName unique **********/
+            $(document).ready(function() {
+                var x_timer;
+                $("#pro_name").keyup(function(e) {
+                    clearTimeout(x_timer);
+                    var pro_name = $(this).val();
+                    x_timer = setTimeout(function() {
+                        check_pro_name_ajax(pro_name);
+                    }, 1000);
+                });
+
+                function check_pro_name_ajax(pro_name) {
+                    $("#proName-result").html('<img src="images/ajax-loader.gif" />');
+                    $.post('ChkInsertProName', {'pro_name': pro_name}, function(data) {
+                        $("#proName-result").html(data);
+                    });
+                }
+            });
+            /*************** focus proName error  **********/
+            $('#insertPro-form').submit(function(event) {
+                var errors = $('#proName-resultError').attr('value');
+                if (errors == 'false') {
+                    $('#pro_name').focus();
+                    event.preventDefault();
+                }
+            });
+        </script>
 
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>

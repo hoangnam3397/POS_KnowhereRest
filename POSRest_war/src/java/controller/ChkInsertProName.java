@@ -76,9 +76,9 @@ public class ChkInsertProName extends HttpServlet {
         String pro_id = "P" + id;        
         String name= request.getParameter("pro_name");
         if (productFacade.chkProUnique(pro_id,name)==true) {
-            response.getWriter().write("<img src=\"images/available.png\" /><span style=\"color: green\">You can use Product Name. </span>");
+            response.getWriter().write("<img src=\"images/available.png\" /><span id=\"proName-resultError\" value=\"true\" style=\"color: green\">You can use Product Name. </span>");
        } else {           
-            response.getWriter().write("<img src=\"images/not-available.png\" /><span style=\"color: red\">Product Name already exists.</span>");
+            response.getWriter().write("<img src=\"images/not-available.png\" /><span id=\"proName-resultError\" value=\"false\" style=\"color: red\">Product Name already exists.</span>");
        }
     }
 

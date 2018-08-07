@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>POS - point of sale Dar Elweb</title>
+        <title>WAPOS - point of sale</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -54,8 +54,8 @@
         <!-- Custom CSS -->
         <link href="css/Style-Light.css" rel="stylesheet">
         <!-- favicon -->
-        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
-        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+        <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -125,7 +125,7 @@
         <div class="row" style="margin-top:100px;">
             <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
                 <i class="fa fa-arrow-left"></i> Back</a>
-            <form action="editProductServlet" method="post" enctype="multipart/form-data">      
+            <form id="editPro-form" action="editProductServlet" method="post" enctype="multipart/form-data">      
                 <div class="form-group">
                     <label for="ProductName">Name<a style="color:red">*</a></label>
                     <input type="text" name="pro_name" value="${proName}" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
@@ -141,14 +141,22 @@
                             var pro_id = "${pro_id}";
                             var pro_name = $(this).val();
                             x_timer = setTimeout(function() {
-                                check_pro_name_ajax(pro_id,pro_name);
+                                check_pro_name_ajax(pro_id, pro_name);
                             }, 1000);
-                        });  
-                        function check_pro_name_ajax(pro_id,pro_name) {
+                        });
+                        function check_pro_name_ajax(pro_id, pro_name) {
                             $("#proName-result").html('<img src="images/ajax-loader.gif" />');
-                            $.post('ChkEditProName', {'pro_id':pro_id,'pro_name': pro_name}, function(data) {
+                            $.post('ChkEditProName', {'pro_id': pro_id, 'pro_name': pro_name}, function(data) {
                                 $("#proName-result").html(data);
                             });
+                        }
+                    });
+                    /*************** focus proName error  **********/
+                    $('#editPro-form').submit(function(event) {
+                        var errors = $('#proName-resultError').attr('value');
+                        if (errors == 'false') {
+                            $('#pro_name').focus();
+                            event.preventDefault();
                         }
                     });
                 </script>
