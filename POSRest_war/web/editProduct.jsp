@@ -131,36 +131,6 @@
                     <input type="text" name="pro_name" value="${proName}" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
                     <span id="proName-result" value="false"></span>
                 </div>
-
-                <script type="text/javascript">
-                    /*************** check proName unique **********/
-                    $(document).ready(function() {
-                        var x_timer;
-                        $("#pro_name").keyup(function(e) {
-                            clearTimeout(x_timer);
-                            var pro_id = "${pro_id}";
-                            var pro_name = $(this).val();
-                            x_timer = setTimeout(function() {
-                                check_pro_name_ajax(pro_id, pro_name);
-                            }, 1000);
-                        });
-                        function check_pro_name_ajax(pro_id, pro_name) {
-                            $("#proName-result").html('<img src="images/ajax-loader.gif" />');
-                            $.post('ChkEditProName', {'pro_id': pro_id, 'pro_name': pro_name}, function(data) {
-                                $("#proName-result").html(data);
-                            });
-                        }
-                    });
-                    /*************** focus proName error  **********/
-                    $('#editPro-form').submit(function(event) {
-                        var errors = $('#proName-resultError').attr('value');
-                        if (errors == 'false') {
-                            $('#pro_name').focus();
-                            event.preventDefault();
-                        }
-                    });
-                </script>
-
                 <div class="form-group">
                     <label for="Category">Category</label>
                     <select class="form-control" value="" name="cate" id="Category">
@@ -176,11 +146,11 @@
                 </div>
                 <div class="form-group" id="pushaceP">
                     <label for="PurchasePrice">Price (|VNĐ)<a style="color:red">*</a></label>
-                    <input type="number" step="any" value="${price}" maxlength="10" max="99999999" min="1000" Required name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price">
+                    <input type="number" step="any" value="${price}" maxlength="10" max="50000000" min="1000" Required name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price">
                 </div>
                 <div class="form-group">
                     <label for="Discount">Discount (%)<a style="color:red">*</a></label>
-                    <input type="number" name="discount" max="99" min="0" maxlength="2" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
+                    <input type="number" name="discount" max="90" min="0" maxlength="2" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputFile">Input Image</label>
@@ -252,7 +222,34 @@
             }
         }
     </script>
-
+    <script type="text/javascript">
+        /*************** check proName unique **********/
+        $(document).ready(function() {
+            var x_timer;
+            $("#pro_name").keyup(function(e) {
+                clearTimeout(x_timer);
+                var pro_id = "${pro_id}";
+                var pro_name = $(this).val();
+                x_timer = setTimeout(function() {
+                    check_pro_name_ajax(pro_id, pro_name);
+                }, 1000);
+            });
+            function check_pro_name_ajax(pro_id, pro_name) {
+                $("#proName-result").html('<img src="images/ajax-loader.gif" />');
+                $.post('ChkEditProName', {'pro_id': pro_id, 'pro_name': pro_name}, function(data) {
+                    $("#proName-result").html(data);
+                });
+            }
+        });
+        /*************** focus proName error  **********/
+        $('#editPro-form').submit(function(event) {
+            var errors = $('#proName-resultError').attr('value');
+            if (errors == 'false') {
+                $('#pro_name').focus();
+                event.preventDefault();
+            }
+        });
+    </script>
     <!-- slim scroll script -->
     <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
     <!-- waves material design effect -->

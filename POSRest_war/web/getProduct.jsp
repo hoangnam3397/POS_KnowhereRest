@@ -180,11 +180,11 @@
                             </div>
                             <div class="form-group" id="pushaceP">
                                 <label for="PurchasePrice">Price (|VNĐ)<a style="color: red">*</a></label>
-                                <input type="number" step="any" name="price" max="99999999" min="1000" maxlength="10" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
+                                <input type="number" step="any" name="price" max="50000000" min="1000" maxlength="10" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
                             </div>
                             <div class="form-group">
                                 <label for="Discount">Discount (%)<a style="color: red">*</a></label>
-                                <input type="number" name="discount" maxlength="2" max="99" min="0" class="form-control" id="Discount" placeholder="discount (%)" Required>
+                                <input type="number" name="discount" maxlength="2" max="90" min="0" class="form-control" id="Discount" placeholder="discount (%)" Required>
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputFile">Input Image</label>
