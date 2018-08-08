@@ -102,7 +102,7 @@ create table Order_Details
 	quantity int not null,
 	price money not null,
 	discount float not null,
-	[option] nvarchar(150),
+	optionvalue nvarchar(150),
 )
 ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Orders_order_id] foreign key (order_id) references [dbo].[Orders](order_id)
 
