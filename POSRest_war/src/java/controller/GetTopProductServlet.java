@@ -124,6 +124,10 @@ public class GetTopProductServlet extends HttpServlet {
         request.setAttribute("numPro", productsFacade.findAll().size()+1);
         request.setAttribute("numCat", categoriesFacade.findAll().size()+1);
         request.setAttribute("list", list);
+                
+        //Report Product
+        request.setAttribute("listPro", productsFacade.showAllProduct());
+        
         request.getRequestDispatcher("reportPage.jsp").forward(request, response);
     }
 

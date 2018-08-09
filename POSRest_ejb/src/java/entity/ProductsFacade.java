@@ -6,6 +6,7 @@
 
 package entity;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -76,5 +77,12 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         return false;
     }
     
-    
+    @Override
+    public List<VProductReport> vProReport(String pro_id, Date startDate, Date endDate) {
+        Query q=em.createQuery("SELECT v FROM VProductReport v WHERE v.proId = :pro and v.ordertime >= :startDate and v.ordertime <= :endDate");
+        q.setParameter("pro", pro_id);
+        q.setParameter("startDate", startDate);
+        q.setParameter("endDate", endDate);
+        return q.getResultList();
+    }
 }

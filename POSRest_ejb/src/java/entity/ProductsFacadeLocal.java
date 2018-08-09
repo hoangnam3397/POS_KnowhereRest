@@ -6,6 +6,7 @@
 
 package entity;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -35,4 +36,6 @@ public interface ProductsFacadeLocal {
     boolean deleteProOfCate(String cate_id);
 
     boolean chkProUnique(String id, String name);
+    
+    List<VProductReport> vProReport(String pro_id, Date startDate, Date endDate); 
 }

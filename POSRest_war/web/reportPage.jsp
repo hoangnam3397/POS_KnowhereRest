@@ -127,366 +127,394 @@
                 </div>
             </div>
             <!-- ************************************************************************************************** -->
+            <div class="row rangeStat" style="margin-top:50px;">
+                <h3 class="col-sm-12">Products Stats</h3>
+                <form action="getProductReport" method="post">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="customerSelect">Select Product</label>
+                            <select class="js-select-options form-control" name="productSelect" id="productSelect">                        
+                                <c:forEach var="pro" items="${listPro}">
+                                    <option value="${pro.proId}">${pro.proName}</option>
+                                </c:forEach>                                                        
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label>Select Range</label>
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon RangePicker"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+                                <input class="form-control" id="ProductRange" type="text" name="daterangeP" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="cancelBtn btn btn-picker" type="submit">Get Report</button>
+                    </div>
+                </form>
+            </div>
 
-         
 
-           
-
-           
-            
-            <!-- ********************************************* warehouses report ***************************************************** -->
-            
-            <!-- /.Modal -->
+            <br><br><br>
+        </div>
 
 
-            <!-- Modal close register -->
 
-            <!-- /.Modal -->
-            <script>
-                /******* Range date picker *******/
-                $(function() {
-                    $('input[name="daterange"]').daterangepicker();
-                    $('input[name="daterangeP"]').daterangepicker();
-                    $('input[name="daterangeR"]').daterangepicker();
-                    var d = new Date().getFullYear();
-                    $('#ProductRange').val('01/01/' + d + ' - 12/31/' + d);
-                    $('#CustomerRange').val('01/01/' + d + ' - 12/31/' + d);
-                    $('#RegisterRange').val('01/01/' + d + ' - 12/31/' + d);
 
-                });
-                /************************ Chart Data *************************/
-                var randomScalingFactor = function() {
-                    return Math.round(Math.random() * 100)
-                };
-                var lineChartData = {
-                    labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        <!-- ********************************************* warehouses report ***************************************************** -->
+
+        <!-- /.Modal -->
+
+
+        <!-- Modal close register -->
+
+        <!-- /.Modal -->
+        <script>
+            /******* Range date picker *******/
+            $(function() {
+                $('input[name="daterange"]').daterangepicker();
+                $('input[name="daterangeP"]').daterangepicker();
+                $('input[name="daterangeR"]').daterangepicker();
+                var d = new Date().getFullYear();
+                $('#ProductRange').val('01/01/' + d + ' - 12/31/' + d);
+                $('#CustomerRange').val('01/01/' + d + ' - 12/31/' + d);
+                $('#RegisterRange').val('01/01/' + d + ' - 12/31/' + d);
+
+            });
+            /************************ Chart Data *************************/
+            var randomScalingFactor = function() {
+                return Math.round(Math.random() * 100)
+            };
+            var lineChartData = {
+                labels: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                datasets: [
+                    {
+                        label: "Revenue",
+                        backgroundColor: "#2AC4C0",
+                        borderColor: "#26a5a2",
+                        pointBackgroundColor: "#2AC4C0",
+                        pointBorderColor: "#fff",
+                        pointHoverBackgroundColor: "#fff",
+                        pointHoverBorderColor: "#fff",
+                        data: ["${value1}", "${value2}", "${value3}", "${value4}", "${value5}", "${value6}", "${value7}", "${value8}", "${value9}", "${value10}", "${value11}", "${value12}"]
+                    }
+                ]
+            }
+            window.onload = function() {
+
+                // Chart.defaults.global.gridLines.display = false;
+
+                var ctx = document.getElementById("canvas").getContext("2d");
+                window.myLine = new Chart(ctx, {
+                    type: 'line',
+                    data: lineChartData,
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                    gridLines: {
+                                        display: false
+                                    }
+                                }],
+                            yAxes: [{
+                                    gridLines: {
+                                        display: true
+                                    }
+                                }]
+                        },
+                        scaleFontSize: 9,
+                        tooltipFillColor: "rgba(0, 0, 0, 0.71)",
+                        tooltipFontSize: 10,
+                        responsive: true
+                    }});
+
+                /********************* pie **********************/
+
+
+                var pieData = {
+                    labels: [
+                        "${product1}",
+                        "${product2}",
+                        "${product3}",
+                        "${product4}",
+                        "${product5}"
+                    ],
                     datasets: [
                         {
-                            label: "Revenue",
-                            backgroundColor: "#2AC4C0",
-                            borderColor: "#26a5a2",
-                            pointBackgroundColor: "#2AC4C0",
-                            pointBorderColor: "#fff",
-                            pointHoverBackgroundColor: "#fff",
-                            pointHoverBorderColor: "#fff",
-                            data: ["${value1}", "${value2}", "${value3}", "${value4}", "${value5}", "${value6}", "${value7}", "${value8}", "${value9}", "${value10}", "${value11}", "${value12}"]
+                            data: ["${Valproduct1}",
+                                "${Valproduct2}",
+                                "${Valproduct3}",
+                                "${Valproduct4}",
+                                "${Valproduct5}"],
+                            backgroundColor: [
+                                "#F3565D",
+                                "#FC9D9B",
+                                "#FACDAE",
+                                "#9FC2C4",
+                                "#8297A8"
+                            ],
+                            hoverBackgroundColor: [
+                                "#3e5367",
+                                "#95a5a6",
+                                "#f5fbfc",
+                                "#459eda",
+                                "#2dc6a8"
+                            ],
+                            hoverBorderWidth: [5, 5, 5, 5, 5]
                         }
                     ]
-                }
-                window.onload = function() {
+                };
 
-                    // Chart.defaults.global.gridLines.display = false;
+                Chart.defaults.global.legend.display = false;
 
-                    var ctx = document.getElementById("canvas").getContext("2d");
-                    window.myLine = new Chart(ctx, {
-                        type: 'line',
-                        data: lineChartData,
-                        options: {
-                            scales: {
-                                xAxes: [{
-                                        gridLines: {
-                                            display: false
-                                        }
-                                    }],
-                                yAxes: [{
-                                        gridLines: {
-                                            display: true
-                                        }
-                                    }]
-                            },
-                            scaleFontSize: 9,
-                            tooltipFillColor: "rgba(0, 0, 0, 0.71)",
-                            tooltipFontSize: 10,
-                            responsive: true
-                        }});
-
-                    /********************* pie **********************/
-
-
-                    var pieData = {
-                        labels: [
-                            "${product1}",
-                            "${product2}",
-                            "${product3}",
-                            "${product4}",
-                            "${product5}"
-                        ],
-                        datasets: [
-                            {
-                                data: ["${Valproduct1}",
-                                    "${Valproduct2}",
-                                    "${Valproduct3}",
-                                    "${Valproduct4}",
-                                    "${Valproduct5}"],
-                                backgroundColor: [
-                                    "#F3565D",
-                                    "#FC9D9B",
-                                    "#FACDAE",
-                                    "#9FC2C4",
-                                    "#8297A8"
-                                ],
-                                hoverBackgroundColor: [
-                                    "#3e5367",
-                                    "#95a5a6",
-                                    "#f5fbfc",
-                                    "#459eda",
-                                    "#2dc6a8"
-                                ],
-                                hoverBorderWidth: [5, 5, 5, 5, 5]
-                            }
-                        ]
-                    };
-
-                    Chart.defaults.global.legend.display = false;
-
-                    var ctx2 = document.getElementById("chart-area2").getContext("2d");
-                    window.myPie = new Chart(ctx2, {
-                        type: 'doughnut',
-                        data: pieData});
+                var ctx2 = document.getElementById("chart-area2").getContext("2d");
+                window.myPie = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: pieData});
 
 
 
-                    $('.count').each(function(index) {
-                        var size = $(this).text().split(".")[1] ? $(this).text().split(".")[1].length : 0;
-                        $(this).prop('count', 0).animate({
-                            Counter: $(this).text()
-                        }, {
-                            duration: 2000,
-                            easing: 'swing',
-                            step: function(now) {
-                                $(this).text(parseFloat(now).toFixed(size));
+                $('.count').each(function(index) {
+                    var size = $(this).text().split(".")[1] ? $(this).text().split(".")[1].length : 0;
+                    $(this).prop('count', 0).animate({
+                        Counter: $(this).text()
+                    }, {
+                        duration: 2000,
+                        easing: 'swing',
+                        step: function(now) {
+                            $(this).text(parseFloat(now).toFixed(size));
+                        }
+                    });
+                });
+
+
+            }
+
+
+            /********************************** Get repports functions ************************************/
+
+            function getCustomerReport()
+            {
+                var client_id = $('#customerSelect').find('option:selected').val();
+                var Range = $('#CustomerRange').val();
+                var start = Range.slice(6, 10) + '-' + Range.slice(0, 2) + '-' + Range.slice(3, 5);
+                var end = Range.slice(19, 23) + '-' + Range.slice(13, 15) + '-' + Range.slice(16, 18);
+                // ajax delete data to database
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/reports/getCustomerReport/",
+                    type: "POST",
+                    data: {client_id: client_id, start: start, end: end},
+                    success: function(data)
+                    {
+                        $('#statsSection').html(data);
+                        $('#stats').modal('show');
+                        var table = $('#Table').DataTable({
+                            dom: 'T<"clear">lfrtip',
+                            tableTools: {
+                                'bProcessing': true
                             }
                         });
-                    });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
 
+            }
 
-                }
-
-
-                /********************************** Get repports functions ************************************/
-
-                function getCustomerReport()
-                {
-                    var client_id = $('#customerSelect').find('option:selected').val();
-                    var Range = $('#CustomerRange').val();
-                    var start = Range.slice(6, 10) + '-' + Range.slice(0, 2) + '-' + Range.slice(3, 5);
-                    var end = Range.slice(19, 23) + '-' + Range.slice(13, 15) + '-' + Range.slice(16, 18);
-                    // ajax delete data to database
-                    $.ajax({
-                        url: "http://www.dar-elweb.com/demos/zarest/reports/getCustomerReport/",
-                        type: "POST",
-                        data: {client_id: client_id, start: start, end: end},
-                        success: function(data)
-                        {
-                            $('#statsSection').html(data);
-                            $('#stats').modal('show');
-                            var table = $('#Table').DataTable({
-                                dom: 'T<"clear">lfrtip',
-                                tableTools: {
-                                    'bProcessing': true
-                                }
-                            });
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert("error");
-                        }
-                    });
-
-                }
-
-                function getProductReport()
-                {
-                    var product_id = $('#productSelect').find('option:selected').val();
-                    var Range = $('#ProductRange').val();
-                    var start = Range.slice(6, 10) + '-' + Range.slice(0, 2) + '-' + Range.slice(3, 5);
-                    var end = Range.slice(19, 23) + '-' + Range.slice(13, 15) + '-' + Range.slice(16, 18);
-                    // ajax set data to database
-                    $.ajax({
-                        url: "http://www.dar-elweb.com/demos/zarest/reports/getProductReport/",
-                        type: "POST",
-                        data: {product_id: product_id, start: start, end: end},
-                        success: function(data)
-                        {
-                            $('#statsSection').html(data);
-                            $('#stats').modal('show');
-                            var table = $('#Table').DataTable({
-                                dom: 'T<"clear">lfrtip',
-                                tableTools: {
-                                    'bProcessing': true
-                                }
-                            });
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert("error");
-                        }
-                    });
-                }
-
-                function getRegisterReport()
-                {
-                    var store_id = $('#StoresSelect').find('option:selected').val();
-                    var Range = $('#RegisterRange').val();
-                    var start = Range.slice(6, 10) + '-' + Range.slice(0, 2) + '-' + Range.slice(3, 5);
-                    var end = Range.slice(19, 23) + '-' + Range.slice(13, 15) + '-' + Range.slice(16, 18);
-                    // ajax set data to database
-                    $.ajax({
-                        url: "http://www.dar-elweb.com/demos/zarest/reports/getRegisterReport/",
-                        type: "POST",
-                        data: {store_id: store_id, start: start, end: end},
-                        success: function(data)
-                        {
-                            $('#statsSection').html(data);
-                            $('#stats').modal('show');
-                            var table = $('#Table').DataTable({
-                                dom: 'T<"clear">lfrtip',
-                                tableTools: {
-                                    'bProcessing': true
-                                }
-                            });
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert("error");
-                        }
-                    });
-                }
-
-                function getStockReport()
-                {
-                    var stock_id = $('#StockSelect').find('option:selected').val();
-                    // ajax set data to database
-                    $.ajax({
-                        url: "http://www.dar-elweb.com/demos/zarest/reports/getStockReport/",
-                        type: "POST",
-                        data: {stock_id: stock_id},
-                        success: function(data)
-                        {
-                            $('#statsSection').html(data);
-                            $('#stats').modal('show');
-                            var table = $('#Table').DataTable({
-                                dom: 'T<"clear">lfrtip',
-                                tableTools: {
-                                    'bProcessing': true
-                                }
-                            });
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert("error");
-                        }
-                    });
-                }
-
-                function getyearstats(direction) {
-                    var currentyear = parseInt($('.statYear').text());
-                    var year = direction === 'next' ? currentyear - 1 : currentyear + 1;
-
-                    $.ajax({
-                        url: "http://www.dar-elweb.com/demos/zarest/reports/getyearstats/" + year,
-                        type: "POST",
-                        success: function(data)
-                        {
-                            $('#statyears').html(data);
-                            $('.statYear').text(year);
-                            $('[data-toggle="tooltip"]').tooltip();
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert("error");
-                        }
-                    });
-                }
-
-                function RegisterDetails(id) {
-                    $.ajax({
-                        url: "http://www.dar-elweb.com/demos/zarest/reports/RegisterDetails/" + id,
-                        type: "POST",
-                        success: function(data)
-                        {
-                            $('#RegisterDetails').html(data);
-                            $('#stats').modal('hide');
-                            $('#RegisterDetail').modal('show');
-                        },
-                        error: function(jqXHR, textStatus, errorThrown)
-                        {
-                            alert("error");
-                        }
-                    });
-                }
-
-                function CloseRegisterDetails() {
-                    $('#RegisterDetail').modal('hide');
-                    $('#stats').modal('show');
-                }
-
-                function delete_register(id) {
-                    swal({title: 'Are you sure ?',
-                        text: 'You will not be able to recover this Data later!',
-                        type: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: 'Yes, delete it!',
-                        closeOnConfirm: false},
-                    function() {
-                        $.ajax({
-                            url: "http://www.dar-elweb.com/demos/zarest/reports/delete_register/" + id,
-                            type: "POST",
-                            error: function(jqXHR, textStatus, errorThrown)
-                            {
-                                alert("error");
+            function getProductReport()
+            {
+                var product_id = $('#productSelect').find('option:selected').val();
+                var Range = $('#ProductRange').val();
+                var start = Range.slice(6, 10) + '-' + Range.slice(0, 2) + '-' + Range.slice(3, 5);
+                var end = Range.slice(19, 23) + '-' + Range.slice(13, 15) + '-' + Range.slice(16, 18);
+                // ajax set data to database
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/reports/getProductReport/",
+                    type: "POST",
+                    data: {product_id: product_id, start: start, end: end},
+                    success: function(data)
+                    {
+                        $('#statsSection').html(data);
+                        $('#stats').modal('show');
+                        var table = $('#Table').DataTable({
+                            dom: 'T<"clear">lfrtip',
+                            tableTools: {
+                                'bProcessing': true
                             }
                         });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
+            }
+
+            function getRegisterReport()
+            {
+                var store_id = $('#StoresSelect').find('option:selected').val();
+                var Range = $('#RegisterRange').val();
+                var start = Range.slice(6, 10) + '-' + Range.slice(0, 2) + '-' + Range.slice(3, 5);
+                var end = Range.slice(19, 23) + '-' + Range.slice(13, 15) + '-' + Range.slice(16, 18);
+                // ajax set data to database
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/reports/getRegisterReport/",
+                    type: "POST",
+                    data: {store_id: store_id, start: start, end: end},
+                    success: function(data)
+                    {
+                        $('#statsSection').html(data);
+                        $('#stats').modal('show');
+                        var table = $('#Table').DataTable({
+                            dom: 'T<"clear">lfrtip',
+                            tableTools: {
+                                'bProcessing': true
+                            }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
+            }
+
+            function getStockReport()
+            {
+                var stock_id = $('#StockSelect').find('option:selected').val();
+                // ajax set data to database
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/reports/getStockReport/",
+                    type: "POST",
+                    data: {stock_id: stock_id},
+                    success: function(data)
+                    {
+                        $('#statsSection').html(data);
+                        $('#stats').modal('show');
+                        var table = $('#Table').DataTable({
+                            dom: 'T<"clear">lfrtip',
+                            tableTools: {
+                                'bProcessing': true
+                            }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
+            }
+
+            function getyearstats(direction) {
+                var currentyear = parseInt($('.statYear').text());
+                var year = direction === 'next' ? currentyear - 1 : currentyear + 1;
+
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/reports/getyearstats/" + year,
+                    type: "POST",
+                    success: function(data)
+                    {
+                        $('#statyears').html(data);
+                        $('.statYear').text(year);
+                        $('[data-toggle="tooltip"]').tooltip();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
+            }
+
+            function RegisterDetails(id) {
+                $.ajax({
+                    url: "http://www.dar-elweb.com/demos/zarest/reports/RegisterDetails/" + id,
+                    type: "POST",
+                    success: function(data)
+                    {
+                        $('#RegisterDetails').html(data);
                         $('#stats').modal('hide');
-                        swal('Deleted!', 'the data has been deleted.', "success");
+                        $('#RegisterDetail').modal('show');
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error");
+                    }
+                });
+            }
+
+            function CloseRegisterDetails() {
+                $('#RegisterDetail').modal('hide');
+                $('#stats').modal('show');
+            }
+
+            function delete_register(id) {
+                swal({title: 'Are you sure ?',
+                    text: 'You will not be able to recover this Data later!',
+                    type: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: 'Yes, delete it!',
+                    closeOnConfirm: false},
+                function() {
+                    $.ajax({
+                        url: "http://www.dar-elweb.com/demos/zarest/reports/delete_register/" + id,
+                        type: "POST",
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert("error");
+                        }
                     });
-                }
+                    $('#stats').modal('hide');
+                    swal('Deleted!', 'the data has been deleted.', "success");
+                });
+            }
 
 
-            </script>
+        </script>
 
 
 
 
-            <!-- slim scroll script -->
-            <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
-            <!-- waves material design effect -->
-            <script type="text/javascript" src="js/waves.min.js"></script>
-            <!-- Bootstrap Core JavaScript -->
-            <script type="text/javascript" src="js/bootstrap.min.js"></script>
-            <!-- keyboard widget dependencies -->
-            <script type="text/javascript" src="js/jquery.keyboard.js"></script>
-            <script type="text/javascript" src="js/jquery.keyboard.extension-all.js"></script>
-            <script type="text/javascript" src="js/jquery.keyboard.extension-extender.js"></script>
-            <script type="text/javascript" src="js/jquery.keyboard.extension-typing.js"></script>
-            <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-            <!-- select2 plugin script -->
-            <script type="text/javascript" src="js/select2.min.js"></script>
-            <!-- dalatable scripts -->
-            <script src="js/jquery.dataTables.min.js"></script>
-            <script src="js/dataTables.bootstrap.js"></script>
-            <!-- summernote js -->
-            <script src="js/summernote.js"></script>
-            <!-- chart.js script -->
-            <script src="js/Chart.js"></script>
-            <!-- moment JS -->
-            <script type="text/javascript" src="js/moment.min.js"></script>
-            <!-- Include Date Range Picker -->
-            <script type="text/javascript" src="js/daterangepicker.js"></script>
-            <!-- Sweet Alert swal -->
-            <script src="js/sweetalert.min.js"></script>
-            <!-- datepicker script -->
-            <script src="js/bootstrap-datepicker.min.js"></script>
-            <!-- creditCardValidator script -->
-            <script src="js/jquery.creditCardValidator.js"></script>
-            <!-- creditCardValidator script -->
-            <script src="js/credit-card-scanner.js"></script>
-            <script src="js/jquery.redirect.js"></script>
-            <!-- ajax form -->
-            <script src="js/jquery.form.min.js"></script>
-            <!-- custom script -->
-            <script src="js/app.js"></script>
+        <!-- slim scroll script -->
+        <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
+        <!-- waves material design effect -->
+        <script type="text/javascript" src="js/waves.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- keyboard widget dependencies -->
+        <script type="text/javascript" src="js/jquery.keyboard.js"></script>
+        <script type="text/javascript" src="js/jquery.keyboard.extension-all.js"></script>
+        <script type="text/javascript" src="js/jquery.keyboard.extension-extender.js"></script>
+        <script type="text/javascript" src="js/jquery.keyboard.extension-typing.js"></script>
+        <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+        <!-- select2 plugin script -->
+        <script type="text/javascript" src="js/select2.min.js"></script>
+        <!-- dalatable scripts -->
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/dataTables.bootstrap.js"></script>
+        <!-- summernote js -->
+        <script src="js/summernote.js"></script>
+        <!-- chart.js script -->
+        <script src="js/Chart.js"></script>
+        <!-- moment JS -->
+        <script type="text/javascript" src="js/moment.min.js"></script>
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="js/daterangepicker.js"></script>
+        <!-- Sweet Alert swal -->
+        <script src="js/sweetalert.min.js"></script>
+        <!-- datepicker script -->
+        <script src="js/bootstrap-datepicker.min.js"></script>
+        <!-- creditCardValidator script -->
+        <script src="js/jquery.creditCardValidator.js"></script>
+        <!-- creditCardValidator script -->
+        <script src="js/credit-card-scanner.js"></script>
+        <script src="js/jquery.redirect.js"></script>
+        <!-- ajax form -->
+        <script src="js/jquery.form.min.js"></script>
+        <!-- custom script -->
+        <script src="js/app.js"></script>
     </body>
 </html>
 

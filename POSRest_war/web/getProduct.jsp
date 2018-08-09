@@ -62,7 +62,6 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <link rel="stylesheet" href="css/print.css" type="text/css" media="print"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -251,7 +250,7 @@
                                                     <div class="col-xs-6">
                                                         <div class="media" style="height: 100px;">
                                                             <div class="media-left">
-                                                                <a href="#" class="bg print">
+                                                                <a href="#">
                                                                     <img class="img-rounded media-object" style="max-width: 64px;max-height: 64px;" src="${Product.imagelink}"/>
                                                                 </a>
                                                             </div>
@@ -270,13 +269,12 @@
                         </div>                   
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-add hiddenpr" id="print" onclick="window.print()">print</button>
+                            <button type="button" class="btn btn-add hiddenpr" id="print" onclick="PrintTicket()">print</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-
         <!-- // -->
         <script type="text/javascript">
             function fileValidation() {
@@ -313,6 +311,21 @@
             $(document).ready(function() {
                 $('#xTable').DataTable();
             });
+            function PrintTicket() {
+
+                printDivCSS = new String('<link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"><link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><style>/************************* menu print style ***************************/ .headline { font-family: "Kaushan Script", cursive; background-color: #e74c3c; color: white; text-align: center; padding: 2px 0; margin-top: 10px; position: relative; } .headline::before, .headline::after { content: ""; height: 1px; width: 100%; background-color: #e74c3c; display: block; left: 0; position: absolute; } .headline::before { top: -6px; } .headline::after { bottom: -6px; } .opacity-small { font-size: 30px; opacity: 0.7; filter: Alpha(opacity=70); } .opacity-medium { font-size: 20px; opacity: 0.5; filter: Alpha(opacity=50); } .opacity-large { font-size: 15px; opacity: 0.25; filter: Alpha(opacity=25); } .logo-menu{ margin: 0 auto; padding: 50px 0 0 0; } .grey{ color: #aaa; }@media print { html, body { zoom: 100%; overflow:hidden !important; }}</style>');
+
+                var newWindow = window.open();
+                newWindow.document.write(printDivCSS + '<div class="container">' + document.getElementById("printmenusection").innerHTML + '</div>');
+                setTimeout(function() {
+                    newWindow.print()
+                }, 1000);
+
+                //  $('.modal-body').removeAttr('id');
+                //
+                //  window.print();
+                //  $('.modal-body').attr('id', 'modal-body');
+            }
         </script>
         <script type="text/javascript">
             /*************** check proName unique **********/
