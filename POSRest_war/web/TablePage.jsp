@@ -90,7 +90,7 @@
                                 <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
                             </ul>
                         </li>                                           
-                        <li class="flat-box"><a href="#"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
+                        <li class="flat-box"><a href="GetTopProductServlet"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">
                                 <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
@@ -109,11 +109,7 @@
 
         <!-- Page Content -->
         <div class="container">
-            <ul class="cbp-vimenu">
-                <li data-toggle="tooltip"  data-html="true" data-placement="left" title="close&nbsp;register"><a href="javascript:void(0)" onclick="CloseRegister()"><i class="fa fa-times" aria-hidden="true"></i></a></li>
-                <li data-toggle="tooltip"  data-html="true" data-placement="left" title="switch&nbsp;store"><a href="pos/switshregister"><i class="fa fa-random" aria-hidden="true"></i></a></li>
-                <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="kitchens"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
-            </ul>
+           
 
             <c:forEach var="zone" items="${zonelist}">
                 <div class="row">
