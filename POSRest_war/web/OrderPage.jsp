@@ -90,7 +90,7 @@
                                 <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
                             </ul>
                         </li>                                           
-                        <li class="flat-box"><a href="#"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
+                        <li class="flat-box"><a href="GetTopProductServlet"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="">
                                 <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
@@ -117,7 +117,7 @@
             <div class="row">
                 <ul class="cbp-vimenu2">
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="getTableOfZoneFromStore?storeid=${storeid}"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
-                    <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Go&nbsp;to&nbsp;Kitchen&nbsp;page"><a href="getTableToKitchen?storeid=${storeid}"><i class="fa fa-cutlery" aria-hidden="true"></i></a></li>
+                    
                 </ul>
                 <div class="col-md-5 left-side">
                     <div class="col-xs-8">
@@ -386,10 +386,20 @@
                 var subtot = $('#Subtot').text();
                 var tax = parseInt(subtot) * (parseFloat($('#tax').val()) / 100);
                 var discount = parseFloat(subtot) * (parseFloat($('#disc').val()) / 100);
+                if ($('#tax').val() > 20 || $('#tax').val() < 0) {
+                    $('#tax').val(10);
+                    swal("Tax range from 0% to 20%");
 
-                $('#total').text((parseFloat(subtot) + Math.floor(tax)) - discount);
+                } 
+                else{
+                    $('#total').text((parseFloat(subtot) + Math.floor(tax)) - discount);
+                }
+
+
+
 
             }
+
             $("#customerSelect").change(function() {
                 var id = $("#customerSelect option:selected").attr("value");
                 var cusname = $("#customerSelect option:selected").text();
@@ -455,13 +465,13 @@
 
             function add_posale(tableid, productid)
             {
-                // ajax delete data to database
                 $.ajax({
                     url: "AddOrderServlet?tableid=" + tableid + "&productid=" + productid,
                     type: "POST",
                     //data: {name: name1, price: price1, product_id: id, number: number, registerid: 75, waiter: waiterID},
                     success: function()
                     {
+
                         $('#productList').load("loadOrderDetail?tableid=" + tableid);
                         $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
                         $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
@@ -475,24 +485,34 @@
 
 
             }
+
             function edit_posale(orderid, productid)
             {
                 var qt1 = $('#qt' + orderid + productid).val();
                 var tableid = "${tableId}";
-                $.ajax({
-                    url: "editOrderDetail?orderid=" + orderid + "&productid=" + productid + "&quantity=" + qt1,
-                    type: "POST",
-                    success: function()
-                    {
-                        $('#productList').load("loadOrderDetail?tableid=" + tableid);
-                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
-                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown)
-                    {
-                        alert(orderid + "\n" + qt1 + "\n" + productid);
-                    }
-                });
+                if (qt1 > 99) {
+                    swal("Quantity isn't more than 99");
+                    $('#productList').load("loadOrderDetail?tableid=" + tableid);
+                    $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                    $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
+                } else
+                {
+                    $.ajax({
+                        url: "editOrderDetail?orderid=" + orderid + "&productid=" + productid + "&quantity=" + qt1,
+                        type: "POST",
+                        success: function()
+                        {
+                            $('#productList').load("loadOrderDetail?tableid=" + tableid);
+                            $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                            $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
+                        },
+                        error: function(jqXHR, textStatus, errorThrown)
+                        {
+                            alert(orderid + "\n" + qt1 + "\n" + productid);
+                        }
+                    });
+
+                }
 
             }
             function showticket() {
@@ -560,21 +580,21 @@
                     var tableid = "${tableId}";
                     $('.Remise').val('0');
                     $('.TAX').val('0');
-                    
+
 
                     $.ajax({
-                        url: "CancelServlet?tableid="+tableid,
+                        url: "CancelServlet?tableid=" + tableid,
                         type: "POST",
                         success: function()
                         {
-                             $('#productList').html("");
-                        $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
-                        $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
-                        $('#ReturnChange span').text('0');
-                        $('#Paid').val('0');
-                        $('#Subtot').text('0');
-                        $('.TAX').val('0');
-                        $('.Remise').val('0')
+                            $('#productList').html("");
+                            $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
+                            $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);
+                            $('#ReturnChange span').text('0');
+                            $('#Paid').val('0');
+                            $('#Subtot').text('0');
+                            $('.TAX').val('0');
+                            $('.Remise').val('0')
                         },
                         error: function(jqXHR, textStatus, errorThrown)
                         {
@@ -585,7 +605,7 @@
                 });
             }
             ;
-            
+
 
 
 
