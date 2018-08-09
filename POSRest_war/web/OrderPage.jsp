@@ -526,6 +526,7 @@
 
             function saleBtn() {
                 var Cusid = $("#customerSelect option:selected").attr("value");
+                var Empid = $("#WaiterName option:selected").attr("value");
                 var Discount = $('.Remise').val();
                 var Subtotal = $('#Subtot').text();
                 var Tax = $('.TAX').val();
@@ -538,7 +539,7 @@
                 $('#printSection').html();
                 $('#printSection').load("showTicketServlet?tableid=" + tableid + "&storeid=" + storeid + "&discount=" + Discount + "&Tax=" + Tax + "&paid=" + paid + "&change=" + change + "&customerid=" + Cusid);
                 $.ajax({
-                    url: "AddnewSaleServlet?tableid=" + tableid + "&paymethod=Cash" + "&discount=" + Discount + "&tax=" + Tax,
+                    url: "AddnewSaleServlet?tableid=" + tableid + "&paymethod=Cash" + "&discount=" + Discount + "&tax=" + Tax+"&cusId="+Cusid+"&empId="+Empid,
                     type: "POST",
                     success: function()
                     {

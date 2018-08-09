@@ -6,6 +6,8 @@
 
 package controller;
 
+import entity.CustomersFacadeLocal;
+import entity.EmployeesFacadeLocal;
 import entity.OrderDetails;
 import entity.OrderDetailsFacadeLocal;
 import entity.Orders;
@@ -36,6 +38,10 @@ public class AddnewSaleServlet extends HttpServlet {
     OrderDetailsFacadeLocal orderDetailsFacade;
     @EJB
     TablesFacadeLocal tableFacade;
+    @EJB
+    CustomersFacadeLocal customersFacade;
+    @EJB
+    EmployeesFacadeLocal employeesFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -44,6 +50,8 @@ public class AddnewSaleServlet extends HttpServlet {
         String paymethod=request.getParameter("paymethod");
         Double discount=Double.parseDouble(request.getParameter("discount"));
         Double tax=Double.parseDouble(request.getParameter("tax"));
+        String empId=request.getParameter("empId");
+        String cusId=request.getParameter("cusId");
         Tables tables = tableFacade.find(tableid);
         Orders orders = ordersFacade.getByTableid(tableid);
         List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
@@ -57,6 +65,8 @@ public class AddnewSaleServlet extends HttpServlet {
         orders.setSubtotal(subtValue);
         orders.setDiscount(discount/100);
         orders.setOrderTax(tax/100);
+        orders.setCusId(customersFacade.find(cusId));
+        orders.setEmpId(employeesFacade.find(empId));
         float total=(float) (subt-(subt*(discount/100))+(subt*(tax/100)));
         BigDecimal totalValue=BigDecimal.valueOf(total);
         orders.setTotal(totalValue);
