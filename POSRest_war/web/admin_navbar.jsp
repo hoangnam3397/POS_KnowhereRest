@@ -23,7 +23,7 @@
                         <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
                     </ul>
                 </li>                                           
-                <li class="flat-box"><a href="#"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
+                <li class="flat-box"><a href="GetTopProductServlet"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="">
                         <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
