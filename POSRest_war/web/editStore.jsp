@@ -83,7 +83,7 @@
                 </div>
                 <div class="form-group">
                     <label for="Phone"><fmt:message key="admin.editStore.button.phone"/></label>
-                    <input type="number" name="phonesto" maxlength="14" minlength="10" value="${phoneSto}" class="form-control" id="phonesto" placeholder="Phone">
+                    <input type="text" name="phonesto" maxlength="15" value="${phoneSto}" class="form-control" id="phonesto" placeholder="Phone">
                 </div>                                 
                 <div class="form-group">
                     <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editStore.button.submit"/></button>

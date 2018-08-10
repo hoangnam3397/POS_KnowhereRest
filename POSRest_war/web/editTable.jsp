@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -73,27 +75,30 @@
         <div class="container container-small">
             <div class="row" style="margin-top:100px;">
                 <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                    <i class="fa fa-arrow-left"></i> Back</a>
+                    <i class="fa fa-arrow-left"></i><fmt:message key="admin.edittable.table.buttonback"/></a>
                 <form action="editTableServlet" method="post">      
                     <div class="form-group">
-                        <label for="TableName">Table name/number *</label>
+                        <label for="TableName"><fmt:message key="admin.edittable.table.tablename"/> *</label>
                         <input type="text" name="tab_name" class="form-control" id="TableName" value="${tabName}" placeholder="Table name/number" required>
                     </div>
-                    <label for="Zones">Choose a zone</label>
-                    <select class="form-control" id="Zones" name="zone">
-                        <c:forEach var="z" items="${listZone}">
-                            <c:if test="${z.zoneId==zoID}">
-                                <option selected value="${z.zoneId}">${z.zoneName}</option>
-                            </c:if>
-                            <c:if test="${z.zoneId!=zoID}">
-                                <option value="${z.zoneId}">${z.zoneName}</option>
-                            </c:if>
-                        </c:forEach>
-                    </select>
                     <div class="form-group">
-                        <button type="submit" name="action" class="btn btn-add" value="Submit">Submit</button>
+                        <label for="Zones"><fmt:message key="admin.edittable.table.zonename"/></label>
+                        <select class="form-control" id="Zones" name="zone">
+                            <c:forEach var="z" items="${listZone}">
+                                <c:if test="${z.zoneId==zoID}">
+                                    <option selected value="${z.zoneId}">${z.zoneName}</option>
+                                </c:if>
+                                <c:if test="${z.zoneId!=zoID}">
+                                    <option value="${z.zoneId}">${z.zoneName}</option>
+                                </c:if>
+                            </c:forEach>
+                        </select>
                     </div>
-                </form>   </div>
+                    <div class="form-group">
+                        <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.edittable.table.buttonsubmit"/></button>
+                    </div>                    
+                </form>   
+            </div>
         </div>
         <!-- /.Modal -->
 

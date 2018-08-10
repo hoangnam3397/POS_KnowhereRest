@@ -221,18 +221,18 @@ $(document).on('click', '.deletezone', function () {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Edit zone</h4>
+        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialogez.title"/></h4>
       </div>
       <form action="editZoneServlet" method="post">      <div class="modal-body">
             <div class="form-group">
-             <label for="ZoneName">Zone name *</label>
+             <label for="ZoneName"><fmt:message key="admin.gettable.dialogez.zonename"/> *</label>
              <input type="text" name="zone_name" class="form-control" id="ZoneName" placeholder="Zone name" required>
              <input type="hidden" name="zone_id" id="zone_id" >
            </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogez.close"/></button>
+        <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogez.submit"/></button>
       </div>
    </form>    </div>
  </div>

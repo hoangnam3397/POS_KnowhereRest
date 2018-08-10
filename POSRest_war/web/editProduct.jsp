@@ -144,7 +144,10 @@
                 <div class="form-group">
                     <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editproduct.button.submit"/></button>
                 </div>
-            </form>   
+            </form>
+                <br>
+                <br>
+                <br>
         </div>
     </div>
     <!-- /.Modal -->

@@ -90,7 +90,7 @@
                                 <td>${s.address}</td>
                                 <td>${s.phonesto}</td>
                                 <td><div class="btn-group">
-                                        <a class="btn btn-default"  href="deleteStoreServlet?sto_id=${s.stoId}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-times"></i></a>
+                                        <a class="btn btn-default delStore" sto-id="${s.stoId}" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-times"></i></a>
                                         <a class="btn btn-default" href="editStoreServlet?sto_id=${s.stoId}&action=get  " data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                         <a class="btn btn-default" href="getTableServlet?sto_id=${s.stoId}" data-toggle="tooltip" data-placement="top" title="manage Tables"><i class="fa fa-list-ol"></i></a>
                                     </div>
@@ -98,7 +98,7 @@
                             </tr>
                         </c:forEach>
                     </tbody>
-                    
+
                 </table>
             </div>
             <!-- Button trigger modal -->
@@ -106,44 +106,77 @@
                 <fmt:message key="admin.viewStore.button.addstore"/>  </button>
         </div>
         <!-- add store Modal -->
-<div class="modal fade" id="AddStore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.viewStore.dialog.title"/> </h4>
-      </div>
-      <form action="insertStoreServlet" method="post">      <div class="modal-body">
-            <div class="form-group">
-             <label for="StoreName"><fmt:message key="admin.viewStore.dialog.storename"/>  *</label>
-             <input type="text" name="sto_name" class="form-control" id="StoreName" placeholder="Store Name" required>
-           </div>
-           <div class="form-group">
-             <label for="StorePhone"><fmt:message key="admin.viewStore.dialog.phone"/> </label>
-             <input type="number" name="phonesto" maxlength="14" minlength="10" class="form-control" id="StorePhone" placeholder="Store Phone">
-           </div>
-           <div class="form-group">
-             <label for="Address"><fmt:message key="admin.viewStore.dialog.address"/> </label>
-             <input type="text" name="address" class="form-control" id="Adresse" placeholder="Address">
-           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.viewStore.dialog.close"/> </button>
-        <button type="submit" class="btn btn-add"><fmt:message key="admin.viewStore.dialog.submit"/> </button>
-      </div>
-   </form>    </div>
- </div>
-</div>
-<!-- /.Modal -->
+        <div class="modal fade" id="AddStore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.viewStore.dialog.title"/> </h4>
+                    </div>
+                    <form action="insertStoreServlet" method="post">      <div class="modal-body">
+                            <div class="form-group">
+                                <label for="StoreName"><fmt:message key="admin.viewStore.dialog.storename"/>  *</label>
+                                <input type="text" name="sto_name" class="form-control" id="StoreName" placeholder="Store Name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="StorePhone"><fmt:message key="admin.viewStore.dialog.phone"/> </label>
+                                <input type="text" name="phonesto" maxlength="15" class="form-control" id="StorePhone" placeholder="Store Phone">
+                            </div>
+                            <div class="form-group">
+                                <label for="Address"><fmt:message key="admin.viewStore.dialog.address"/> </label>
+                                <input type="text" name="address" class="form-control" id="Adresse" placeholder="Address">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.viewStore.dialog.close"/> </button>
+                            <button type="submit" class="btn btn-add"><fmt:message key="admin.viewStore.dialog.submit"/> </button>
+                        </div>
+                    </form>    </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
 
         <!-- /.Modal -->
 
 
-        <!-- Modal close register -->
+        <script>
+            $(function() {
+                /*************** delete cate **********/
+                $(document).on('click', '.delStore', function() {
 
-        <!-- /.Modal -->
-
-
+                    var sto_id = $(this).attr('sto-id');
+                    swal({title: 'Are you sure ?',
+                        text: 'All the data related to this store will be deleted',
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: 'Yes, delete it!',
+                        closeOnConfirm: false},
+                    function() {
+                        // ajax delete data to database
+                        $.ajax({
+                            url: "http://localhost:8080/POSRest_war/deleteStoreServlet?sto_id=" + sto_id,
+                            type: "POST",
+                            success: function(data) {
+                                location.reload();
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert("error");
+                            }
+                        });
+                        swal.close();
+                    });
+                });
+                /*************** edit cate **********/
+                $(document).on('click', '.editCate', function() {
+                    var id = $(this).attr('cat-id');
+                    var name = $(this).attr('cat-name');
+                    $("#cat_id").val(id);
+                    $("#cat_Name").val(name);
+                    $('#EditCate').modal('show');
+                });
+            });
+        </script>
 
 
         <!-- slim scroll script -->
