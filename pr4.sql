@@ -120,8 +120,29 @@ ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Stores_st
 
 ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Products_pro_id] foreign key (pro_id) references[dbo].[Products](pro_id)
 
-insert into Stores values('S001','Knowhere CMT8','590 CMT8 Q3','083852222',0)
-    insert into Stores values('S002','Knowhere Tay Ninh','Go Dau,Tay Ninh','0663852223',0)
+
+--view
+	Create view TopProduct as 
+	SELECT TOP 5  pro_id, SUM(quantity) as qSum
+	FROM Order_Details
+	GROUP BY pro_id
+	ORDER BY qSum DESC
+	go
+
+	Create view TopProductValue as 
+	Select t.pro_id,p.pro_name,t.qSum from TopProduct t join Products p on t.pro_id=p.pro_id
+	go
+	create view TotalToday as
+	select * from Orders where ordertime >=DATEADD(day, DATEDIFF(day,0,GETDATE()),0) and ordertime < DATEADD(day, DATEDIFF(day,0,GETDATE())+1,0)
+	go
+
+	create view vProductReport as
+	Select a.order_id,b.pro_id,a.ordertime,b.price,b.quantity,b.discount from Orders a join Order_Details b on a.order_id = b.order_id
+	go
+
+	insert into Stores values('S001','Store CMT8','590 CMT8 Q3','083852222',0)
+    insert into Stores values('S002','Store Tay Ninh','Go Dau,Tay Ninh','0663852223',0)
+	insert into Stores values('S003','Store Binh Duong','Di An,Binh Duong','0832221221',0)
 
 	insert into Zones values('Z001','Out Door','S001',0)
 	insert into Zones values('Z002','In Door','S001',0)
@@ -152,16 +173,21 @@ insert into Stores values('S001','Knowhere CMT8','590 CMT8 Q3','083852222',0)
 	insert into Tables values('TB206','06','Z101',0)
 	insert into Tables values('TB207','07','Z103',0)
 	insert into Tables values('TB208','08','Z103',0)
-	--view
-	Create view TopProduct as 
-SELECT TOP 5  pro_id, SUM(quantity) as qSum
-FROM Order_Details
-GROUP BY pro_id
-ORDER BY qSum DESC
-go
+	
+	insert into Categories values('CAT00001','Juices','2018-08-08 00:59:17.763',0)
+	insert into Categories values('CAT00002','Acoholic Drink','2018-08-08 01:59:17.763',0)
+	insert into Categories values('CAT00003','Coffees','2018-08-08 02:59:17.763',0)
+	insert into Categories values('CAT00004','Pasta','2018-08-08 03:59:17.763',0)
+	insert into Categories values('CAT00005','Fast Food','2018-08-08 04:20:17.763',0)
 
-Create view TopProductValue as 
-Select t.pro_id,p.pro_name,t.qSum from TopProduct t join Products p on t.pro_id=p.pro_id
-go
-create view TotalToday as
-  select * from Orders where ordertime >=DATEADD(day, DATEDIFF(day,0,GETDATE()),0) and ordertime < DATEADD(day, DATEDIFF(day,0,GETDATE())+1,0)
+	insert into Products values('P00001','Heneken','CAT00001',22000,'images/default-food.png',0,0,null,color02)
+    insert into Products values('P00002','Salad','CAT00002',22000,'images/default-food.png',0,0,null,color02)
+    insert into Products values('P00003','Tiger','CAT00001',18000,'images/default-food.png',0,0,null,color02)
+    insert into Products values('P00004','Hamburger','CAT00003',28000,'images/default-food.png',0,0,null,color03)
+    insert into Products values('P00005','Hotdog','CAT00003',20000,'images/default-food.png',0,0,null,color04)
+    insert into Products values('P00004','Coffee Milk','CAT00001',16000,'images/default-food.png',0,0,null,color05)
+
+	insert into employees values('EMP00001','Admin','admin','123456','rol01','admin@gmail.com',123456789,null,0)
+	insert into employees values('EMP00002','Duy','duy','123456','rol01','duy@gmail.com',096845215,null,0)
+	insert into employees values('EMP00003','Nam','nam','123456','rol01','nam@gmail.com',098554545,null,0)
+
