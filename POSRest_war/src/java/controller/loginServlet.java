@@ -5,9 +5,11 @@
  */
 package controller;
 
+import entity.Employees;
 import entity.EmployeesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Locale;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -25,32 +27,41 @@ public class loginServlet extends HttpServlet {
 
     @EJB
     private EmployeesFacadeLocal employeesFacade;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();      
+        PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
         String password = request.getParameter("pass");
-        
-        if (employeesFacade.login(username, password) == true) {
-            request.getRequestDispatcher("getStoreServlet").forward(request, response);
+
+        if (employeesFacade.findEmp(username, password).size() > 0) {
+            List<Employees> emp = employeesFacade.findEmp(username, password);
+            if (emp.get(0).getRoleId().getRoleId().equals("rol01")) {
+                request.getRequestDispatcher("getStoreServlet").forward(request, response);
+            } else if (emp.get(0).getRoleId().getRoleId().equals("rol02")) {
+                request.getRequestDispatcher("kitchen.jsp").forward(request, response);
+            } else if (emp.get(0).getRoleId().getRoleId().equals("rol03")) {
+                request.getRequestDispatcher("setting.jsp").forward(request, response);
+            }
         } else {
-            
+            out.println("<h2>Login Fail</h2>");
+            request.getRequestDispatcher("index.html").forward(request, response);
         }
-    
-}
+       
+    }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -64,7 +75,7 @@ public class loginServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -75,7 +86,7 @@ public class loginServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
