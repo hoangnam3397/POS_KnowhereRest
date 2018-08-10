@@ -74,27 +74,25 @@
             <div class="row" style="margin-top:100px;">
                 <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
                     <i class="fa fa-arrow-left"></i> Back</a>
-                <form action="editCustomerServlet" method="post">      
-                    <div class="form-group">
-                        <label for="phone">Phone Customerx  </label>
-                        <input type="text" name="tab_name" class="form-control" id="TableName" value="${tabName}" placeholder="Table name/number" required>
+                <form action="editCustomerServlet" method="post" enctype="multipart/form-data">      
+                    <div class="form-group" id="pushaceP">
+                        <label for="email">Email<a style="color:red">*</a></label>
+                        <input type="email" step="any" value="${email}" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">
                     </div>
-                    <label for="Zones">Choose a zone</label>
-                    <select class="form-control" id="Zones" name="zone">
-                        <option value=''>Choose a zone</option>
-                        <c:forEach var="z" items="${listZone}">
-                            <c:if test="${z.zoneId==zoID}">
-                                <option selected value="${z.zoneId}">${z.zoneName}</option>
-                            </c:if>
-                            <c:if test="${z.zoneId!=zoID}">
-                                <option value="${z.zoneId}">${z.zoneName}</option>
-                            </c:if>
-                        </c:forEach>
-                    </select>
                     <div class="form-group">
-                        <button type="submit" name="action" class="btn btn-add" value="Submit">Submit</button>
+                        <label for="phone">Phone<a style="color:red">*</a></label>
+                        <input type="number" name="phone" maxlength="15" minlength="10"  value="${phone}" class="form-control" id="phone" placeholder="Phone Number">
                     </div>
-                </form>   </div>
+                    <div class="form-group">
+                        <label for="Discount"> (%)<a style="color:red">*</a></label>
+                        <input type="number" name="discount" max="90" min="0" maxlength="2" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>
+                    </div>
+                </form>  
+            </div>
         </div>
         <!-- /.Modal -->
 

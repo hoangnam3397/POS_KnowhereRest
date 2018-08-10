@@ -80,10 +80,6 @@ public class Customers implements Serializable {
         this.email = email;
         this.discount = discount;
     }
-    
-
-  
-    
 
     public Customers(String cusId, String cusName, double discount) {
         this.cusId = cusId;
