@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -74,7 +76,7 @@
 
             <div class="row" style="margin-top:100px;">
                 <div class="row">
-                    <h2>Store Zones</h2>
+                    <h2><fmt:message key="admin.gettable.tableZone.title"/></h2>
                 </div>
                 <div class="row">
                     <c:forEach var="s" items="${listZone}">
@@ -84,20 +86,20 @@
                     <span data-toggle="modal" data-target="#AddZone" class="zone"><i class="fa fa-plus" style="margin-left:0px;"></i></span>
                 </div>
                 <div class="row">
-                    <h2>Store Tables</h2>
+                    <h2><fmt:message key="admin.gettable.tableTab.title"/></h2>
                 </div>
                 <!-- Button trigger modal -->
                 <div class="row">
                     <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addtable" style="margin: 10px 0 !important;">
-                        Add table         </button>
+                        <fmt:message key="admin.gettable.tableTab.buttonadd"/>         </button>
                 </div>
                 <div class="row">
                     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <th>Table name/number</th>
-                                <th>Zone name</th>
-                                <th>Action</th>
+                                <th><fmt:message key="admin.gettable.tableTab.tabname"/> </th>
+                                <th><fmt:message key="admin.gettable.tableTab.zonename"/> </th>
+                                <th><fmt:message key="admin.gettable.tableTab.action"/> </th>
                             </tr>
                         </thead>                        
                         <tbody>
@@ -165,15 +167,15 @@ $(document).on('click', '.deletezone', function () {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add table</h4>
+        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialog.titleadd"/></h4>
       </div>
       <form action="insertTableServlet?sto_id=${sto_id}" method="post">      
       <div class="modal-body">
             <div class="form-group">
-             <label for="TableName">Table name/number *</label>
+             <label for="TableName"><fmt:message key="admin.gettable.dialog.tabname"/> *</label>
              <input type="text" name="tab_name" class="form-control" id="TableName" placeholder="Table name/number" required>
            </div>
-           <label for="Zones">Choose a zone *</label>
+           <label for="Zones"><fmt:message key="admin.gettable.dialog.zonename"/> *</label>
           <select class="form-control" id="Zones" name="zone_id" required>
              <c:forEach var="z" items="${listZone}">
                                 <option value="${z.zoneId}" >${z.zoneName}</option>                                
@@ -181,8 +183,8 @@ $(document).on('click', '.deletezone', function () {
                        </select>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialog.close"/></button>
+        <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialog.submit"/></button>
       </div>
    </form>    </div>
  </div>
@@ -195,18 +197,18 @@ $(document).on('click', '.deletezone', function () {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add zone</h4>
+        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialogz.title"/></h4>
       </div>
       <form action="insertZoneServlet?sto_id=${sto_id}" method="post">      
           <div class="modal-body">
             <div class="form-group">
-             <label for="ZonesName">Zone name *</label>
+             <label for="ZonesName"><fmt:message key="admin.gettable.dialogz.zonename"/> *</label>
              <input type="text" name="zone_name" placeholder="Zone name" class="form-control" required>
            </div>
           </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogz.close"/></button>
+        <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogz.submit"/></button>
       </div>
    </form>    </div>
  </div>
