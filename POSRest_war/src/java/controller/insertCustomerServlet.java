@@ -24,7 +24,7 @@ public class insertCustomerServlet extends HttpServlet {
         
         int num = customersFacade.count() + 1;
         String id = num + "";
-        int lenNum = 8;
+        int lenNum = 7;
         int lenZero = lenNum - id.length();
         for (int i = 0; i < lenZero; i++) {
             id = "0" + id;
@@ -33,6 +33,7 @@ public class insertCustomerServlet extends HttpServlet {
         String cus_name = request.getParameter("cus_name");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
+
         double discount = Double.parseDouble(request.getParameter("discount"));
         
         Customers  cus = new Customers(cus_id, cus_name, phone, email, discount);

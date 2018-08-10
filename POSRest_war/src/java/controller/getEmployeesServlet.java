@@ -28,9 +28,9 @@ public class getEmployeesServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        request.setAttribute("list", employeesFacade.findAll());
+        request.setAttribute("listEmp", employeesFacade.showAllEployees());
         request.setAttribute("listRole", rolesFacade.findAll());
-        request.getRequestDispatcher("setting.jsp").forward(request, response);       
+        request.getRequestDispatcher("getEmployees.jsp").forward(request, response);       
     
     }
 
