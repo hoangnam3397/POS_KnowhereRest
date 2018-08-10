@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,13 +77,13 @@
                 <table id="xTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Product ID</th>
-                            <th>Name</th>
-                            <th>Category</th>
-                            <th class="hidden-xs">Product Description</th>
-                            <th class="hidden-xs">Discount (%)</th>
-                            <th>Price</th>
-                            <th>Action</th>
+                            <th><fmt:message key="admin.product.table.proid"/></th>
+                            <th><fmt:message key="admin.product.table.name"/></th>
+                            <th><fmt:message key="admin.product.table.cate"/></th>
+                            <th class="hidden-xs"><fmt:message key="admin.product.table.description"/></th>
+                            <th class="hidden-xs"><fmt:message key="admin.product.table.discount"/> (%)</th>
+                            <th><fmt:message key="admin.product.table.price"/></th>
+                            <th><fmt:message key="admin.product.table.action"/></th>
                         </tr>
                     </thead>                  
                     <tbody>
@@ -105,10 +107,10 @@
                 </table>
             </div>
             <!-- Button trigger modal -->
-            <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct">Add Product</button>
+            <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct"><fmt:message key="admin.product.button.addpro"/></button>
 
             <div class=" float-right">
-                <a class="btn btn-red btn-xs" style="margin-bottom: 100px;" data-toggle="modal" data-target="#PrintMenu">PrintMenu</a>
+                <a class="btn btn-red btn-xs" style="margin-bottom: 100px;" data-toggle="modal" data-target="#PrintMenu"><fmt:message key="admin.product.button.printmenu"/></a>
             </div>
         </div>
         <!-- /.Modal -->
@@ -122,17 +124,17 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Add Product</h4>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.product.dialog.titleaddpro"/></h4>
                     </div>
                     <form id="insertPro-form" action="insertProductServlet" method="post" enctype="multipart/form-data">      
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="ProductName">Name <a style="color: red">*</a></label>
+                                <label for="ProductName"><fmt:message key="admin.product.dialog.proname"/> <a style="color: red">*</a></label>
                                 <input type="text" name="pro_name" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
                                 <span id="proName-result" value="false"></span>
                             </div>
                             <div class="form-group">
-                                <label for="Category">Category</label>
+                                <label for="Category"><fmt:message key="admin.product.dialog.cate"/></label>
                                 <select class="form-control" value="" name="cate" id="Category">
                                     <c:forEach var="cat" items="${listCate}">
                                         <option value="${cat.catId}">${cat.catName}</option>
@@ -140,25 +142,25 @@
                                 </select>
                             </div>
                             <div class="form-group" id="pushaceP">
-                                <label for="PurchasePrice">Price (|VNĐ)<a style="color: red">*</a></label>
+                                <label for="PurchasePrice"><fmt:message key="admin.product.dialog.price"/> (|VNĐ)<a style="color: red">*</a></label>
                                 <input type="number" step="any" name="price" max="50000000" min="1000" maxlength="10" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
                             </div>
                             <div class="form-group">
-                                <label for="Discount">Discount (%)<a style="color: red">*</a></label>
+                                <label for="Discount"><fmt:message key="admin.product.dialog.discount"/> (%)<a style="color: red">*</a></label>
                                 <input type="number" name="discount" maxlength="2" max="90" min="0" class="form-control" id="Discount" placeholder="discount (%)" Required>
                             </div>
                             <div class="form-group">
-                                <label for="exampleInputFile">Input Image</label>
+                                <label for="exampleInputFile"><fmt:message key="admin.product.dialog.inputimg"/> </label>
                                 <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg,image/png" onchange="return fileValidation()">
                             </div>
                             <div class="form-group">
-                                <label for="ProductDescription">Product Description</label>                              
+                                <label for="ProductDescription"><fmt:message key="admin.product.dialog.description"/> </label>                              
                                 <textarea class="form-control" name="descrip" id="descrip">                                  
                                 </textarea>
                             </div>
                             <div class="form-group">
                                 <div class="btn-group white" data-toggle="buttons">
-                                    <p class="help-block">Choose color to Display in POS.</p>
+                                    <p class="help-block"><fmt:message key="admin.product.dialog.color"/></p>
                                     <label class="btn color01">
                                         <input type="radio" name="color" id="option1" value="color01" autocomplete="off" > C1
                                     </label>
@@ -187,8 +189,8 @@
                             </div>                           
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" name="action" value="Submit" class="btn btn-add insertPro">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.product.dialog.close"/></button>
+                            <button type="submit" name="action" value="Submit" class="btn btn-add insertPro"><fmt:message key="admin.product.dialog.submit"/></button>
                         </div>
                     </form>    
                 </div>
@@ -202,7 +204,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Image</h4>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.product.dialogImg.title"/></h4>
                     </div>    
                     <div class="modal-body">
                         <div class="form-group">                         
@@ -211,7 +213,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.product.dialogImg.close"/></button>
                     </div>    
                 </div>
             </div>
@@ -268,8 +270,8 @@
                             </div>
                         </div>                   
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-add hiddenpr" id="print" onclick="PrintTicket()">print</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.product.dialogmenu.buttonclose"/></button>
+                            <button type="button" class="btn btn-add hiddenpr" id="print" onclick="PrintTicket()"><fmt:message key="admin.product.dialogmenu.buttonprint"/></button>
                         </div>
                     </form>
                 </div>

@@ -71,87 +71,81 @@
 
         <!-- Page Content -->
         <div class="container">
-           
-
             <c:forEach var="zone" items="${zonelist}">
                 <div class="row">
                     <h1 class="choose_store"> ${zone.zoneName} </h1><hr>
-                    <div class="row tablesrow">
+                </div>
+                <div class="row tablesrow">
                     <c:forEach var="table" items="${listTable}">
-                        
-                            <c:if test="${zone.zoneId==table.zoneId.zoneId}">
-                                <div class="col-sm-2 col-xs-4 tableList">
-                                    <c:if test="${table.status eq false}">
+                        <c:if test="${zone.zoneId==table.zoneId.zoneId}">
+                            <div class="col-sm-2 col-xs-4 tableList">
+                                <c:if test="${table.status eq false}">
                                     <a href="getCategoryToOrder?table=${table.tabName}&tableid=${table.tabId}&storeid=${storeId}">
                                         <img src="images/table.svg" alt="store">
                                         <h2>${table.tabName}</h2>
                                     </a>
-                                    </c:if>
-                                    <c:if test="${table.status eq true}">
+                                </c:if>
+                                <c:if test="${table.status eq true}">
                                     <a href="getCategoryToOrder?table=${table.tabName}&tableid=${table.tabId}&storeid=${storeId}">
                                         <img src="images/tableB2.svg" alt="store">
                                         <h2>${table.tabName}</h2>
                                     </a>
-                                    </c:if>
-                                </div>
-                            </c:if>
-                        
+                                </c:if>
+                            </div>
+                        </c:if>
                     </c:forEach>
-                        </div>
-
-
                 </div>
             </c:forEach>
+        </div>
+
+        <!-- /.Modal -->
 
 
-            <!-- /.Modal -->
+        <!-- Modal close register -->
 
-
-            <!-- Modal close register -->
-
-            <!-- /.Modal -->
+        <!-- /.Modal -->
 
 
 
 
-            <!-- slim scroll script -->
-            <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
-            <!-- waves material design effect -->
-            <script type="text/javascript" src="js/waves.min.js"></script>
-            <!-- Bootstrap Core JavaScript -->
-            <script type="text/javascript" src="js/bootstrap.min.js"></script>
-            <!-- keyboard widget dependencies -->
-            <script type="text/javascript" src="js/jquery.keyboard.js"></script>
-            <script type="text/javascript" src="js/jquery.keyboard.extension-all.js"></script>
-            <script type="text/javascript" src="js/jquery.keyboard.extension-extender.js"></script>
-            <script type="text/javascript" src="js/jquery.keyboard.extension-typing.js"></script>
-            <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
-            <!-- select2 plugin script -->
-            <script type="text/javascript" src="js/select2.min.js"></script>
-            <!-- dalatable scripts -->
-            <script src="js/jquery.dataTables.min.js"></script>
-            <script src="js/dataTables.bootstrap.js"></script>
-            <!-- summernote js -->
-            <script src="js/summernote.js"></script>
-            <!-- chart.js script -->
-            <script src="js/Chart.js"></script>
-            <!-- moment JS -->
-            <script type="text/javascript" src="js/moment.min.js"></script>
-            <!-- Include Date Range Picker -->
-            <script type="text/javascript" src="js/daterangepicker.js"></script>
-            <!-- Sweet Alert swal -->
-            <script src="js/sweetalert.min.js"></script>
-            <!-- datepicker script -->
-            <script src="js/bootstrap-datepicker.min.js"></script>
-            <!-- creditCardValidator script -->
-            <script src="js/jquery.creditCardValidator.js"></script>
-            <!-- creditCardValidator script -->
-            <script src="js/credit-card-scanner.js"></script>
-            <script src="js/jquery.redirect.js"></script>
-            <!-- ajax form -->
-            <script src="js/jquery.form.min.js"></script>
-            <!-- custom script -->
-            <script src="js/app.js"></script>
+        <!-- slim scroll script -->
+        <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
+        <!-- waves material design effect -->
+        <script type="text/javascript" src="js/waves.min.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- keyboard widget dependencies -->
+        <script type="text/javascript" src="js/jquery.keyboard.js"></script>
+        <script type="text/javascript" src="js/jquery.keyboard.extension-all.js"></script>
+        <script type="text/javascript" src="js/jquery.keyboard.extension-extender.js"></script>
+        <script type="text/javascript" src="js/jquery.keyboard.extension-typing.js"></script>
+        <script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+        <!-- select2 plugin script -->
+        <script type="text/javascript" src="js/select2.min.js"></script>
+        <!-- dalatable scripts -->
+        <script src="js/jquery.dataTables.min.js"></script>
+        <script src="js/dataTables.bootstrap.js"></script>
+        <!-- summernote js -->
+        <script src="js/summernote.js"></script>
+        <!-- chart.js script -->
+        <script src="js/Chart.js"></script>
+        <!-- moment JS -->
+        <script type="text/javascript" src="js/moment.min.js"></script>
+        <!-- Include Date Range Picker -->
+        <script type="text/javascript" src="js/daterangepicker.js"></script>
+        <!-- Sweet Alert swal -->
+        <script src="js/sweetalert.min.js"></script>
+        <!-- datepicker script -->
+        <script src="js/bootstrap-datepicker.min.js"></script>
+        <!-- creditCardValidator script -->
+        <script src="js/jquery.creditCardValidator.js"></script>
+        <!-- creditCardValidator script -->
+        <script src="js/credit-card-scanner.js"></script>
+        <script src="js/jquery.redirect.js"></script>
+        <!-- ajax form -->
+        <script src="js/jquery.form.min.js"></script>
+        <!-- custom script -->
+        <script src="js/app.js"></script>
     </body>
 </html>
 

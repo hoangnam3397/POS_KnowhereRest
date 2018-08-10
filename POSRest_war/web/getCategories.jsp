@@ -7,6 +7,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,9 +77,9 @@
                 <table id="Table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Category Name</th>
-                            <th>Create At</th>
-                            <th>Action</th>
+                            <th><fmt:message key="admin.categories.table.catename"/></th>
+                            <th><fmt:message key="admin.categories.table.createat"/></th>
+                            <th><fmt:message key="admin.categories.table.action"/></th>
                         </tr>
                     </thead>                   
                     <tbody>
@@ -98,7 +100,7 @@
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#AddCate">
-                Add Category   </button>
+                <fmt:message key="admin.categories.button.addcate"/>   </button>
         </div>
         <!-- add cate Modal -->
         <div class="modal fade" id="AddCate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -106,18 +108,18 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Add Category</h4>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.categories.dialog.titleaddcate"/></h4>
                     </div>
                     <form action="insertCategoryServlet" method="post">      
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="StoreName">Category Name *</label>
+                                <label for="StoreName"><fmt:message key="admin.categories.dialog.catename"/> *</label>
                                 <input type="text" name="cate_name" class="form-control" id="cate_name" placeholder="Category Name" required>
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-add">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.categories.dialog.close"/></button>
+                            <button type="submit" class="btn btn-add"><fmt:message key="admin.categories.dialog.submit"/></button>
                         </div>
                     </form>    
                 </div>
@@ -165,19 +167,19 @@ $(function() {
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Edit Category</h4>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.categories.edialog.titleaddcate"/></h4>
                     </div>
                     <form action="editCategoryServlet" method="post">      
                         <div class="modal-body">
                             <div class="form-group">
-                                <label for="StoreName">Category Name *</label>
+                                <label for="StoreName"><fmt:message key="admin.categories.edialog.catename"/> *</label>
                                 <input type="text" name="cate_name" class="form-control" id="cat_Name" placeholder="Category Name" required>
                                 <input type="hidden" name="cat_id" id="cat_id" />
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-add">Submit</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.categories.edialog.close"/></button>
+                            <button type="submit" class="btn btn-add"><fmt:message key="admin.categories.edialog.submit"/></button>
                         </div>
                     </form>    
                 </div>

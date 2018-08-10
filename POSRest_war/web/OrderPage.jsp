@@ -6,7 +6,9 @@
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -73,7 +75,7 @@
         <!-- *************************************************** if a table was choosen ********************************** -->
         <div class="container-fluid">
             <div class="row text-center">
-                <h3 style="font-family: 'Kaushan Script', cursive;">Table - ${table}</h3>
+                <h3 style="font-family: 'Kaushan Script', cursive;"><fmt:message key="admin.orderpage.table"/> - ${table}</h3>
 
             </div>
             <div class="row">
@@ -83,7 +85,7 @@
                 </ul>
                 <div class="col-md-5 left-side">
                     <div class="col-xs-8">
-                        <h2>Choose Client</h2>
+                        <h2><fmt:message key="admin.orderpage.chooseclient"/></h2>
                     </div>
                     <div class="col-xs-4 client-add">
                         <a href="javascript:void(0)" data-toggle="modal" data-target="#AddCustomer">
@@ -117,16 +119,16 @@
                         <span class="hidden" id="waiterS"></span>
                     </div>
                     <div class="col-xs-5 table-header">
-                        <h3>Product</h3>
+                        <h3><fmt:message key="admin.orderpage.bill.product"/></h3>
                     </div>
                     <div class="col-xs-2 table-header">
-                        <h3>Price</h3>
+                        <h3><fmt:message key="admin.orderpage.bill.price"/></h3>
                     </div>
                     <div class="col-xs-3 table-header nopadding">
-                        <h3 class="text-left">Quantity</h3>
+                        <h3 class="text-left"><fmt:message key="admin.orderpage.bill.quantity"/></h3>
                     </div>
                     <div class="col-xs-2 table-header nopadding">
-                        <h3>Total</h3>
+                        <h3><fmt:message key="admin.orderpage.bill.total"/></h3>
                     </div>
                     <div id="productList">
 
@@ -136,30 +138,30 @@
                         <div class="table-responsive col-sm-12 totalTab">
                             <table class="table">
                                 <tr>
-                                    <td class="active" width="40%">SubTotal</td>
-                                    <td class="whiteBg" width="60%"><span id="Subtot"></span> VND                        <span class="float-right"><b id="ItemsNum"><span></span> items</b></span>
+                                    <td class="active" width="40%"><fmt:message key="admin.orderpage.sum.subtotal"/></td>
+                                    <td class="whiteBg" width="60%"><span id="Subtot"></span> VND                        <span class="float-right"><b id="ItemsNum"><span></span> <fmt:message key="admin.orderpage.sum.items"/></b></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="active">Order TAX</td>
+                                    <td class="active"><fmt:message key="admin.orderpage.sum.ordertax"/></td>
                                     <td class="whiteBg"><input type="text" name="tax" value="10" onchange="total_change()" id="tax" class="total-input TAX" placeholder="%"  maxlength="8">%
                                         <span class="float-right"><b id="taxValue"></b></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="active">Discount</td>
+                                    <td class="active"><fmt:message key="admin.orderpage.sum.discount"/></td>
                                     <td class="whiteBg"><input type="text" value="0" name="discount" onchange="total_change()" id="disc" class="total-input Remise" placeholder="%"  maxlength="8">%
                                         <span class="float-right"><b id="RemiseValue"></b></span>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="active">Total</td>
+                                    <td class="active"><fmt:message key="admin.orderpage.sum.total"/></td>
                                     <td class="whiteBg light-blue text-bold"><span  id="total"></span> VND</td>
                                 </tr>
                             </table>
                         </div>
-                        <button type="button" onclick="cancelPOS()" class="btn btn-red col-md-6 flat-box-btn"><h5 class="text-bold">CANCEL</h5></button>
-                        <button type="button" class="btn btn-green col-md-6 flat-box-btn" data-toggle="modal" data-target="#AddSale"><h5 class="text-bold">PAYMENT</h5></button>
+                        <button type="button" onclick="cancelPOS()" class="btn btn-red col-md-6 flat-box-btn"><h5 class="text-bold"><fmt:message key="admin.orderpage.button.cancer"/></h5></button>
+                        <button type="button" class="btn btn-green col-md-6 flat-box-btn" data-toggle="modal" data-target="#AddSale"><h5 class="text-bold"><fmt:message key="admin.orderpage.button.payment"/></h5></button>
                     </div>
 
                 </div>

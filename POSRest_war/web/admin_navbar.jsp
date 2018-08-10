@@ -1,3 +1,6 @@
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -13,23 +16,33 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                    
-                <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text">Product</span></a></li>
-                <li class="flat-box"><a href="getCategoriesServlet"><i class="fa fa-bookmark"></i> <span class="menu-text">Categories</span></a></li>
-                <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text">Stores</span></a></li>
+                <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text"><fmt:message key="admin.navbar.product"/></span></a></li>
+                <li class="flat-box"><a href="getCategoriesServlet"><i class="fa fa-bookmark"></i> <span class="menu-text"><fmt:message key="admin.navbar.categories"/></span></a></li>
+                <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text"><fmt:message key="admin.navbar.store"/></span></a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> <span class="menu-text">People</span> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> <span class="menu-text"><fmt:message key="admin.navbar.people"/></span> <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-user"></i> <span class="menu-text">Employees</span></a></li>
-                        <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text">Customers</span></a></li>
+                        <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-user"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.emp"/></span></a></li>
+                        <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.cus"/></span></a></li>
                     </ul>
                 </li>                                           
-                <li class="flat-box"><a href="GetTopProductServlet"><i class="fa fa-line-chart"></i> <span class="menu-text">Reports</span></a></li>                                </ul>
+                <li class="flat-box"><a href="GetTopProductServlet"><i class="fa fa-line-chart"></i> <span class="menu-text"><fmt:message key="admin.navbar.report"/></span></a></li>                                </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown language">
+                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="hidden-xs"><fmt:message key="admin.navbar.language"/></span>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="flat-box"><a href="setLocalen"><img src="images/en.png" class="flag" alt="language"> English</a></li>
+                        <li class="flat-box"><a href="setLocalvi" ><img src="images/vn.png" class="flag" alt="language"> Vietnam</a></li>
+
+                    </ul>
+                </li>
                 <li><a href="">
                         <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
                         <span class="hidden-xs"> &nbsp;&nbsp;admin Doe </span>
                     </a>
-                </li>
+                </li>               
                 <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
             </ul>
         </div>

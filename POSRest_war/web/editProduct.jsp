@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -74,15 +76,15 @@
     <div class="container container-small">
         <div class="row" style="margin-top:100px;">
             <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                <i class="fa fa-arrow-left"></i> Back</a>
+                <i class="fa fa-arrow-left"></i> <fmt:message key="admin.editproduct.button.back"/></a>
             <form id="editPro-form" action="editProductServlet" method="post" enctype="multipart/form-data">      
                 <div class="form-group">
-                    <label for="ProductName">Name<a style="color:red">*</a></label>
+                    <label for="ProductName"><fmt:message key="admin.editproduct.text.name"/><a style="color:red">*</a></label>
                     <input type="text" name="pro_name" value="${proName}" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
                     <span id="proName-result" value="false"></span>
                 </div>
                 <div class="form-group">
-                    <label for="Category">Category</label>
+                    <label for="Category"><fmt:message key="admin.editproduct.text.cate"/></label>
                     <select class="form-control" value="" name="cate" id="Category">
                         <c:forEach var="z" items="${listCate}">
                             <c:if test="${z.catId==cateid}">
@@ -95,24 +97,24 @@
                     </select>
                 </div>
                 <div class="form-group" id="pushaceP">
-                    <label for="PurchasePrice">Price (|VNĐ)<a style="color:red">*</a></label>
+                    <label for="PurchasePrice"><fmt:message key="admin.editproduct.text.price"/> (|VNĐ)<a style="color:red">*</a></label>
                     <input type="number" step="any" value="${price}" maxlength="10" max="50000000" min="1000" Required name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price">
                 </div>
                 <div class="form-group">
-                    <label for="Discount">Discount (%)<a style="color:red">*</a></label>
+                    <label for="Discount"><fmt:message key="admin.editproduct.text.discount"/> (%)<a style="color:red">*</a></label>
                     <input type="number" name="discount" max="90" min="0" maxlength="2" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Input Image</label>
+                    <label for="exampleInputFile"><fmt:message key="admin.editproduct.text.inputimg"/></label>
                     <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg,image/png" onchange="return fileValidation()">
                 </div>
                 <div class="form-group">
-                    <label for="ProductDescription">Product Description</label>
+                    <label for="ProductDescription"><fmt:message key="admin.editproduct.text.description"/></label>
                     <textarea class="form-control" name="descrip">${description}</textarea>
                 </div>
                 <div class="form-group">
                     <div class="btn-group white" data-toggle="buttons">
-                        <p class="help-block">Choose color to Display in POS.</p>
+                        <p class="help-block"><fmt:message key="admin.editproduct.text.color"/></p>
                         <label class="btn color01">
                             <input type="radio" name="color" id="option1" value="color01" autocomplete="off" > C1
                         </label>
@@ -140,7 +142,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>
+                    <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editproduct.button.submit"/></button>
                 </div>
             </form>   </div>
     </div>
