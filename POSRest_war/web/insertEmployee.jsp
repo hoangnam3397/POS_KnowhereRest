@@ -135,37 +135,14 @@
                     <input type="text" name="username" maxlength="50" Required class="form-control" id="username" placeholder="User Name">
                     <span id="userName-result" value="false"></span>
                 </div>    
-
-                <script type="text/javascript">
-                    /*************** check userName unique **********/
-                    $(document).ready(function() {
-                        var x_timer;
-                        $("#username").keyup(function(e) {
-                            clearTimeout(x_timer);
-      
-                            var username = $(this).val();
-                            x_timer = setTimeout(function() {
-                                check_user_name_ajax(username);
-                            }, 1000);
-                        });  
-                        function check_user_name_ajax(username) {
-                            $("#userName-result").html('<img src="images/ajax-loader.gif" />');
-                            $.post('ChkInsertUserName', {'username': username}, function(data) {
-                                $("#userName-result").html(data);
-                            });
-                        }
-                    }); 
-                </script>
                 <div class="form-group">
-                    <label for="Password">Password<a style="color:red">*</a></label>
-                    <input type="password" name="password"  maxlength="50" Required class="form-control" id="pro_name" placeholder="Password">
-                    <span id="proName-result" value="false"></span>
-                </div>  
-                  <div class="form-group">
-                    <label for="Password">Re-Password<a style="color:red">*</a></label>
-                    <input type="password" name="password"  maxlength="50" Required class="form-control" id="pro_name" placeholder="R-en Password">
-                    <span id="proName-result" value="false"></span>
-                </div>  
+                    <label for="password">Password *</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password">Repeat Password *</label>
+                    <input type="password" name="PasswordRepeat" class="form-control" id="confirm_password" placeholder="Repeat Password" required>
+                </div> 
                 <div class="form-group">
                     <label for="Role">Role</label>
                     <select class="form-control" value="" name="role" id="Role">
@@ -179,37 +156,57 @@
                     <input type="email" step="any" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">
                     <span id="Email-result" value="false"></span>
                 </div>
-                 <script type="text/javascript">
+                                <script type="text/javascript">
+                    /*************** check userName unique **********/
+                    $(document).ready(function() {
+                        
+                    });
+                </script>
+                <script type="text/javascript">
                     /*************** check userName unique **********/
                     $(document).ready(function() {
                         var x_timer;
                         $("#email").keyup(function(e) {
                             clearTimeout(x_timer);
-      
+
                             var email = $(this).val();
                             x_timer = setTimeout(function() {
                                 check_email_ajax(email);
                             }, 1000);
-                        });  
+                        });
                         function check_email_ajax(email) {
                             $("#Email-result").html('<img src="images/ajax-loader.gif" />');
                             $.post('ChkInsertEmail', {'email': email}, function(data) {
                                 $("#Email-result").html(data);
                             });
                         }
-                    }); 
+                        $("#username").keyup(function(e) {
+                            clearTimeout(x_timer);
+
+                            var username = $(this).val();
+                            x_timer = setTimeout(function() {
+                                check_user_name_ajax(username);
+                            }, 1000);
+                        });
+                        function check_user_name_ajax(username) {
+                            $("#userName-result").html('<img src="images/ajax-loader.gif" />');
+                            $.post('ChkInsertUserName', {'username': username}, function(data) {
+                                $("#userName-result").html(data);
+                            });
+                        }
+                    });
                 </script>
                 <div class="form-group">
                     <label for="Phone">Phone<a style="color:red">*</a></label>
                     <input type="number" name="phone" maxlength="15" minlength="10" class="form-control" id="phone" placeholder="Phone">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="exampleInputFile">Input Image</label>
                     <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg,image/png" onchange="return fileValidation()">
                 </div>
-                    
-               
+
+
                 <div class="form-group">
                     <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>
                 </div>

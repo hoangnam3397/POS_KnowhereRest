@@ -53,9 +53,9 @@ public class ChkInsertUserName extends HttpServlet {
         String emp_id = "EMP" + id;        
         String name= request.getParameter("username");
         if (empFacade.chkUserUnique(emp_id,name)==true) {
-            response.getWriter().write("<img src=\"images/available.png\" /><span style=\"color: green\">You can use Email. </span>");
+            response.getWriter().write("<img src=\"images/available.png\" /><span style=\"color: green\">You can use UserName. </span>");
        } else {           
-            response.getWriter().write("<img src=\"images/not-available.png\" /><span style=\"color: red\">User already exists.</span>");
+            response.getWriter().write("<img src=\"images/not-available.png\" /><span style=\"color: red\">UserName already exists.</span>");
        }
     }
 
