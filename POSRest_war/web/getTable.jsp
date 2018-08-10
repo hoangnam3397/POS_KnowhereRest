@@ -173,7 +173,7 @@ $(document).on('click', '.deletezone', function () {
       <div class="modal-body">
             <div class="form-group">
              <label for="TableName"><fmt:message key="admin.gettable.dialog.tabname"/> *</label>
-             <input type="text" name="tab_name" class="form-control" id="TableName" placeholder="Table name/number" required>
+             <input type="text" name="tab_name" class="form-control" id="TableName" maxlength="50" placeholder="Table name/number" required>
            </div>
            <label for="Zones"><fmt:message key="admin.gettable.dialog.zonename"/> *</label>
           <select class="form-control" id="Zones" name="zone_id" required>
@@ -186,7 +186,8 @@ $(document).on('click', '.deletezone', function () {
         <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialog.close"/></button>
         <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialog.submit"/></button>
       </div>
-   </form>    </div>
+   </form>    
+    </div>
  </div>
 </div>
 <!-- /.Modal -->
@@ -203,14 +204,15 @@ $(document).on('click', '.deletezone', function () {
           <div class="modal-body">
             <div class="form-group">
              <label for="ZonesName"><fmt:message key="admin.gettable.dialogz.zonename"/> *</label>
-             <input type="text" name="zone_name" placeholder="Zone name" class="form-control" required>
+             <input type="text" name="zone_name" maxlength="50" placeholder="Zone name" class="form-control" required>
            </div>
           </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogz.close"/></button>
         <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogz.submit"/></button>
       </div>
-   </form>    </div>
+   </form>    
+    </div>
  </div>
 </div>
 <!-- /.Modal -->
@@ -226,7 +228,7 @@ $(document).on('click', '.deletezone', function () {
       <form action="editZoneServlet" method="post">      <div class="modal-body">
             <div class="form-group">
              <label for="ZoneName"><fmt:message key="admin.gettable.dialogez.zonename"/> *</label>
-             <input type="text" name="zone_name" class="form-control" id="ZoneName" placeholder="Zone name" required>
+             <input type="text" name="zone_name" maxlength="50" class="form-control" id="ZoneName" placeholder="Zone name" required>
              <input type="hidden" name="zone_id" id="zone_id" >
            </div>
       </div>

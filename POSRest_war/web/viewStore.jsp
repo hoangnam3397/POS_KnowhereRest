@@ -116,7 +116,7 @@
                     <form action="insertStoreServlet" method="post">      <div class="modal-body">
                             <div class="form-group">
                                 <label for="StoreName"><fmt:message key="admin.viewStore.dialog.storename"/>  *</label>
-                                <input type="text" name="sto_name" class="form-control" id="StoreName" placeholder="Store Name" required>
+                                <input type="text" name="sto_name" maxlength="50" class="form-control" id="StoreName" placeholder="Store Name" required>
                             </div>
                             <div class="form-group">
                                 <label for="StorePhone"><fmt:message key="admin.viewStore.dialog.phone"/> </label>
@@ -124,7 +124,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="Address"><fmt:message key="admin.viewStore.dialog.address"/> </label>
-                                <input type="text" name="address" class="form-control" id="Adresse" placeholder="Address">
+                                <input type="text" name="address" maxlength="100" class="form-control" id="Adresse" placeholder="Address">
                             </div>
                         </div>
                         <div class="modal-footer">

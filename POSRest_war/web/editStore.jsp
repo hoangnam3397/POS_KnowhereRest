@@ -79,7 +79,7 @@
                 </div>        
                 <div class="form-group">
                     <label for="Address"><fmt:message key="admin.editStore.button.address"/></label>
-                    <input type="text" name="address" value="${address}" maxlength="100" Required class="form-control" id="address" placeholder="Address">
+                    <input type="text" name="address" value="${address}" maxlength="100" class="form-control" id="address" placeholder="Address">
                 </div>
                 <div class="form-group">
                     <label for="Phone"><fmt:message key="admin.editStore.button.phone"/></label>

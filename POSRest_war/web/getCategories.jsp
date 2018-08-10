@@ -114,7 +114,7 @@
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="StoreName"><fmt:message key="admin.categories.dialog.catename"/> *</label>
-                                <input type="text" name="cate_name" class="form-control" id="cate_name" placeholder="Category Name" required>
+                                <input type="text" name="cate_name" maxlength="50" class="form-control" id="cate_name" placeholder="Category Name" required>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -173,7 +173,7 @@ $(function() {
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="StoreName"><fmt:message key="admin.categories.edialog.catename"/> *</label>
-                                <input type="text" name="cate_name" class="form-control" id="cat_Name" placeholder="Category Name" required>
+                                <input type="text" name="cate_name" class="form-control" id="cat_Name" maxlength="50" placeholder="Category Name" required>
                                 <input type="hidden" name="cat_id" id="cat_id" />
                             </div>
                         </div>

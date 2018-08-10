@@ -79,7 +79,7 @@
                 <form action="editTableServlet" method="post">      
                     <div class="form-group">
                         <label for="TableName"><fmt:message key="admin.edittable.table.tablename"/> *</label>
-                        <input type="text" name="tab_name" class="form-control" id="TableName" value="${tabName}" placeholder="Table name/number" required>
+                        <input type="text" name="tab_name" class="form-control" id="TableName" maxlength="50" value="${tabName}" placeholder="Table name/number" required>
                     </div>
                     <div class="form-group">
                         <label for="Zones"><fmt:message key="admin.edittable.table.zonename"/></label>

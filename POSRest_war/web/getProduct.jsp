@@ -135,7 +135,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="Category"><fmt:message key="admin.product.dialog.cate"/></label>
-                                <select class="form-control" value="" name="cate" id="Category">
+                                <select class="form-control" value="" name="cate" id="Category" required>
                                     <c:forEach var="cat" items="${listCate}">
                                         <option value="${cat.catId}">${cat.catName}</option>
                                     </c:forEach>
@@ -143,7 +143,7 @@
                             </div>
                             <div class="form-group" id="pushaceP">
                                 <label for="PurchasePrice"><fmt:message key="admin.product.dialog.price"/> (|VNĐ)<a style="color: red">*</a></label>
-                                <input type="number" step="any" name="price" max="50000000" min="1000" maxlength="10" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
+                                <input type="number" step="any" name="price" max="50000000" min="1000" maxlength="8" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
                             </div>
                             <div class="form-group">
                                 <label for="Discount"><fmt:message key="admin.product.dialog.discount"/> (%)<a style="color: red">*</a></label>
@@ -155,7 +155,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="ProductDescription"><fmt:message key="admin.product.dialog.description"/> </label>                              
-                                <textarea class="form-control" name="descrip" id="descrip">                                  
+                                <textarea class="form-control" name="descrip" id="descrip" maxlength="200">                                  
                                 </textarea>
                             </div>
                             <div class="form-group">
@@ -190,7 +190,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.product.dialog.close"/></button>
-                            <button type="submit" name="action" value="Submit" class="btn btn-add insertPro"><fmt:message key="admin.product.dialog.submit"/></button>
+                            <button type="submit" name="submitProduct" id="submitProduct" value="Submit" class="btn btn-add insertPro"><fmt:message key="admin.product.dialog.submit"/></button>
                         </div>
                     </form>    
                 </div>
@@ -279,6 +279,7 @@
         </div>
         <!-- // -->
         <script type="text/javascript">
+
             function fileValidation() {
                 /*************** check image **********/
                 var fileInput = document.getElementById('imageInput');
@@ -354,6 +355,28 @@
                 if (errors == 'false') {
                     $('#pro_name').focus();
                     event.preventDefault();
+                }
+            });
+
+            $('#submitProduct').click(function() {
+                //kiem tra trinh duyet co ho tro File API
+                if (window.File && window.FileReader && window.FileList && window.Blob)
+                {
+                    // lay dung luong va kieu file tu the input file
+                    var fsize = $('#imageInput')[0].files[0].size;
+                    var ftype = $('#imageInput')[0].files[0].type;
+                    var fname = $('#imageInput')[0].files[0].name;
+
+                    if (fsize > 1048576)  //thuc hien dieu gi do neu dung luong file vuot qua 1MB
+                    {
+                        alert("Type :" + ftype + " | " + fsize + " bites\n(File: " + fname + ") Too big!");
+                        event.preventDefault();
+                    } else {
+                        //alert("Type :" + ftype + " | " + fsize + " bites\n(File :" + fname + ") You are good to go!");
+                       
+                    }
+                } else {
+                    alert("Please upgrade your browser, because your current browser lacks some new features we need!");
                 }
             });
         </script>

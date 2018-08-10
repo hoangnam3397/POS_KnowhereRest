@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V1</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="images/img-01.png" alt="IMG">
+				</div>
+				<!-- LOGIN FORM-->
+				<form class="login100-form validate-form">
+					<span class="login100-form-title">
+						POS Login
+					</span>
+				<!-- USERNAME-->
+					<div class="wrap-input100 validate-input"data-validate = "Username is required" >
+						<input class="input100" type="text" name="username" placeholder="Username">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-envelope" aria-hidden="true"></i>
+						</span>
+					</div>
+				<!-- PASSWORD-->	
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						<input class="input100" type="password" name="pass" placeholder="Password">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							
+						</span>
+						<a class="txt2" href="#">
+							
+						</a>
+					</div>
+
+					<div class="text-center p-t-136">
+						<a class="txt2" href="#">
+							
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+
+	
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/tilt/tilt.jquery.min.js"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+</html>
+'<form action="loadOrderDetail?tableid='+tableid+'" method="get">'
+                             +'<'+'c:forEach  items="'+'$'+'{list}"'+' var="o">'+
+                                '<div class="panel panel-default product-details">'+
+                                    '<div class="panel-body" style="">'+
+                                        '<div class="col-xs-5 nopadding">'+
+                                            '<div class="col-xs-2 nopadding">'+
+                                                '<a href="javascript:void(0)" onclick="">'+
+                                                    '<span class="fa-stack fa-sm productD">'+
+                                                        '<i class="fa fa-circle fa-stack-2x delete-product"></i>'+
+                                                        '<i class="fa fa-times fa-stack-1x fa-fw fa-inverse"></i>'+
+                                                    '</span></a></div><div class="col-xs-10 nopadding">'+'<span class="textPD">'+'$'+'{o.products.getProName()}</span>'+'</div>'+
+                                        '</div><div class="col-xs-2">'+'<span class="textPD">'+'$'+'{o.price}</span>'+'</div>'+
+                                        '<div class="col-xs-3 nopadding productNum">'+
+                                            '<a href="javascript:void(0)">'+
+                                                '<span class="fa-stack fa-sm decbutton">'+
+                                                    '<i class="fa fa-square fa-stack-2x light-grey"></i>'+
+                                                    '<i class="fa fa-minus fa-stack-1x fa-inverse white"></i></span>'+
+                                            '</a>'+
+                                           ' <input type="text" id="idquan" onchange="edit_posale(2891)" class="form-control" value="'+'$'+'{o.quantity}" placeholder="0" maxlength="3">'+
+                                            '<a href="javascript:void(0)">'+
+                                                '<span class="fa-stack fa-sm incbutton">'+
+                                                    '<i class="fa fa-square fa-stack-2x light-grey"></i>'+
+                                                    '<i class="fa fa-plus fa-stack-1x fa-inverse white"></i>'+
+                                                '</span></a>'+
+                                        '</div>'+
+                                        '<div class="col-xs-2 nopadding ">'+
+                                           '<span class="subtotal textPD">4.000     </span>'+
+                                        '</div>'+
+                                    '</div>'+
+                                    '<button type="button" onclick="addoptions(148, 2891)" class="btn btn-success btn-xs">Options</button>'+
+                                    '<span id="pooptions-2891"> </span>'+
+                                
+                            '</div>'+'<'+'/c:forEach>'+'<'+'/form>'

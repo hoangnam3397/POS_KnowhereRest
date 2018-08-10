@@ -85,7 +85,7 @@
                 </div>
                 <div class="form-group">
                     <label for="Category"><fmt:message key="admin.editproduct.text.cate"/></label>
-                    <select class="form-control" value="" name="cate" id="Category">
+                    <select class="form-control" value="" name="cate" id="Category" required>
                         <c:forEach var="z" items="${listCate}">
                             <c:if test="${z.catId==cateid}">
                                 <option selected value="${z.catId}">${z.catName}</option>
@@ -98,7 +98,7 @@
                 </div>
                 <div class="form-group" id="pushaceP">
                     <label for="PurchasePrice"><fmt:message key="admin.editproduct.text.price"/> (|VNĐ)<a style="color:red">*</a></label>
-                    <input type="number" step="any" value="${price}" maxlength="10" max="50000000" min="1000" Required name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price">
+                    <input type="number" step="any" value="${price}" maxlength="8" max="50000000" min="1000" Required name="price"  class="form-control" id="PurchasePrice" placeholder="Purchase Price">
                 </div>
                 <div class="form-group">
                     <label for="Discount"><fmt:message key="admin.editproduct.text.discount"/> (%)<a style="color:red">*</a></label>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="form-group">
                     <label for="ProductDescription"><fmt:message key="admin.editproduct.text.description"/></label>
-                    <textarea class="form-control" name="descrip">${description}</textarea>
+                    <textarea class="form-control" name="descrip" maxlength="200">${description}</textarea>
                 </div>
                 <div class="form-group">
                     <div class="btn-group white" data-toggle="buttons">
@@ -142,7 +142,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editproduct.button.submit"/></button>
+                    <button type="submit" name="action" id="submitProduct" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editproduct.button.submit"/></button>
                 </div>
             </form>
                 <br>
@@ -177,6 +177,27 @@
                 }
             }
         }
+        $('#submitProduct').click(function() {
+                //kiem tra trinh duyet co ho tro File API
+                if (window.File && window.FileReader && window.FileList && window.Blob)
+                {
+                    // lay dung luong va kieu file tu the input file
+                    var fsize = $('#imageInput')[0].files[0].size;
+                    var ftype = $('#imageInput')[0].files[0].type;
+                    var fname = $('#imageInput')[0].files[0].name;
+
+                    if (fsize > 1048576)  //thuc hien dieu gi do neu dung luong file vuot qua 1MB
+                    {
+                        alert("Type :" + ftype + " | " + fsize + " bites\n(File: " + fname + ") Too big!");
+                        event.preventDefault();
+                    } else {
+                        //alert("Type :" + ftype + " | " + fsize + " bites\n(File :" + fname + ") You are good to go!");
+                       
+                    }
+                } else {
+                    alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+                }
+            });
     </script>
     <script type="text/javascript">
         /*************** check proName unique **********/
