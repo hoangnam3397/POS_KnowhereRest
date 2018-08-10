@@ -15,7 +15,7 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text">POS</span></a></li>                                    
+                <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text"><fmt:message key="admin.navbar.pos"/></span></a></li>                                    
                 <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text"><fmt:message key="admin.navbar.product"/></span></a></li>
                 <li class="flat-box"><a href="getCategoriesServlet"><i class="fa fa-bookmark"></i> <span class="menu-text"><fmt:message key="admin.navbar.categories"/></span></a></li>
                 <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text"><fmt:message key="admin.navbar.store"/></span></a></li>

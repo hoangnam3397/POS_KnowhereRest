@@ -103,12 +103,6 @@
         <!-- /.Modal -->
 
 
-        <!-- Modal close register -->
-
-        <!-- /.Modal -->
-
-
-
 
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
