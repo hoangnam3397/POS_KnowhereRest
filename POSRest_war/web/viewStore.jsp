@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,10 +77,10 @@
                 <table id="Table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Store Name</th>
-                            <th>Address</th>
-                            <th>Store Phone</th>
-                            <th>Action</th>
+                            <th><fmt:message key="admin.viewStore.table.storename"/></th>
+                            <th><fmt:message key="admin.viewStore.table.address"/></th>
+                            <th><fmt:message key="admin.viewStore.table.phone"/></th>
+                            <th><fmt:message key="admin.viewStore.table.action"/></th>
                         </tr>
                     </thead>                   
                     <tbody>
@@ -101,7 +103,7 @@
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#AddStore">
-                Add Store   </button>
+                <fmt:message key="admin.viewStore.button.addstore"/>  </button>
         </div>
         <!-- add store Modal -->
 <div class="modal fade" id="AddStore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -109,25 +111,25 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Add Store</h4>
+        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.viewStore.dialog.title"/> </h4>
       </div>
       <form action="insertStoreServlet" method="post">      <div class="modal-body">
             <div class="form-group">
-             <label for="StoreName">Store Name *</label>
+             <label for="StoreName"><fmt:message key="admin.viewStore.dialog.storename"/>  *</label>
              <input type="text" name="sto_name" class="form-control" id="StoreName" placeholder="Store Name" required>
            </div>
            <div class="form-group">
-             <label for="StorePhone">Store Phone</label>
-             <input type="number" name="phonesto" maxlength="14" class="form-control" id="StorePhone" placeholder="Store Phone">
+             <label for="StorePhone"><fmt:message key="admin.viewStore.dialog.phone"/> </label>
+             <input type="number" name="phonesto" maxlength="14" minlength="10" class="form-control" id="StorePhone" placeholder="Store Phone">
            </div>
            <div class="form-group">
-             <label for="Address">Address</label>
+             <label for="Address"><fmt:message key="admin.viewStore.dialog.address"/> </label>
              <input type="text" name="address" class="form-control" id="Adresse" placeholder="Address">
            </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="submit" class="btn btn-add">Submit</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.viewStore.dialog.close"/> </button>
+        <button type="submit" class="btn btn-add"><fmt:message key="admin.viewStore.dialog.submit"/> </button>
       </div>
    </form>    </div>
  </div>
