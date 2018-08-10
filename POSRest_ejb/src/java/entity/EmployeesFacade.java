@@ -51,4 +51,51 @@ public class EmployeesFacade extends AbstractFacade<Employees> implements Employ
         return q.getResultList();
     }
 
+    @Override
+    public List<Employees> findEmp(String username, String password) {
+        Query q = getEntityManager().createQuery("SELECT e FROM Employees e WHERE e.deleted = :del and e.username = :username and e.password = :password");
+        q.setParameter("username", username);
+        q.setParameter("password", password);
+        int del = 0;
+        q.setParameter("del", del);
+        return q.getResultList();
+    }
+
+    @Override
+    public boolean chkUserUnique(String id, String name) {
+        try {
+            Query q = em.createQuery("SELECT e FROM Employees e WHERE e.empId != :id and e.username = :name and e.deleted = :del");
+            int del = 0;
+            q.setParameter("del", del);
+            q.setParameter("id", id);
+            q.setParameter("name", name);
+            if (q.getResultList().size() == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean chkEmailUnique(String id, String email) {
+        try {
+            Query q = em.createQuery("SELECT e FROM Employees e WHERE e.empId != :id and e.email = :email and e.deleted = :del");
+            int del = 0;
+            q.setParameter("del", del);
+            q.setParameter("id", id);
+            q.setParameter("email", email);
+            if (q.getResultList().size() == 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

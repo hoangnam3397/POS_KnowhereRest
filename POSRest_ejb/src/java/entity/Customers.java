@@ -73,13 +73,16 @@ public class Customers implements Serializable {
     }
 
     public Customers(String cusId, String cusName, String phone, String email, double discount) {
+     
         this.cusId = cusId;
         this.cusName = cusName;
         this.phone = phone;
         this.email = email;
         this.discount = discount;
-      
     }
+    
+
+  
     
 
     public Customers(String cusId, String cusName, double discount) {
@@ -170,5 +173,7 @@ public class Customers implements Serializable {
     public void setTotalTodayCollection(Collection<TotalToday> totalTodayCollection) {
         this.totalTodayCollection = totalTodayCollection;
     }
+
+   
     
 }

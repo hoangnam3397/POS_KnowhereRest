@@ -32,4 +32,10 @@ public interface EmployeesFacadeLocal {
     Boolean login(String user, String password);
 
     List<Employees> showAllEployees();
+
+    List<Employees> findEmp(String username, String password);
+
+    boolean chkUserUnique(String id, String name);
+
+    boolean chkEmailUnique(String id, String email);
 }

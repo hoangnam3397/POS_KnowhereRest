@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package entity;
 
 import java.io.Serializable;
@@ -41,6 +40,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Employees.findByPhone", query = "SELECT e FROM Employees e WHERE e.phone = :phone"),
     @NamedQuery(name = "Employees.findByDeleted", query = "SELECT e FROM Employees e WHERE e.deleted = :deleted")})
 public class Employees implements Serializable {
+
     @OneToMany(mappedBy = "empId")
     private Collection<TotalToday> totalTodayCollection;
     @OneToMany(mappedBy = "empId")
@@ -94,6 +94,19 @@ public class Employees implements Serializable {
 
     public Employees(String empId) {
         this.empId = empId;
+    }
+
+    public Employees(String empId, String empName, String username, String password, String email, String phone, String avatarlink, int deleted, Roles roleId) {
+
+        this.empId = empId;
+        this.empName = empName;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.phone = phone;
+        this.avatarlink = avatarlink;
+        this.deleted = deleted;
+        this.roleId = roleId;
     }
 
     public Employees(String empId, String empName, String username, String password, String phone, int deleted) {
@@ -219,5 +232,5 @@ public class Employees implements Serializable {
     public void setTotalTodayCollection(Collection<TotalToday> totalTodayCollection) {
         this.totalTodayCollection = totalTodayCollection;
     }
-    
+
 }

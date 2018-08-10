@@ -11,4 +11,5 @@
         <property name="driverClass" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
     </jdbc-connection-pool>
     <jdbc-resource enabled="true" jndi-name="PR4_JNDI" object-type="user" pool-name="microsoft_sql_PR4_saPool"/>
+    <jdbc-resource enabled="true" jndi-name="pr4-JNDI" object-type="user" pool-name="microsoft_sql_PR4_saPool"/>
 </resources>
