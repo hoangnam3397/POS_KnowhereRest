@@ -245,7 +245,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="barcodeP">Stock</h4>
+          <h4 class="modal-title" id="barcodeP"><fmt:message key="admin.getproduct.dialogbarcode.title"/></h4>
         </div>
         <div class="modal-body" id="modal-body">
            <div id="printSection" style="text-align: center;">
@@ -254,8 +254,8 @@
            </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-add hiddenpr" onclick="Printbarcode()">print</button>
+          <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal"><fmt:message key="admin.getproduct.dialogbarcode.close"/></button>
+          <button type="button" class="btn btn-add hiddenpr" onclick="Printbarcode()"><fmt:message key="admin.getproduct.dialogbarcode.print"/></button>
         </div>
       </div>
    </div>
