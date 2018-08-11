@@ -39,8 +39,8 @@
                     </ul>
                 </li>
                 <li><a href="">
-                        <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
-                        <span class="hidden-xs"> &nbsp;&nbsp;admin Doe </span>
+                        <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("imageLink") %>" width="30px" height="30px">
+                        <span class="hidden-xs" da> &nbsp;&nbsp;<%= session.getAttribute("userName") %> </span>
                     </a>
                 </li>               
                 <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>

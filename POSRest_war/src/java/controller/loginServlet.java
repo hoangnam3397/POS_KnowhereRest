@@ -17,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,23 +33,34 @@ public class loginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession(true);
         String username = request.getParameter("username");
         String password = request.getParameter("pass");
 
         if (employeesFacade.findEmp(username, password).size() > 0) {
+
             List<Employees> emp = employeesFacade.findEmp(username, password);
-            if (emp.get(0).getRoleId().getRoleId().equals("rol01")) {
+            if (emp.get(0).getRoleId().getRoleId().equals("R001")) {
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
-            } else if (emp.get(0).getRoleId().getRoleId().equals("rol02")) {
-                request.getRequestDispatcher("kitchen.jsp").forward(request, response);
-            } else if (emp.get(0).getRoleId().getRoleId().equals("rol03")) {
-                request.getRequestDispatcher("setting.jsp").forward(request, response);
+                session.setAttribute("userName","admin "+ username);
+                session.setAttribute("imageLink",emp.get(0).getAvatarlink());
+                session.setAttribute("password", password);
+            } else if (emp.get(0).getRoleId().getRoleId().equals("R002")) {
+                session.setAttribute("userName","waiter "+ username);
+                session.setAttribute("imageLink",emp.get(0).getAvatarlink());
+                session.setAttribute("password", password);
+                request.getRequestDispatcher("getStoreServlet").forward(request, response);
+            } else if (emp.get(0).getRoleId().getRoleId().equals("R003")) {
+                session.setAttribute("userName","sales "+ username);
+                session.setAttribute("imageLink",emp.get(0).getAvatarlink());
+                session.setAttribute("password", password);
+                request.getRequestDispatcher("getStoreServlet").forward(request, response);
             }
         } else {
             out.println("<h2>Login Fail</h2>");
             request.getRequestDispatcher("index.html").forward(request, response);
         }
-       
+
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
