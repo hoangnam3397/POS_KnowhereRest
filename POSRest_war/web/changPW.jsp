@@ -1,76 +1,167 @@
 <%-- 
-    Document   : changPW
-    Created on : Aug 3, 2018, 4:51:45 PM
-    Author     : Tuan
+    Document   : homepage
+    Created on : Jul 17, 2018, 9:01:50 AM
+    Author     : Nam_Nguyen
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>WAPOS - point of sale</title>
+        <!-- jQuery -->
+        <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+        <script type="text/javascript" src="js/loading.js"></script>
+        <!-- normalize & reset style -->
+        <link rel="stylesheet" href="css/normalize.min.css"  type='text/css'>
+        <link rel="stylesheet" href="css/reset.min.css"  type='text/css'>
+        <link rel="stylesheet" href="css/jquery-ui.css"  type='text/css'>
+        <!-- google lato/Kaushan/Pinyon fonts -->
+        <link href='https://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
+        <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet">
+        <!-- Bootstrap Core CSS -->
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <!-- bootstrap-horizon -->
+        <link href="css/bootstrap-horizon.css" rel="stylesheet">
+        <!-- datatable style -->
+        <link href="css/dataTables.bootstrap.css" rel="stylesheet">
+        <!-- font awesome -->
+        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <!-- include summernote css-->
+        <link href="css/summernote.css" rel="stylesheet">
+        <!-- waves -->
+        <link rel="stylesheet" href="css/waves.min.css">
+        <!-- daterangepicker -->
+        <link rel="stylesheet" type="text/css" href="css/daterangepicker.css" />
+        <!-- css for the preview keyset extension -->
+        <link href="css/keyboard-previewkeyset.css" rel="stylesheet">
+        <!-- keyboard widget style -->
+        <link href="css/keyboard.css" rel="stylesheet">
+        <!-- Select 2 style -->
+        <link href="css/select2.min.css" rel="stylesheet">
+        <!-- Sweet alert swal -->
+        <link rel="stylesheet" type="text/css" href="css/sweetalert.css">
+        <!-- datepicker css -->
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.min.css">
+        <!-- Custom CSS -->
+        <link href="css/Style-Light.css" rel="stylesheet">
+        <!-- favicon -->
+        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
     </head>
     <body>
-  
-        <form action="changPWServlet" method="post" onsubmit="return checkForm();">
+        <!-- Navigation -->
+        <jsp:include page="admin_navbar.jsp"/>
+        <!-- Page Content -->
 
-            <div class="box-body">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-3 col-md-3">
-                        <label>Old Password</label>
-                    </div>
-                    <div class="col-xs-12 col-sm-3 col-md-3">
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-lock"></i>
-                            </div>
-                            <input class="form-control" id="password"  name="password" value="${password}" placeholder="Enter the Old Password" type="password">
-                        </div>
-                    </div>
-                    <!-- /.input group -->
-                </div>
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <label>New Password</label>
-                </div>
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-lock"></i>
-                        </div>
-                        <input class="form-control" id="newPassword" name="newpw" value="" placeholder="Enter the New Password" type="password">
-                    </div>
+
+        <!-- Page Content -->
+    </script>
+    <div class="container container-small">
+        <div class="row" style="margin-top:100px;">
+            <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
+                <i class="fa fa-arrow-left"></i> Back</a>
+            <form action="changPWServlet?emp_id=<%= session.getAttribute("userid") %>" method="post" onsubmit="return checkForm();">
+                <div class="form-group">
+                    <label>Old Password</label>
+                    <input class="form-control" id="oldpassword"  name="oldpassword"  placeholder="Old Password" type="password"/>
                 </div>
                 <!-- /.input group -->
-            </div>
-            <br/>
-            <div class="row">
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <label>Confirm Password</label>
+ 
+        <div class="form-group">
+                    <label for="password">New Password *</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="New password" required>
                 </div>
-                <div class="col-xs-12 col-sm-3 col-md-3">
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-lock"></i>
-                        </div>
-                        <input class="form-control" id="confirmPassword" name="renewpw" value="" placeholder="Re-enter the New Password" type="password">
-                    </div>
-                </div>
-                <!-- /.input group -->
-            </div>
-            <div class="box box-primary">
-                <div class="box-header">
-                    <h2 class="page-header"><i class="fa fa-lock"></i> Change Password</h2>
-                    <div class="pull-right">
-                        <button type="submit" name="changepw" value="submit" class="btn btn-danger"><i class="livicon" data-n="pen" data-s="16" data-c="#fff" data-hc="0" ></i> Chang Password</button>
-                        <button type="reset" name="Reset" value="Reset" class="btn btn-primary"><i class="livicon" data-n="trash" data-s="16" data-c="#fff" data-hc="0"></i>Reset </button>
-                    </div>
-                </div>
-                <!-- /.box-header -->
-            </div>
-        </form>
-    </body>
+                <div class="form-group">
+                    <label for="confirm_password">Repeat Password *</label>
+                    <input type="password" name="PasswordRepeat" class="form-control" id="confirm_password" placeholder="Repeat Password" required>
+                </div> 
+        </div>
+        <!-- /.input group -->
+        <div class="form-group">
+            <button type="submit" name="changepw" value="submit" class="btn btn-danger"><i class="livicon" data-n="pen" data-s="16" data-c="#fff" data-hc="0" ></i> Chang Password</button>
+            <button type="reset" name="Reset" value="Reset" class="btn btn-primary"><i class="livicon" data-n="trash" data-s="16" data-c="#fff" data-hc="0"></i>Reset </button>
+        </div>
+        <!-- /.box-header -->
+    </form>
+        </div>
+</div>
+<script type="text/javascript">
+    function checkForm(){
+        var oldpass=$('#oldpassword').val();
+        var newpass=$('#password').val();
+        $.ajax({
+                    url: "changPWServlet?emp_id="+"<%= session.getAttribute("userid") %>"+"&oldpassword="+oldpass +"&password="+newpass ,
+                    type: "GET",
+                    success: function()
+                    {
+                        alert("${warrning}");
+                    },
+                    error: function(jqXHR, textStatus, errorThrown)
+                    {
+                        alert("error")
+                    }
+                });
+    }
+</script>
+<!-- /.Modal -->
+
+
+<!-- Modal close register -->
+
+<!-- /.Modal -->
+
+<!-- slim scroll script -->
+<script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
+<!-- waves material design effect -->
+<script type="text/javascript" src="js/waves.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<!-- keyboard widget dependencies -->
+<script type="text/javascript" src="js/jquery.keyboard.js"></script>
+<script type="text/javascript" src="js/jquery.keyboard.extension-all.js"></script>
+<script type="text/javascript" src="js/jquery.keyboard.extension-extender.js"></script>
+<script type="text/javascript" src="js/jquery.keyboard.extension-typing.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+<!-- select2 plugin script -->
+<script type="text/javascript" src="js/select2.min.js"></script>
+<!-- dalatable scripts -->
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.js"></script>
+<!-- summernote js -->
+<script src="js/summernote.js"></script>
+<!-- chart.js script -->
+<script src="js/Chart.js"></script>
+<!-- moment JS -->
+<script type="text/javascript" src="js/moment.min.js"></script>
+<!-- Include Date Range Picker -->
+<script type="text/javascript" src="js/daterangepicker.js"></script>
+<!-- Sweet Alert swal -->
+<script src="js/sweetalert.min.js"></script>
+<!-- datepicker script -->
+<script src="js/bootstrap-datepicker.min.js"></script>
+<!-- creditCardValidator script -->
+<script src="js/jquery.creditCardValidator.js"></script>
+<!-- creditCardValidator script -->
+<script src="js/credit-card-scanner.js"></script>
+<script src="js/jquery.redirect.js"></script>
+<!-- ajax form -->
+<script src="js/jquery.form.min.js"></script>
+<!-- custom script -->
+<script src="js/app.js"></script>
+</body>
 </html>

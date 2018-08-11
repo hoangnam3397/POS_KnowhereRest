@@ -25,43 +25,37 @@ public class changPWServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String changepw = request.getParameter("changepw");
-       
-        if (changepw.equals("get")) 
-        {
-            emp_id = request.getParameter("emp_id");
-            request.setAttribute("user", employeesFacade.find(emp_id).getUsername());
-            request.setAttribute("password", employeesFacade.find(emp_id).getPassword());
-            request.getRequestDispatcher("changPW.jsp").forward(request, response);
-        } 
-        else if (changepw.equals("submit")) 
-        {
-            String pwnew = request.getParameter("newpw");   
-         
+        emp_id = request.getParameter("emp_id");
+        String oldpass = request.getParameter("oldpassword");
+        String newpass = request.getParameter("password");
+        String warrning = "Old password don't Match";
+
+        if (employeesFacade.find(emp_id).getPassword().equals(oldpass)) {
+            warrning = "Change Password successfully!!!";
             Employees emp = employeesFacade.find(emp_id);
-            emp.setPassword(pwnew);   
- 
+            emp.setPassword(newpass);
             employeesFacade.edit(emp);
-            request.getRequestDispatcher("getEmployeesServlet").forward(request, response);
+            request.setAttribute("warrning", warrning);
+            request.getRequestDispatcher("changPW.jsp").forward(request, response);
+        } else {
+            request.setAttribute("warrning", warrning);
+            request.getRequestDispatcher("changPW.jsp").forward(request, response);
         }
 
     }
 
-   
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-  
     @Override
     public String getServletInfo() {
         return "Short description";
