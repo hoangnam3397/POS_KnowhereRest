@@ -40,11 +40,11 @@ public class loginServlet extends HttpServlet {
         if (employeesFacade.findEmp(username, password).size() > 0) {
 
             List<Employees> emp = employeesFacade.findEmp(username, password);
-            if (emp.get(0).getRoleId().getRoleId().equals("R001")) {
-                request.getRequestDispatcher("getStoreServlet").forward(request, response);
+            if (emp.get(0).getRoleId().getRoleId().equals("R001")) {              
                 session.setAttribute("userName","admin "+ username);
                 session.setAttribute("imageLink",emp.get(0).getAvatarlink());
                 session.setAttribute("password", password);
+                request.getRequestDispatcher("getStoreServlet").forward(request, response);
             } else if (emp.get(0).getRoleId().getRoleId().equals("R002")) {
                 session.setAttribute("userName","waiter "+ username);
                 session.setAttribute("imageLink",emp.get(0).getAvatarlink());
