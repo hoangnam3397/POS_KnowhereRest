@@ -115,7 +115,8 @@
                                 <td><div class="btn-group">
                                         <a class="btn btn-default" href="javascript:void(0)" data-toggle="popover" data-placement="left"  data-html="true" title='Are you sure ?' data-content='<a class="btn btn-danger" href="deleteProductServlet?pro_id=${p.proId}">Yes, delete it!</a>'><i class="fa fa-times"></i></a>                      
                                         <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
+                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>
+                                        <a class="btn btn-default ViewBarcode" href="javascript:void(0)" barcodeid="${p.proId}" data-toggle="modal" data-target="#barcode"><i class="fa fa-barcode" data-toggle="tooltip" data-placement="top" title="" data-original-title="print barcode"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -123,37 +124,7 @@
                     </tbody>                    
                 </table>
             </div>
-            <script type="text/javascript">
-                $(function() {
-                    /*************** edit check box **********/
-                    $(document).on('click', '.checkboxPro', function() {
-
-                        var pro_id = $(this).attr('proid');
-                        var pro_name = $(this).attr('proname');
-                        swal({title: 'WARNING',
-                            text: 'You have changed display '+pro_name+ ' in POS',
-                            type: "warning",
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: 'OK !!!',
-                            closeOnConfirm: false},
-                        function() {
-                            // ajax delete data to database
-                            $.ajax({
-                                url: "http://localhost:8080/POSRest_war/hideProductToOrder?proid=" + pro_id,
-                                type: "POST",
-                                success: function(data) {
-                                    
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                    alert("error");
-                                }
-                            });
-                            swal.close();
-                        });
-                    });
-                });
-            </script>
+           
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct"><fmt:message key="admin.product.button.addpro"/></button>
 
@@ -267,6 +238,30 @@
             </div>
         </div>
 
+        
+        <!-- Modal barcode -->
+  <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document" id="stockModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="barcodeP">Stock</h4>
+        </div>
+        <div class="modal-body" id="modal-body">
+           <div id="printSection" style="text-align: center;">
+                <img id="imgBarcode1" src="" class="img-responsive center" alt="">
+                <img id="imgBarcode2" src="" class="img-responsive center" alt="">
+           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-add hiddenpr" onclick="Printbarcode()">print</button>
+        </div>
+      </div>
+   </div>
+  </div>
+  <!-- /.Modal -->
+
         <div class="modal fade" id="PrintMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -358,10 +353,21 @@
                 });
             });
 
+            $(function() {
+                /*************** load barcode **********/
+                $(document).on('click', '.ViewBarcode', function() {
+                    var barcodeid = $(this).attr('barcodeid');
+                    var barcodeP = 'createBarCode?value=' + barcodeid;
+                    $("#imgBarcode1").attr('src', barcodeP);
+                    $("#imgBarcode2").attr('src', barcodeP);
+                    $('#barcode').modal('show');
+                });
+            });
             /*************** dataTable **********/
             $(document).ready(function() {
                 $('#xTable').DataTable();
             });
+            /*************** print Menu**********/
             function PrintTicket() {
 
                 printDivCSS = new String('<link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"><link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><style>/************************* menu print style ***************************/ .headline { font-family: "Kaushan Script", cursive; background-color: #e74c3c; color: white; text-align: center; padding: 2px 0; margin-top: 10px; position: relative; } .headline::before, .headline::after { content: ""; height: 1px; width: 100%; background-color: #e74c3c; display: block; left: 0; position: absolute; } .headline::before { top: -6px; } .headline::after { bottom: -6px; } .opacity-small { font-size: 30px; opacity: 0.7; filter: Alpha(opacity=70); } .opacity-medium { font-size: 20px; opacity: 0.5; filter: Alpha(opacity=50); } .opacity-large { font-size: 15px; opacity: 0.25; filter: Alpha(opacity=25); } .logo-menu{ margin: 0 auto; padding: 50px 0 0 0; } .grey{ color: #aaa; }@media print { html, body { zoom: 100%; overflow:hidden !important; }}</style>');
@@ -376,6 +382,11 @@
                 //
                 //  window.print();
                 //  $('.modal-body').attr('id', 'modal-body');
+            }
+            function Printbarcode() {
+                $('.modal-body').removeAttr('id');
+                window.print();
+                $('.modal-body').attr('id', 'modal-body');
             }
         </script>
         <script type="text/javascript">
@@ -428,7 +439,39 @@
                 }
             });
         </script>
+         <script type="text/javascript">
+                $(function() {
+                    /*************** edit check box **********/
+                    $(document).on('click', '.checkboxPro', function() {
 
+                        var pro_id = $(this).attr('proid');
+                        var pro_name = $(this).attr('proname');
+                        swal({title: 'WARNING',
+                            text: 'You have changed display ' + pro_name + ' in POS',
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: 'OK !!!',
+                            closeOnConfirm: false},
+                        function() {
+                            // ajax delete data to database
+                            $.ajax({
+                                url: "http://localhost:8080/POSRest_war/hideProductToOrder?proid=" + pro_id,
+                                type: "POST",
+                                success: function(data) {
+
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    alert("error");
+                                }
+                            });
+                            swal.close();
+                        });
+                    });
+                });
+            </script>
+
+            
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
         <!-- waves material design effect -->
