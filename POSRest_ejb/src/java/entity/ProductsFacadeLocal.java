@@ -37,5 +37,7 @@ public interface ProductsFacadeLocal {
 
     boolean chkProUnique(String id, String name);
     
-    List<VProductReport> vProReport(String pro_id, Date startDate, Date endDate); 
+    List<VProductReport> vProReport(String pro_id, Date startDate, Date endDate);
+    
+    List<Products> showProductToOrder();
 }

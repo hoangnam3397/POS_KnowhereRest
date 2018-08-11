@@ -83,7 +83,8 @@
                             <th class="hidden-xs"><fmt:message key="admin.product.table.description"/></th>
                             <th class="hidden-xs"><fmt:message key="admin.product.table.discount"/> (%)</th>
                             <th><fmt:message key="admin.product.table.price"/></th>
-                            <th><fmt:message key="admin.product.table.action"/></th>
+                            <th><i class="fa fa-eye" aria-hidden="true"></i></th>
+                            <th><fmt:message key="admin.product.table.action"/></th>                        
                         </tr>
                     </thead>                  
                     <tbody>
@@ -95,6 +96,22 @@
                                 <td class="hidden-xs"><p>${p.description}</p></td>
                                 <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/>%</td>
                                 <td  data-order="20"><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
+                                <c:choose>
+                                    <c:when test="${p.hide eq 0}">
+                                        <td><label>
+                                                <input class="checkboxPro" type="checkbox" proid="${p.proId}" proname="${p.proName}" name="invis" checked="">
+                                                <span class="label-text"></span>
+                                                </la
+                                        </td>
+                                    </c:when>    
+                                    <c:otherwise>
+                                        <td><label>
+                                                <input class="checkboxPro" type="checkbox" proid="${p.proId}" proname="${p.proName}" name="invis">
+                                                <span class="label-text"></span>
+                                            </label>
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td><div class="btn-group">
                                         <a class="btn btn-default" href="javascript:void(0)" data-toggle="popover" data-placement="left"  data-html="true" title='Are you sure ?' data-content='<a class="btn btn-danger" href="deleteProductServlet?pro_id=${p.proId}">Yes, delete it!</a>'><i class="fa fa-times"></i></a>                      
                                         <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
@@ -106,6 +123,37 @@
                     </tbody>                    
                 </table>
             </div>
+            <script type="text/javascript">
+                $(function() {
+                    /*************** edit check box **********/
+                    $(document).on('click', '.checkboxPro', function() {
+
+                        var pro_id = $(this).attr('proid');
+                        var pro_name = $(this).attr('proname');
+                        swal({title: 'WARNING',
+                            text: 'You have changed display '+pro_name+ ' in POS',
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: 'OK !!!',
+                            closeOnConfirm: false},
+                        function() {
+                            // ajax delete data to database
+                            $.ajax({
+                                url: "http://localhost:8080/POSRest_war/hideProductToOrder?proid=" + pro_id,
+                                type: "POST",
+                                success: function(data) {
+                                    
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    alert("error");
+                                }
+                            });
+                            swal.close();
+                        });
+                    });
+                });
+            </script>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct"><fmt:message key="admin.product.button.addpro"/></button>
 
@@ -373,7 +421,7 @@
                         event.preventDefault();
                     } else {
                         //alert("Type :" + ftype + " | " + fsize + " bites\n(File :" + fname + ") You are good to go!");
-                       
+
                     }
                 } else {
                     alert("Please upgrade your browser, because your current browser lacks some new features we need!");

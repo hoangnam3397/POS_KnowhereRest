@@ -85,4 +85,14 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         q.setParameter("endDate", endDate);
         return q.getResultList();
     }
+    
+    @Override
+    public List<Products> showProductToOrder() {
+        Query q = getEntityManager().createQuery("SELECT p FROM Products p WHERE p.deleted = :del and p.hide = :show");
+        int del=0;
+        int show=0;
+        q.setParameter("del", del);
+        q.setParameter("show", show);
+        return q.getResultList();
+    }
 }

@@ -129,7 +129,7 @@ $(function() {
    /*************** edit zone **********/
 $(document).on('click', '.deletezone', function () {
 
-      var zone_id = $(this).attr('id');
+         var zone_id = $(this).attr('id');
          swal({   title: 'Are you sure ?',
          text: 'All the tables related to this zone will be deleted',
          type: "warning",
