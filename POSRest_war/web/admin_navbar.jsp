@@ -20,7 +20,11 @@
                 <li class="flat-box"><a href="getCategoriesServlet"><i class="fa fa-bookmark"></i> <span class="menu-text"><fmt:message key="admin.navbar.categories"/></span></a></li>
                 <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text"><fmt:message key="admin.navbar.store"/></span></a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-users"></i> <span class="menu-text"><fmt:message key="admin.navbar.people"/></span> <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-users"></i> 
+                        <span class="menu-text"><fmt:message key="admin.navbar.people"/></span> 
+                        <span class="caret"></span>
+                    </a>
                     <ul class="dropdown-menu">
                         <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-user"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.emp"/></span></a></li>
                         <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.cus"/></span></a></li>
@@ -38,11 +42,16 @@
 
                     </ul>
                 </li>
-                <li><a href="">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                         <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("loginImage") %>" width="30px" height="30px">
-                        <span class="hidden-xs" da> &nbsp;&nbsp;<%= session.getAttribute("loginUser") %> </span>
+                        <span class="menu-text">&nbsp;&nbsp;<%= session.getAttribute("loginUser") %></span> 
+                        <span class="caret"></span>
                     </a>
-                </li>               
+                    <ul class="dropdown-menu">
+                        <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Change password</span></a></li>
+                    </ul>
+                </li>            
                 <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
             </ul>
         </div>
