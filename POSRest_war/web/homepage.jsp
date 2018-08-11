@@ -73,13 +73,9 @@
         %>
         <jsp:include page="admin_navbar.jsp"></jsp:include>
         <%
-        } if (session.getAttribute("loginRole").equals("R002")) {
-        %>
-        <jsp:include page="waiter_navbar.jsp"></jsp:include>
-        <%
             }else{
         %>
-        <jsp:include page="sale_navbar.jsp"></jsp:include>
+        <jsp:include page="waiter_navbar.jsp"></jsp:include>
         <%
             }
         %>
