@@ -6,7 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -76,21 +78,21 @@
                     <div class="statCart Statcolor01">
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <h1 class="count">${numCus}</h1><br>
-                        <span>Customers</span>
+                        <span><fmt:message key="admin.reportpage.chart.customer"/></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="statCart Statcolor02">
                         <i class="fa fa-archive" aria-hidden="true"></i>
                         <h1 class="count">${numPro}</h1><br>
-                        <span>Product (in ${numCat} Categories)</span>
+                        <span><fmt:message key="admin.reportpage.chart.product"/> ${numCat} <fmt:message key="admin.reportpage.chart.cate"/></span>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="statCart Statcolor03">
                         <i class="fa fa-money" aria-hidden="true"></i>
                         <h2 style="display: inline"><span class="count">${totalSale}</span> VND</h2><br>
-                        <span>Today's Sale</span>
+                        <span><fmt:message key="admin.reportpage.chart.totalsale"/></span>
                     </div>
                 </div>
             </div>
@@ -98,7 +100,7 @@
                 <div class="col-md-8">
                     <!-- chart container  -->
                     <div class="statCart">
-                        <h3>monthly Stats</h3>
+                        <h3><fmt:message key="admin.reportpage.chart.monthly"/></h3>
                         <div style="width:100%">
                             <canvas id="canvas" height="330" width="750"></canvas>
                         </div>
@@ -107,7 +109,7 @@
                 <div class="col-md-4">
                     <!-- pie container  -->
                     <div class="statCart">
-                        <h3>Top 5 Products this year</h3>
+                        <h3><fmt:message key="admin.reportpage.chart.top5"/></h3>
                         <div id="canvas-holder">
                             <canvas id="chart-area2" width="230" height="230" />            </div>
                     </div>
@@ -116,7 +118,7 @@
             <div class="row" style="margin-top: 50px;">
                 <div class="col-md-12">
                     <div class="statCart">
-                        <div class="col-md-2"><h4><center>Top 5 Products this year</center></h4></div>
+                        <div class="col-md-2"><h4><center><fmt:message key="admin.reportpage.chart.top5"/></center></h4></div>
                         <div class="col-md-2"><h2><center><span class="label label-default" style="background-color: #F3565D;">${product1}</span></center></h2></div>
                         <div class="col-md-2"><h2><center><span class="label label-default" style="background-color: #FC9D9B;">${product2}</span></center></h2></div>
                         <div class="col-md-2"><h2><center><span class="label label-default" style="background-color: #FACDAE;">${product3}</span></center></h2></div>
@@ -128,11 +130,11 @@
             </div>
             <!-- ************************************************************************************************** -->
             <div class="row rangeStat" style="margin-top:50px;">
-                <h3 class="col-sm-12">Products Stats</h3>
+                <h3 class="col-sm-12"><fmt:message key="admin.reportpage.report.protitle"/></h3>
                 <form action="getProductReport" method="post">
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="customerSelect">Select Product</label>
+                            <label for="customerSelect"><fmt:message key="admin.reportpage.report.selectPro"/></label>
                             <select class="js-select-options form-control" name="productSelect" id="productSelect">                        
                                 <c:forEach var="pro" items="${listPro}">
                                     <option value="${pro.proId}">${pro.proName}</option>
@@ -142,7 +144,7 @@
                     </div>
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label>Select Range</label>
+                            <label><fmt:message key="admin.reportpage.report.selectRange"/></label>
                             <div class="input-group margin-bottom-sm">
                                 <span class="input-group-addon RangePicker"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
                                 <input class="form-control" id="ProductRange" type="text" name="daterangeP" />
@@ -150,7 +152,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <button class="cancelBtn btn btn-picker" type="submit">Get Report</button>
+                        <button class="cancelBtn btn btn-picker" type="submit"><fmt:message key="admin.reportpage.report.submitReport"/></button>
                     </div>
                 </form>
             </div>

@@ -195,7 +195,7 @@
                                         <input type="hidden" id="idprice" name="price" value="${pro.price}" />
                                         <input type="hidden" id="category" name="category" value="${pro.catId}" />
                                         <div class="mask">
-                                            <h3>${pro.price}</h3>
+                                            <h3><fmt:formatNumber value="${pro.price}" minFractionDigits="0"/></h3>
                                             <p><p>"${pro.description}"</p></p>
                                         </div>
                                         <img src="${pro.imagelink}" alt="Menu 02">                        </div>

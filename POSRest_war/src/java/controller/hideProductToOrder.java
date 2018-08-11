@@ -3,21 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package controller;
 
-import entity.CategoriesFacadeLocal;
-import entity.CustomersFacadeLocal;
-import entity.EmployeesFacadeLocal;
-import entity.OrderDetails;
-import entity.OrderDetailsFacadeLocal;
-import entity.Orders;
-import entity.OrdersFacadeLocal;
+import entity.Products;
 import entity.ProductsFacadeLocal;
-import entity.Tables;
-import entity.TablesFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,50 +19,24 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author Nam_Nguyen
+ * @author Duy
  */
-@WebServlet(name = "getCategoryToOrder", urlPatterns = {"/getCategoryToOrder"})
-public class getCategoryToOrder extends HttpServlet {
+@WebServlet(name = "hideProductToOrder", urlPatterns = {"/hideProductToOrder"})
+public class hideProductToOrder extends HttpServlet {
 
-    @EJB
-    CategoriesFacadeLocal cateFacade;
-    @EJB
-    ProductsFacadeLocal productFacade;
-    @EJB
-    TablesFacadeLocal tableFacade;
-    @EJB
-    OrdersFacadeLocal ordersFacade;
-    @EJB
-    OrderDetailsFacadeLocal orderDetailsFacade;
-    @EJB
-    CustomersFacadeLocal customersFacade;
-    @EJB
-    EmployeesFacadeLocal employeesFacade;
-
+    @EJB ProductsFacadeLocal proFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String table = request.getParameter("table");
-        String tableid = request.getParameter("tableid");
-        String storeId=request.getParameter("storeid");
-        request.setAttribute("storeid", storeId);
-        request.setAttribute("tableId", tableid);
-        request.setAttribute("table", table);
-        request.setAttribute("listCate", cateFacade.showAllCategories());
-        request.setAttribute("listPro", productFacade.showProductToOrder());
-        request.setAttribute("listCus", customersFacade.findAll());
-        request.setAttribute("listEmp", employeesFacade.showAllEployees());
-        Tables tables = tableFacade.find(tableid);
-        if (tables.getStatus() == false) {
-            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
-        } else {
-            Orders orders = ordersFacade.getByTableid(tableid);
-            List<OrderDetails> list = orderDetailsFacade.findByOrderId(orders.getOrderId());
-            request.setAttribute("list", list);
-            request.getRequestDispatcher("OrderPage.jsp").forward(request, response);
+        String pro_id =request.getParameter("proid");
+        Products pro =proFacade.find(pro_id);
+        if(pro.getHide()==0){
+            pro.setHide(1);
+        }else{
+            pro.setHide(0);
         }
-
+        proFacade.edit(pro);           
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,6 +66,7 @@ public class getCategoryToOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        
     }
 
     /**

@@ -18,7 +18,8 @@ create table Products
 	discount float not null,
 	[deleted] int not null,
 	[description] nvarchar(200),
-	color varchar(20)
+	color varchar(20),
+	hide int
 )
 
 create table Roles

@@ -108,6 +108,8 @@ public class insertProductServlet extends HttpServlet {
             }
             String pro_id = "P" + id;
             pro.setProId(pro_id);
+            pro.setDeleted(0);
+            pro.setHide(0);
             if (formItems != null && formItems.size() > 0) {
                 // iterates over form's fields
                 for (FileItem item : formItems) {

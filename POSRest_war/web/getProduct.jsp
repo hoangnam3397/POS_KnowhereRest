@@ -83,7 +83,8 @@
                             <th class="hidden-xs"><fmt:message key="admin.product.table.description"/></th>
                             <th class="hidden-xs"><fmt:message key="admin.product.table.discount"/> (%)</th>
                             <th><fmt:message key="admin.product.table.price"/></th>
-                            <th><fmt:message key="admin.product.table.action"/></th>
+                            <th><i class="fa fa-eye" aria-hidden="true"></i></th>
+                            <th><fmt:message key="admin.product.table.action"/></th>                        
                         </tr>
                     </thead>                  
                     <tbody>
@@ -95,10 +96,27 @@
                                 <td class="hidden-xs"><p>${p.description}</p></td>
                                 <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/>%</td>
                                 <td  data-order="20"><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
+                                <c:choose>
+                                    <c:when test="${p.hide eq 0}">
+                                        <td><label>
+                                                <input class="checkboxPro" type="checkbox" proid="${p.proId}" proname="${p.proName}" name="invis" checked="">
+                                                <span class="label-text"></span>
+                                                </la
+                                        </td>
+                                    </c:when>    
+                                    <c:otherwise>
+                                        <td><label>
+                                                <input class="checkboxPro" type="checkbox" proid="${p.proId}" proname="${p.proName}" name="invis">
+                                                <span class="label-text"></span>
+                                            </label>
+                                        </td>
+                                    </c:otherwise>
+                                </c:choose>
                                 <td><div class="btn-group">
                                         <a class="btn btn-default" href="javascript:void(0)" data-toggle="popover" data-placement="left"  data-html="true" title='Are you sure ?' data-content='<a class="btn btn-danger" href="deleteProductServlet?pro_id=${p.proId}">Yes, delete it!</a>'><i class="fa fa-times"></i></a>                      
                                         <a class="btn btn-default" href="editProductServlet?pro_id=${p.proId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
-                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>                      
+                                        <a class="btn color03 white open-modalimage ViewImg" imgLink="${p.imagelink}" href="" data-toggle="modal" data-target="#ImageModal"><i class="fa fa-picture-o" data-toggle="tooltip" data-placement="top" title="View Image"></i></a>
+                                        <a class="btn btn-default ViewBarcode" href="javascript:void(0)" barcodeid="${p.proId}" data-toggle="modal" data-target="#barcode"><i class="fa fa-barcode" data-toggle="tooltip" data-placement="top" title="" data-original-title="print barcode"></i></a>
                                     </div>
                                 </td>
                             </tr>
@@ -106,6 +124,7 @@
                     </tbody>                    
                 </table>
             </div>
+           
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct"><fmt:message key="admin.product.button.addpro"/></button>
 
@@ -135,7 +154,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="Category"><fmt:message key="admin.product.dialog.cate"/></label>
-                                <select class="form-control" value="" name="cate" id="Category">
+                                <select class="form-control" value="" name="cate" id="Category" required>
                                     <c:forEach var="cat" items="${listCate}">
                                         <option value="${cat.catId}">${cat.catName}</option>
                                     </c:forEach>
@@ -143,7 +162,7 @@
                             </div>
                             <div class="form-group" id="pushaceP">
                                 <label for="PurchasePrice"><fmt:message key="admin.product.dialog.price"/> (|VNĐ)<a style="color: red">*</a></label>
-                                <input type="number" step="any" name="price" max="50000000" min="1000" maxlength="10" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
+                                <input type="number" step="any" name="price" max="50000000" min="1000" maxlength="8" class="form-control" id="PurchasePrice" placeholder="Purchase Price" Required>
                             </div>
                             <div class="form-group">
                                 <label for="Discount"><fmt:message key="admin.product.dialog.discount"/> (%)<a style="color: red">*</a></label>
@@ -155,7 +174,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="ProductDescription"><fmt:message key="admin.product.dialog.description"/> </label>                              
-                                <textarea class="form-control" name="descrip" id="descrip">                                  
+                                <textarea class="form-control" name="descrip" id="descrip" maxlength="200">                                  
                                 </textarea>
                             </div>
                             <div class="form-group">
@@ -190,7 +209,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.product.dialog.close"/></button>
-                            <button type="submit" name="action" value="Submit" class="btn btn-add insertPro"><fmt:message key="admin.product.dialog.submit"/></button>
+                            <button type="submit" name="submitProduct" id="submitProduct" value="Submit" class="btn btn-add insertPro"><fmt:message key="admin.product.dialog.submit"/></button>
                         </div>
                     </form>    
                 </div>
@@ -218,6 +237,30 @@
                 </div>
             </div>
         </div>
+
+        
+        <!-- Modal barcode -->
+  <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+   <div class="modal-dialog" role="document" id="stockModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="barcodeP"><fmt:message key="admin.getproduct.dialogbarcode.title"/></h4>
+        </div>
+        <div class="modal-body" id="modal-body">
+           <div id="printSection" style="text-align: center;">
+                <img id="imgBarcode1" src="" class="img-responsive center" alt="">
+                <img id="imgBarcode2" src="" class="img-responsive center" alt="">
+           </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal"><fmt:message key="admin.getproduct.dialogbarcode.close"/></button>
+          <button type="button" class="btn btn-add hiddenpr" onclick="Printbarcode()"><fmt:message key="admin.getproduct.dialogbarcode.print"/></button>
+        </div>
+      </div>
+   </div>
+  </div>
+  <!-- /.Modal -->
 
         <div class="modal fade" id="PrintMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
@@ -279,6 +322,7 @@
         </div>
         <!-- // -->
         <script type="text/javascript">
+
             function fileValidation() {
                 /*************** check image **********/
                 var fileInput = document.getElementById('imageInput');
@@ -309,10 +353,21 @@
                 });
             });
 
+            $(function() {
+                /*************** load barcode **********/
+                $(document).on('click', '.ViewBarcode', function() {
+                    var barcodeid = $(this).attr('barcodeid');
+                    var barcodeP = 'createBarCode?value=' + barcodeid;
+                    $("#imgBarcode1").attr('src', barcodeP);
+                    $("#imgBarcode2").attr('src', barcodeP);
+                    $('#barcode').modal('show');
+                });
+            });
             /*************** dataTable **********/
             $(document).ready(function() {
                 $('#xTable').DataTable();
             });
+            /*************** print Menu**********/
             function PrintTicket() {
 
                 printDivCSS = new String('<link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css"><link href="https://fonts.googleapis.com/css?family=Pinyon+Script" rel="stylesheet"><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><style>/************************* menu print style ***************************/ .headline { font-family: "Kaushan Script", cursive; background-color: #e74c3c; color: white; text-align: center; padding: 2px 0; margin-top: 10px; position: relative; } .headline::before, .headline::after { content: ""; height: 1px; width: 100%; background-color: #e74c3c; display: block; left: 0; position: absolute; } .headline::before { top: -6px; } .headline::after { bottom: -6px; } .opacity-small { font-size: 30px; opacity: 0.7; filter: Alpha(opacity=70); } .opacity-medium { font-size: 20px; opacity: 0.5; filter: Alpha(opacity=50); } .opacity-large { font-size: 15px; opacity: 0.25; filter: Alpha(opacity=25); } .logo-menu{ margin: 0 auto; padding: 50px 0 0 0; } .grey{ color: #aaa; }@media print { html, body { zoom: 100%; overflow:hidden !important; }}</style>');
@@ -327,6 +382,11 @@
                 //
                 //  window.print();
                 //  $('.modal-body').attr('id', 'modal-body');
+            }
+            function Printbarcode() {
+                $('.modal-body').removeAttr('id');
+                window.print();
+                $('.modal-body').attr('id', 'modal-body');
             }
         </script>
         <script type="text/javascript">
@@ -356,8 +416,62 @@
                     event.preventDefault();
                 }
             });
-        </script>
 
+            $('#submitProduct').click(function() {
+                //kiem tra trinh duyet co ho tro File API
+                if (window.File && window.FileReader && window.FileList && window.Blob)
+                {
+                    // lay dung luong va kieu file tu the input file
+                    var fsize = $('#imageInput')[0].files[0].size;
+                    var ftype = $('#imageInput')[0].files[0].type;
+                    var fname = $('#imageInput')[0].files[0].name;
+
+                    if (fsize > 1048576)  //thuc hien dieu gi do neu dung luong file vuot qua 1MB
+                    {
+                        alert("Type :" + ftype + " | " + fsize + " bites\n(File: " + fname + ") Too big!");
+                        event.preventDefault();
+                    } else {
+                        //alert("Type :" + ftype + " | " + fsize + " bites\n(File :" + fname + ") You are good to go!");
+
+                    }
+                } else {
+                    alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+                }
+            });
+        </script>
+         <script type="text/javascript">
+                $(function() {
+                    /*************** edit check box **********/
+                    $(document).on('click', '.checkboxPro', function() {
+
+                        var pro_id = $(this).attr('proid');
+                        var pro_name = $(this).attr('proname');
+                        swal({title: 'WARNING',
+                            text: 'You have changed display ' + pro_name + ' in POS',
+                            type: "warning",
+                            showCancelButton: false,
+                            confirmButtonColor: "#DD6B55",
+                            confirmButtonText: 'OK !!!',
+                            closeOnConfirm: false},
+                        function() {
+                            // ajax delete data to database
+                            $.ajax({
+                                url: "http://localhost:8080/POSRest_war/hideProductToOrder?proid=" + pro_id,
+                                type: "POST",
+                                success: function(data) {
+
+                                },
+                                error: function(jqXHR, textStatus, errorThrown) {
+                                    alert("error");
+                                }
+                            });
+                            swal.close();
+                        });
+                    });
+                });
+            </script>
+
+            
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
         <!-- waves material design effect -->

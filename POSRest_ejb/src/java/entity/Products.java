@@ -42,6 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Products.findByDeleted", query = "SELECT p FROM Products p WHERE p.deleted = :deleted"),
     @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")})
 public class Products implements Serializable {
+    @Column(name = "hide")
+    private Integer hide;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "products")
     private Collection<HideProduct> hideProductCollection;
     @Size(max = 20)
@@ -224,6 +226,14 @@ public class Products implements Serializable {
 
     public void setHideProductCollection(Collection<HideProduct> hideProductCollection) {
         this.hideProductCollection = hideProductCollection;
+    }
+
+    public Integer getHide() {
+        return hide;
+    }
+
+    public void setHide(Integer hide) {
+        this.hide = hide;
     }
     
 }

@@ -1,13 +1,9 @@
-<%-- 
-    Document   : homepage
-    Created on : Jul 17, 2018, 9:01:50 AM
-    Author     : Nam_Nguyen
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+<c:import url="set_Locale.jsp"/>
+<fmt:setBundle basename="i18n/myLanguage"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -16,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Product Report</title>
+        <title><fmt:message key="admin.productreport.title"/></title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -84,32 +80,30 @@
 
         <!-- Page Content -->
         <div class="container">
-            <h1>Product Report (${dateRange})</h1>
-            <h4>Product Name: ${pro_name}</h4>
-            <h4>Category: ${pro_cate}</h4>
-            <h4>ID: ${pro_id}</h4>
+            <h1><fmt:message key="admin.productreport.textpro"/> (${dateRange})</h1>
+            <h4><fmt:message key="admin.productreport.textproname"/>: ${pro_name}</h4>
+            <h4><fmt:message key="admin.productreport.textcate"/>: ${pro_cate}</h4>
+            <h4><fmt:message key="admin.productreport.textid"/>: ${pro_id}</h4>
             <div class="row" style="margin-top:100px;">
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Sale No.</th>
-                            <th>Date</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Discount (%)</th>
-                            <th>Total</th>
-                            <th>Profit</th>
+                            <th><fmt:message key="admin.productreport.saleno"/></th>
+                            <th><fmt:message key="admin.productreport.date"/></th>
+                            <th><fmt:message key="admin.productreport.price"/></th>
+                            <th><fmt:message key="admin.productreport.quantity"/></th>
+                            <th><fmt:message key="admin.productreport.discount"/> (%)</th>
+                            <th><fmt:message key="admin.productreport.profit"/></th>
                         </tr>
                     </thead>                  
                     <tbody>
                         <c:forEach var="p" items="${listProReport}">               
                                 <tr>
                                     <td>${p.orderId}</td>
-                                    <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+                                    <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
                                     <td><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
                                     <td>${p.quantity}</td>
                                     <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/> %</td>
-                                    <td><fmt:formatNumber value="${p.price*p.quantity}" minFractionDigits="0"/> VND</td>
                                     <td><fmt:formatNumber value="${p.price*p.quantity*(100-p.discount)/100}" minFractionDigits="0"/> VND</td>
                                 </tr>                                                   
                         </c:forEach>
