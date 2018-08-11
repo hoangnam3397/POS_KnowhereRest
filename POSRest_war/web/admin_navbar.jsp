@@ -39,8 +39,8 @@
                     </ul>
                 </li>
                 <li><a href="">
-                        <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("imageLink") %>" width="30px" height="30px">
-                        <span class="hidden-xs" da> &nbsp;&nbsp;<%= session.getAttribute("userName") %> </span>
+                        <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("loginImage") %>" width="30px" height="30px">
+                        <span class="hidden-xs" da> &nbsp;&nbsp;<%= session.getAttribute("loginUser") %> </span>
                     </a>
                 </li>               
                 <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>

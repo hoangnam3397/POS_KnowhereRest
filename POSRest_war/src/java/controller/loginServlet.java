@@ -41,19 +41,22 @@ public class loginServlet extends HttpServlet {
 
             List<Employees> emp = employeesFacade.findEmp(username, password);
             if (emp.get(0).getRoleId().getRoleId().equals("R001")) {              
-                session.setAttribute("userName","admin "+ username);
-                session.setAttribute("imageLink",emp.get(0).getAvatarlink());
-                session.setAttribute("password", password);
+                session.setAttribute("loginUser",username);
+                session.setAttribute("loginImage",emp.get(0).getAvatarlink());
+                session.setAttribute("loginPass", password);
+                session.setAttribute("loginRole", emp.get(0).getRoleId().getRoleId());
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
             } else if (emp.get(0).getRoleId().getRoleId().equals("R002")) {
-                session.setAttribute("userName","waiter "+ username);
-                session.setAttribute("imageLink",emp.get(0).getAvatarlink());
-                session.setAttribute("password", password);
+                session.setAttribute("loginUser",username);
+                session.setAttribute("loginImage",emp.get(0).getAvatarlink());
+                session.setAttribute("loginPass", password);
+                session.setAttribute("loginRole", emp.get(0).getRoleId().getRoleId());
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
             } else if (emp.get(0).getRoleId().getRoleId().equals("R003")) {
-                session.setAttribute("userName","sales "+ username);
-                session.setAttribute("imageLink",emp.get(0).getAvatarlink());
-                session.setAttribute("password", password);
+                session.setAttribute("loginUser",username);
+                session.setAttribute("loginImage",emp.get(0).getAvatarlink());
+                session.setAttribute("loginPass", password);
+                session.setAttribute("loginRole", emp.get(0).getRoleId().getRoleId());
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
             }
         } else {
