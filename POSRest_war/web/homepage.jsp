@@ -67,22 +67,8 @@
 
     </head>
     <body>
-        <!-- Navigation -->
-        <%
-            if (session.getAttribute("loginRole").equals("R001")) {
-        %>
-        <jsp:include page="admin_navbar.jsp"></jsp:include>
-        <%
-            }if (session.getAttribute("loginRole").equals("R002")) {
-        %>
-        <jsp:include page="waiter_navbar.jsp"></jsp:include>
-        <%
-            }if (session.getAttribute("loginRole").equals("R003")) {
-        %>
-        <jsp:include page="sale_navbar.jsp"></jsp:include>
-        <%
-            }
-        %>
+        <!-- Navigation -->       
+        <jsp:include page="admin_navbar.jsp"></jsp:include>    
         <!-- Page Content -->
 
         <!-- Page Content -->
