@@ -142,8 +142,7 @@ ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Products_
 	go
 	
 	create view SalesByCustomer as
-  select o.order_id,o.pro_id,o.quantity,o.price,o.discount,c.cus_name,p.pro_name from Order_Details o join Orders b on o.order_id=b.order_id join Customers c on c.cus_id=b.cus_id join Products p on p.pro_id=o.pro_id
-  go
+  select o.order_id,o.pro_id,o.quantity,o.price,o.discount,c.cus_id,c.cus_name,p.pro_name,b.ordertime from Order_Details o join Orders b on o.order_id=b.order_id join Customers c on c.cus_id=b.cus_id join Products p on p.pro_id=o.pro_id
 
 	insert into Stores values('S001','Store CMT8','590 CMT8 Q3','083852222',0)
     insert into Stores values('S002','Store Tay Ninh','Go Dau,Tay Ninh','0663852223',0)
