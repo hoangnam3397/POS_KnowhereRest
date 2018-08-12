@@ -39,7 +39,7 @@
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Change password</span></a></li>
+                        <li class="flat-box"><a href="changPW.jsp"><i class="fa fa-user"></i> <span class="menu-text">Change password</span></a></li>
                     </ul>
                 </li>                
                 <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>               
