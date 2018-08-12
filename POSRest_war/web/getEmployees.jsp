@@ -62,28 +62,30 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
-        <!-- Page Content -->
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
+            <!-- Page Content -->
 
 
-        <!-- Page Content -->
-        <div class="container">
-            <div class="row" style="margin-top:100px;">
-                <table id="xTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Employees Name</th>
-                            <th>User Name</th>
-                            <th>Email</th>
-                            <th class="hidden-xs">Phone</th>
-                            <th class="hidden-xs">Roles</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>                  
-                    <tbody>
+            <!-- Page Content -->
+            <div class="container">
+                <div class="row" style="margin-top:100px;">
+                    <table id="xTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th><fmt:message key="admin.getEmp.table.empname"/></th>
+                                <th><fmt:message key="admin.getEmp.table.user"/></th>
+                                <th><fmt:message key="admin.getEmp.table.email"/></th>
+                                <th class="hidden-xs"><fmt:message key="admin.getEmp.table.phone"/></th>
+                                <th class="hidden-xs"><fmt:message key="admin.getEmp.table.role"/></th>
+                                <th><fmt:message key="admin.getEmp.table.action"/></th>
+                            </tr>
+                        </thead>                  
+                        <tbody>
                         <c:forEach var="e" items="${listEmp}">
                             <tr>
                                 <td>${e.empName}</td>
@@ -106,9 +108,9 @@
                 </table>
             </div>
             <!-- Button trigger modal -->
-            <a href="insertEmployeesServlet"><button type="button" class="btn btn-add btn-lg" data-toggle="tooltip" data-placement="top">Add User</button></a>
+            <a href="insertEmployeesServlet"><button type="button" class="btn btn-add btn-lg" data-toggle="tooltip" data-placement="top"><fmt:message key="admin.getEmp.button.adduser"/></button></a>
 
-           
+
         </div>
         <!-- /.Modal -->
 
@@ -121,7 +123,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Image</h4>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.getEmp.dialog.title"/></h4>
                     </div>    
                     <div class="modal-body">
                         <div class="form-group">                         
@@ -130,17 +132,13 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.getEmp.dialog.close"/></button>
                     </div>    
                 </div>
             </div>
         </div>
 
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-        </div>
     </form>
 </div>
 </div>

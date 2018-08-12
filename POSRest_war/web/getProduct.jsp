@@ -447,7 +447,7 @@
 
                     var pro_id = $(this).attr('proid');
                     var pro_name = $(this).attr('proname');
-                    swal({title: 'WARNING',
+                    swal({title: 'Product display change !',
                         text: 'You have changed display ' + pro_name + ' in POS',
                         type: "warning",
                         showCancelButton: false,

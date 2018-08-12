@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,57 +63,59 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
-        <!-- Page Content -->
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
+            <!-- Page Content -->
 
 
-        <!-- Page Content -->
-    </script>
-    <div class="container container-small">
-        <div class="row" style="margin-top:100px;">
-            <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                <i class="fa fa-arrow-left"></i> Back</a>
-            <form action="changPWServlet" method="post" onsubmit="return checkForm();">
-                <div class="form-group">
-                    <input class="form-control" value="<%= session.getAttribute("loginEmpId") %>"  name="empid"  placeholder="Old Password" type="hidden"/>
+            <!-- Page Content -->
+        </script>
+        <div class="container container-small">
+            <div class="row" style="margin-top:100px;">
+                <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
+                    <i class="fa fa-arrow-left"></i> <fmt:message key="admin.changePass.button.back"/></a>
+                <form action="changPWServlet" method="post" onsubmit="return checkForm();">
+                    <div class="form-group">
+                        <input class="form-control" value="<%= session.getAttribute("loginEmpId")%>"  name="empid"  placeholder="Old Password" type="hidden"/>
                 </div>
                 <div class="form-group">
-                    <label>Old Password</label>
+                    <label><fmt:message key="admin.changePass.text.oldpass"/></label>
                     <input class="form-control" id="oldpassword"  name="oldpassword"  placeholder="Old Password" type="password"/>
                 </div>
                 <!-- /.input group -->
- 
-        <div class="form-group">
-                    <label for="password">New Password *</label>
+
+                <div class="form-group">
+                    <label for="password"><fmt:message key="admin.changePass.text.newpass"/> *</label>
                     <input type="password" name="password" class="form-control" id="password" placeholder="New password" required>
                 </div>
                 <div class="form-group">
-                    <label for="confirm_password">Repeat Password *</label>
+                    <label for="confirm_password"><fmt:message key="admin.changePass.text.renewpass"/> *</label>
                     <input type="password" name="PasswordRepeat" class="form-control" id="confirm_password" placeholder="Repeat Password" required>
                 </div> 
         </div>
         <!-- /.input group -->
         <div class="form-group">
-            <button type="submit" name="changepw" value="submit" class="btn btn-danger"><i class="livicon" data-n="pen" data-s="16" data-c="#fff" data-hc="0" ></i> Chang Password</button>
-            <button type="reset" name="Reset" value="Reset" class="btn btn-primary"><i class="livicon" data-n="trash" data-s="16" data-c="#fff" data-hc="0"></i>Reset </button>
+            <button type="submit" name="changepw" value="submit" class="btn btn-danger"><i class="livicon" data-n="pen" data-s="16" data-c="#fff" data-hc="0" ></i> <fmt:message key="admin.changePass.text.changepass"/></button>
+            <button type="reset" name="Reset" value="Reset" class="btn btn-primary"><i class="livicon" data-n="trash" data-s="16" data-c="#fff" data-hc="0"></i><fmt:message key="admin.changePass.text.reset"/> </button>
         </div>
         <!-- /.box-header -->
     </form>
-        </div>
+</div>
 </div>
 <script type="text/javascript">
-    function checkForm(){
-       var oldPass=$('#oldpassword').val();
-       if(oldPass != "<%= session.getAttribute("loginPass") %>"){
-           alert("Old password don't Match");
-           event.preventDefault();
-           $('#oldpassword').focus();
-       }else{
-           alert("Change Password successfully!!!");
-       }
+    function checkForm() {
+        var oldPass = $('#oldpassword').val();
+        if (oldPass != "<%= session.getAttribute("loginPass")%>") {
+            alert("Old password don't Match");
+            event.preventDefault();
+            $('#oldpassword').focus();
+        } else {
+            alert("Change Password successfully!!!");
+        }
     }
 </script>
 <!-- /.Modal -->

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,70 +63,72 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
         <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
             <!-- Page Content -->
-            
+
             <!-- Page Content -->
             <div class="container container-small">
                 <div class="row" style="margin-top:100px;">
                     <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                        <i class="fa fa-arrow-left"></i> Back</a>
+                        <i class="fa fa-arrow-left"></i> <fmt:message key="admin.editCus.button.back"/></a>
                     <form id="editCusForm" action="editCustomerServlet?action=Submit" method="post" >      
                         <div class="form-group" >
                             <input type="hidden" step="any" value="${cus_id}" maxlength="50" Required name="cus_id"  class="form-control" id="cus_id" placeholder="Email">
                     </div>
                     <div class="form-group" id="pushaceP">
-                        <label for="email">Email<a style="color:red">*</a></label>
+                        <label for="email"><fmt:message key="admin.editCus.text.email"/><a style="color:red">*</a></label>
                         <input type="email" step="any" value="${email}" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">
                         <span id="Emailresult" value="false"></span>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone<a style="color:red">*</a></label>
+                        <label for="phone"><fmt:message key="admin.editCus.text.phone"/><a style="color:red">*</a></label>
                         <input type="number" name="phone" maxlength="15" minlength="10"  value="${phone}" class="form-control" id="phone" placeholder="Phone Number">
                     </div>
                     <div class="form-group">
-                        <label for="Discount">Discount (%)<a style="color:red">*</a></label>
+                        <label for="Discount"><fmt:message key="admin.editCus.text.discount"/> (%)<a style="color:red">*</a></label>
                         <input type="number" name="discount" max="90" min="0" maxlength="2" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
                     </div>
 
                     <div class="form-group">
-                        <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>
+                        <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editCus.button.submit"/></button>
                     </div>
                 </form>  
             </div>
         </div>
         <!-- /.Modal -->
         <script type="text/javascript">
-                    /*************** check userName unique **********/
-                    $(document).ready(function() {
-                        var x_timer;
-                        $('#email').keyup(function(e) {
-                            clearTimeout(x_timer);
+            /*************** check userName unique **********/
+            $(document).ready(function() {
+                var x_timer;
+                $('#email').keyup(function(e) {
+                    clearTimeout(x_timer);
 
-                            var email = $(this).val();
-                            var cus_id = "${cus_id}";
-                            x_timer = setTimeout(function() {
-                                check_email_cus_ajax(cus_id,email);
-                            }, 1000);
-                        });
-                        function check_email_cus_ajax(cus_id,email) {
-                            $('#Emailresult').html('<img src="images/ajax-loader.gif" />');
-                            $.post('ChkCusEditEmail', {'cus_id':cus_id,'email': email}, function(data) {
-                                $('#Emailresult').html(data);
-                            });
-                        }
+                    var email = $(this).val();
+                    var cus_id = "${cus_id}";
+                    x_timer = setTimeout(function() {
+                        check_email_cus_ajax(cus_id, email);
+                    }, 1000);
+                });
+                function check_email_cus_ajax(cus_id, email) {
+                    $('#Emailresult').html('<img src="images/ajax-loader.gif" />');
+                    $.post('ChkCusEditEmail', {'cus_id': cus_id, 'email': email}, function(data) {
+                        $('#Emailresult').html(data);
                     });
-                    $('#editCusForm').submit(function(event) {
-                        var errors = $('#Email-resultError').attr('value');                     
-                        if (errors == 'false') {
-                            $('#email').focus();
-                            event.preventDefault();
-                        }
-                    });
-                </script>
+                }
+            });
+            $('#editCusForm').submit(function(event) {
+                var errors = $('#Email-resultError').attr('value');
+                if (errors == 'false') {
+                    $('#email').focus();
+                    event.preventDefault();
+                }
+            });
+        </script>
 
 
 

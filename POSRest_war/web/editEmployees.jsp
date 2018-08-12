@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -62,6 +63,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -74,50 +77,50 @@
         <div class="container container-small">
             <div class="row" style="margin-top:100px;">
                 <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                    <i class="fa fa-arrow-left"></i> Back</a>
+                    <i class="fa fa-arrow-left"></i> <fmt:message key="admin.editEmp.button.back"/></a>
                 <form id="editEmpForm" action="editEmployeesServlet" method="post" enctype="multipart/form-data">      
                     <div class="form-group">
-                        <label for="empName">Name<a style="color:red">*</a></label>
+                        <label for="empName"><fmt:message key="admin.editEmp.text.name"/><a style="color:red">*</a></label>
                         <input type="text" name="emp_name" value="${empName}" maxlength="50" Required class="form-control" id="emp_name" placeholder="Full Name">
                     <span id="proName-result" value="false"></span>
                 </div>
                 <div class="form-group" id="pushaceP">
-                    <label for="email">Email<a style="color:red">*</a></label>
+                    <label for="email"><fmt:message key="admin.editEmp.text.email"/><a style="color:red">*</a></label>
                     <input type="email" step="any" value="${email}" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">
                     <span id="Email-result" value="false"></span>
                 </div>
                 <script type="text/javascript">
                     /*************** check userName unique **********/
                     $(document).ready(function() {
-            var x_timer;
-            $("#email").keyup(function(e) {
-                clearTimeout(x_timer);
-                var emp_id = "${emp_id}";
-                var email = $(this).val();
-                x_timer = setTimeout(function() {
-                    check_email_name_ajax(emp_id, email);
-                }, 1000);
-            });
-            function check_email_name_ajax(emp_id, email) {
-                $("#Email-result").html('<img src="images/ajax-loader.gif" />');
-                $.post('ChkEditEmpEmail', {'emp_id': emp_id, 'email': email}, function(data) {
-                    $("#Email-result").html(data);
-                });
-            }
-        });
+                        var x_timer;
+                        $("#email").keyup(function(e) {
+                            clearTimeout(x_timer);
+                            var emp_id = "${emp_id}";
+                            var email = $(this).val();
+                            x_timer = setTimeout(function() {
+                                check_email_name_ajax(emp_id, email);
+                            }, 1000);
+                        });
+                        function check_email_name_ajax(emp_id, email) {
+                            $("#Email-result").html('<img src="images/ajax-loader.gif" />');
+                            $.post('ChkEditEmpEmail', {'emp_id': emp_id, 'email': email}, function(data) {
+                                $("#Email-result").html(data);
+                            });
+                        }
+                    });
                     $('#editEmpForm').submit(function(event) {
-                    var errors = $('#Email-resultError').attr('value');
-                            if (errors == 'false') {
-                    $('#email').focus();
+                        var errors = $('#Email-resultError').attr('value');
+                        if (errors == 'false') {
+                            $('#email').focus();
                             event.preventDefault();
-                    }
-                    });                 </script>
+                        }
+                    });</script>
                 <div class="form-group">
-                    <label for="phone">Phone<a style="color:red">*</a></label>
+                    <label for="phone"><fmt:message key="admin.editEmp.text.phone"/><a style="color:red">*</a></label>
                     <input type="number" name="phone" maxlength="15" minlength="10"  value="${phone}" class="form-control" id="phone" placeholder="Phone Number">
                 </div>
                 <div class="form-group">
-                    <label for="role">Role</label>
+                    <label for="role"><fmt:message key="admin.editEmp.text.role"/></label>
                     <select class="form-control" value="${r.roleId}" name="role" id="role">
                         <c:forEach var="r" items="${listRole}">
                             <c:if test="${r.roleId==roleId}">
@@ -130,12 +133,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputFile">Avatar Link</label>
+                    <label for="exampleInputFile"><fmt:message key="admin.editEmp.text.inputimg"/></label>
                     <input type="file" name="imageInput" id="imageInput" accept="image/pjpeg,image/png" onchange="return fileValidation()">
                 </div>
 
                 <div class="form-group">
-                    <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn">Submit</button>
+                    <button type="submit" name="action" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editEmp.button.submit"/></button>
                 </div>
             </form>  
         </div>
@@ -147,26 +150,26 @@
 
     <!-- /.Modal -->
     <script type="text/javascript">
-                function fileValidation() {
-                /*************** check image **********/
-                var fileInput = document.getElementById('imageInput');
-                        var filePath = fileInput.value;
-                        var allowedExtensions = /(\.jpg|\.png)$/i;
-                        if (!allowedExtensions.exec(filePath)) {
+        function fileValidation() {
+            /*************** check image **********/
+            var fileInput = document.getElementById('imageInput');
+            var filePath = fileInput.value;
+            var allowedExtensions = /(\.jpg|\.png)$/i;
+            if (!allowedExtensions.exec(filePath)) {
                 alert('Please upload file having extensions .jpg/.png only.');
-                        fileInput.value = '';
-                        return false;
-                } else {
+                fileInput.value = '';
+                return false;
+            } else {
                 //Image preview
                 if (fileInput.files && fileInput.files[0]) {
-                var reader = new FileReader();
-                        reader.onload = function(e) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
                         document.getElementById('imagePreview').innerHTML = '<img src="' + e.target.result + '"/>';
-                        };
-                        reader.readAsDataURL(fileInput.files[0]);
+                    };
+                    reader.readAsDataURL(fileInput.files[0]);
                 }
-                }
-                }
+            }
+        }
     </script>
 
     <!-- slim scroll script -->

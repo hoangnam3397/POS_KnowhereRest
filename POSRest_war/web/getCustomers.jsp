@@ -62,33 +62,35 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
-        <!-- Page Content -->
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
+            <!-- Page Content -->
 
 
-        <!-- Page Content -->
-        <div class="container">
-            <div class="row" style="margin-top:100px;">
-                <table id="xTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Customer Name</th>
-                            <th class="hidden-xs">Phone</th>
-                            <th>Email</th>    
-                            <th>Discount %</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>                  
-                    <tbody>
+            <!-- Page Content -->
+            <div class="container">
+                <div class="row" style="margin-top:100px;">
+                    <table id="xTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th><fmt:message key="admin.getCus.table.cusname"/></th>
+                                <th class="hidden-xs"><fmt:message key="admin.getCus.table.phone"/></th>
+                                <th><fmt:message key="admin.getCus.table.email"/></th>    
+                                <th><fmt:message key="admin.getCus.table.discount"/> %</th>
+                                <th><fmt:message key="admin.getCus.table.action"/></th>
+                            </tr>
+                        </thead>                  
+                        <tbody>
                         <c:forEach var="c" items="${list}">
                             <tr>
                                 <td>${c.cusName}</td>
                                 <td class="hidden-xs"><p>${c.phone}</p></td>
                                 <td>${c.email}</td>
-                                <td>${c.discount}</td>
+                                <td><fmt:formatNumber value="${c.discount}" minFractionDigits="0"/> (%)</td>
                                 <td><div class="btn-group">
                                         <a class="btn btn-default" href="editCustomerServlet?action=get&cus_id=${c.cusId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                     </div>
@@ -99,9 +101,9 @@
                 </table>
             </div>
             <!-- Button trigger modal -->
-           
 
-            <a href="insertCustomer.jsp"><button type="button" class="btn btn-add btn-lg" data-toggle="tooltip" data-placement="top">Add Customer</button></a>
+
+            <a href="insertCustomer.jsp"><button type="button" class="btn btn-add btn-lg" data-toggle="tooltip" data-placement="top"><fmt:message key="admin.getCus.button.addCus"/></button></a>
 
 
         </div>
