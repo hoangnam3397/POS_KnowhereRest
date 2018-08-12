@@ -129,7 +129,7 @@
                                 <td>${c.email}</td>
                                 <td>${c.discount}</td>
                                 <td><div class="btn-group">
-                                        <a class="btn btn-default" href="editCustomerServletcus_id=${c.cusId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-default" href="editCustomerServlet?action=get&cus_id=${c.cusId}" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-pencil"></i></a>
                                     </div>
                                 </td>
                             </tr>
