@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>POS - point of sale Dar Elweb</title>
+        <title>WAPOS - point of sale</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -54,8 +54,8 @@
         <!-- Custom CSS -->
         <link href="css/Style-Light.css" rel="stylesheet">
         <!-- favicon -->
-        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
-        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+        <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -65,37 +65,37 @@
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
-        <!-- Page Content -->
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
+            <!-- Page Content -->
 
 
-        <!-- Page Content -->
-    </script>
-    <div class="container container-small">
-        <div class="row" style="margin-top:100px;">
-            <a class="btn btn-default float-right" onclick="history.back(-1)"style="margin-bottom:10px;">
-                <i class="fa fa-arrow-left"></i> Back</a>
-            <form action="insertEmployeesServlet" method="post" enctype="multipart/form-data">      
-                <div class="form-group">
-                    <label for="name">Name<a style="color:red">*</a></label>
-                    <input type="text" name="name" maxlength="50" Required class="form-control" id="name" placeholder="Full Name!!!!">         
-                </div>
-                <div class="form-group">
-                    <label for="username">User Name<a style="color:red">*</a></label>
-                    <input type="text" name="username" maxlength="50" Required class="form-control" id="username" placeholder="User Name">
-                    <span id="userName-result" value="false"></span>
-                </div>    
-                <div class="form-group">
-                    <label for="password">Password *</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <label for="confirm_password">Repeat Password *</label>
-                    <input type="password" name="PasswordRepeat" class="form-control" id="confirm_password" placeholder="Repeat Password" required>
-                </div> 
-                <div class="form-group">
-                    <label for="Role">Role</label>
-                    <select class="form-control" value="" name="role" id="Role">
+            <!-- Page Content -->
+        </script>
+        <div class="container container-small">
+            <div class="row" style="margin-top:100px;">
+                <a class="btn btn-default float-right" onclick="history.back(-1)"style="margin-bottom:10px;">
+                    <i class="fa fa-arrow-left"></i> Back</a>
+                <form id="insertEmp-form" action="insertEmployeesServlet" method="post" enctype="multipart/form-data">      
+                    <div class="form-group">
+                        <label for="name">Name<a style="color:red">*</a></label>
+                        <input type="text" name="name" maxlength="50" Required class="form-control" id="name" placeholder="Full Name!!!!">         
+                    </div>
+                    <div class="form-group">
+                        <label for="username">User Name<a style="color:red">*</a></label>
+                        <input type="text" name="username" maxlength="50" Required class="form-control" id="username" placeholder="User Name">
+                        <span id="userName-result" value="false"></span>
+                    </div>    
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm_password">Repeat Password *</label>
+                        <input type="password" name="PasswordRepeat" class="form-control" id="confirm_password" placeholder="Repeat Password" required>
+                    </div> 
+                    <div class="form-group">
+                        <label for="Role">Role</label>
+                        <select class="form-control" value="" name="role" id="Role">
                         <c:forEach var="r" items="${listRole}">
                             <option value="${r.roleId}">${r.roleName}</option>
                         </c:forEach> 
@@ -105,13 +105,7 @@
                     <label for="Email">Email <a style="color:red">*</a></label>
                     <input type="email" step="any" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">
                     <span id="Email-result" value="false"></span>
-                </div>
-                                <script type="text/javascript">
-                    /*************** check userName unique **********/
-                    $(document).ready(function() {
-                        
-                    });
-                </script>
+                </div>                              
                 <script type="text/javascript">
                     /*************** check userName unique **********/
                     $(document).ready(function() {
@@ -143,6 +137,18 @@
                             $.post('ChkInsertUserName', {'username': username}, function(data) {
                                 $("#userName-result").html(data);
                             });
+                        }
+                    });
+                    $('#insertEmp-form').submit(function(event) {
+                        var errors = $('#userName-resultError').attr('value');
+                        var errors2 = $('#Email-resultError').attr('value');
+                        if (errors == 'false') {
+                            $('#username').focus();
+                            event.preventDefault();
+                        }
+                        if (errors2 == 'false') {
+                            $('#email').focus();
+                            event.preventDefault();
                         }
                     });
                 </script>

@@ -1,10 +1,12 @@
+package controller;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
-package controller;
+
 
 import entity.EmployeesFacadeLocal;
 import java.io.IOException;
@@ -52,9 +54,9 @@ public class ChkInsertEmail extends HttpServlet {
         String emp_id = "EMP" + id;        
         String email= request.getParameter("email");
         if (employeesFacade.chkEmailUnique(emp_id,email)==true) {
-            response.getWriter().write("<img src=\"images/available.png\" /><span style=\"color: green\">You can use Email. </span>");
+             response.getWriter().write("<img src=\"images/available.png\" /><span id=\"Email-resultError\" value=\"true\" style=\"color: green\">You can use Email. </span>");
        } else {           
-            response.getWriter().write("<img src=\"images/not-available.png\" /><span style=\"color: red\">Email already exists.</span>");
+            response.getWriter().write("<img src=\"images/not-available.png\" /><span id=\"Email-resultError\" value=\"false\" style=\"color: red\">Email already exists.</span>");
        }
     }
     @Override

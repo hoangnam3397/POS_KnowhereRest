@@ -50,6 +50,7 @@ public class editEmployeesServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         emp_id = request.getParameter("emp_id");
+        request.setAttribute("emp_id", emp_id);
         request.setAttribute("empName", employeesFacade.find(emp_id).getEmpName());
         request.setAttribute("email", employeesFacade.find(emp_id).getEmail());
         request.setAttribute("phone", employeesFacade.find(emp_id).getPhone());

@@ -1,8 +1,3 @@
-<%-- 
-    Document   : homepage
-    Created on : Jul 17, 2018, 9:01:50 AM
-    Author     : Nam_Nguyen
---%>
 
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -89,12 +84,7 @@
                         <h2><fmt:message key="admin.orderpage.chooseclient"/></h2>
                     </div>
                     <div class="col-xs-4 client-add">
-                        <a href="javascript:void(0)" data-toggle="modal" data-target="#AddCustomer">
-                            <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top" title="Add New Customer">
-                                <i class="fa fa-square fa-stack-2x grey"></i>
-                                <i class="fa fa-user-plus fa-stack-1x fa-inverse dark-blue"></i>
-                            </span>
-                        </a>
+                        
                         <a href="javascript:void(0)" onclick="showticket()">
                             <span class="fa-stack fa-lg" data-toggle="tooltip" data-placement="top" title="Show last Receipt">
                                 <i class="fa fa-square fa-stack-2x grey"></i>

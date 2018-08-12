@@ -1,5 +1,7 @@
 package controller;
 
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -53,9 +55,9 @@ public class ChkInsertUserName extends HttpServlet {
         String emp_id = "EMP" + id;        
         String name= request.getParameter("username");
         if (empFacade.chkUserUnique(emp_id,name)==true) {
-            response.getWriter().write("<img src=\"images/available.png\" /><span style=\"color: green\">You can use UserName. </span>");
+             response.getWriter().write("<img src=\"images/available.png\" /><span id=\"userName-resultError\" value=\"true\" style=\"color: green\">You can use username. </span>");
        } else {           
-            response.getWriter().write("<img src=\"images/not-available.png\" /><span style=\"color: red\">UserName already exists.</span>");
+            response.getWriter().write("<img src=\"images/not-available.png\" /><span id=\"userName-resultError\" value=\"false\" style=\"color: red\">Username already exists.</span>");
        }
     }
 
