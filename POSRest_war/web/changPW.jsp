@@ -65,7 +65,7 @@
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="admin_navbar.jsp"/>
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
         <!-- Page Content -->
 
 
@@ -108,6 +108,8 @@
        var oldPass=$('#oldpassword').val();
        if(oldPass != "<%= session.getAttribute("loginPass") %>"){
            alert("Old password don't Match");
+           event.preventDefault();
+           $('#oldpassword').focus();
        }else{
            alert("Change Password successfully!!!");
        }

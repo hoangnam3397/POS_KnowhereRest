@@ -75,28 +75,28 @@
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="admin_navbar.jsp"/>
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
         <!-- Page Content -->
 
 
         <!-- Page Content -->
         <div class="container">
-            <h1>Customer Report (${dateRange})</h1>
-            <h4>Customer Name: ${cus_name}</h4>
-            <h4>Email: ${email}</h4>
-            <h4>Phone: ${phone}</h4>
+            <h1><fmt:message key="admin.cusreport.text.cusreport"/>(${dateRange})</h1>
+            <h4><fmt:message key="admin.cusreport.text.cusname"/> ${cus_name}</h4>
+            <h4><fmt:message key="admin.cusreport.text.email"/>${email}</h4>
+            <h4><fmt:message key="admin.cusreport.text.phone"/> ${phone}</h4>
             <div class="row" style="margin-top:100px;">
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Sale No.</th>
-                            <th>Customer Name</th>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Discount (%)</th>
-                            <th>Time</th>
-                            <th>Total</th>
+                            <th><fmt:message key="admin.cusreport.table.saleno"/></th>
+                            <th><fmt:message key="admin.cusreport.table.cusname"/></th>
+                            <th><fmt:message key="admin.cusreport.table.proname"/></th>
+                            <th><fmt:message key="admin.cusreport.table.price"/></th>
+                            <th><fmt:message key="admin.cusreport.table.quantity"/></th>
+                            <th><fmt:message key="admin.cusreport.table.discount"/> (%)</th>
+                            <th><fmt:message key="admin.cusreport.table.time"/></th>
+                            <th><fmt:message key="admin.cusreport.table.total"/></th>
                         </tr>
                     </thead>                  
                     <tbody>
@@ -114,7 +114,7 @@
                         </c:forEach>
                     </tbody>                    
                 </table>
-                <h1>Total : <span class="ReportTotal"><fmt:formatNumber value="${Total}" maxFractionDigits="0"/> VND</span></h1>
+                <h1><fmt:message key="admin.cusreport.text.total"/> : <span class="ReportTotal"><fmt:formatNumber value="${Total}" maxFractionDigits="0"/> VND</span></h1>
                 <br>
                 <br>
                 <br>

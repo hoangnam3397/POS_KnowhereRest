@@ -75,7 +75,7 @@
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="admin_navbar.jsp"/>
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
         <!-- Page Content -->
 
 
