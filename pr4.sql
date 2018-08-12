@@ -138,7 +138,7 @@ ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Products_
 	go
 
 	create view vProductReport as
-	Select a.order_id,b.pro_id,a.ordertime,b.price,b.quantity,b.discount from Orders a join Order_Details b on a.order_id = b.order_id
+	Select a.order_id,b.pro_id,a.ordertime,b.price,b.quantity,b.discount,c.pro_name,d.cus_name from Orders a join Order_Details b on a.order_id = b.order_id join Products c on b.pro_id=c.pro_id join Customers d on a.cus_id =d.cus_id
 	go
 	
 	create view SalesByCustomer as
