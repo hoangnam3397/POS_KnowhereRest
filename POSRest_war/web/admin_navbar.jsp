@@ -34,7 +34,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown language">
                     <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img class="flag" src="images/en.png" width="30px" height="30px">
+                        <img class="flag" src="images/language.png" width="30px" height="30px">
                         <span class="hidden-xs"><fmt:message key="admin.navbar.language"/></span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
