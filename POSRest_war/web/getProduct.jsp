@@ -96,7 +96,7 @@
                                 <td>${p.catId.catName}</td>
                                 <td class="hidden-xs"><p>${p.description}</p></td>
                                 <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/>%</td>
-                                <td  data-order="20"><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
+                                <td  data-order="20"><fmt:formatNumber value="${p.price}" maxFractionDigits="0"/> VND</td>
                                 <c:choose>
                                     <c:when test="${p.hide eq 0}">
                                         <td><label>
@@ -146,7 +146,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.product.dialog.titleaddpro"/></h4>
                     </div>
-                    <form id="insertPro-form" action="insertProductServlet" method="post" enctype="multipart/form-data">      
+                    <form id="insertPro-form" action="insertProductServlet" method="post" enctype="multipart/form-data" onsubmit="return checkForm();">      
                         <div class="modal-body">
                             <div class="form-group">
                                 <label for="ProductName"><fmt:message key="admin.product.dialog.proname"/> <a style="color: red">*</a></label>
@@ -471,7 +471,18 @@
                 });
             });
         </script>
-
+        <script type="text/javascript">
+            function checkForm() {
+                var a = $('#PurchasePrice').val();
+                var b = 100;
+                var c = a % b;
+                if (c != 0) {
+                    alert("Price must be a multiple of 100");
+                    event.preventDefault();
+                    $('#PurchasePrice').focus();
+                }
+            }
+        </script>
 
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>

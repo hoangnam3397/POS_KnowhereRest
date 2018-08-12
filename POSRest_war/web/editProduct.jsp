@@ -78,7 +78,7 @@
         <div class="row" style="margin-top:100px;">
             <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
                 <i class="fa fa-arrow-left"></i> <fmt:message key="admin.editproduct.button.back"/></a>
-            <form id="editPro-form" action="editProductServlet" method="post" enctype="multipart/form-data">      
+            <form id="editPro-form" action="editProductServlet" method="post" enctype="multipart/form-data" onsubmit="return checkForm();">      
                 <div class="form-group">
                     <label for="ProductName"><fmt:message key="admin.editproduct.text.name"/><a style="color:red">*</a></label>
                     <input type="text" name="pro_name" value="${proName}" maxlength="50" Required class="form-control" id="pro_name" placeholder="Name">
@@ -228,6 +228,18 @@
             }
         });
     </script>
+    <script type="text/javascript">
+            function checkForm() {
+                var a = $('#PurchasePrice').val();
+                var b = 100;
+                var c = a % b;
+                if (c != 0) {
+                    alert("Price must be a multiple of 100");
+                    event.preventDefault();
+                    $('#PurchasePrice').focus();
+                }
+            }
+        </script>
     <!-- slim scroll script -->
     <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
     <!-- waves material design effect -->
