@@ -127,6 +127,8 @@ public class GetTopProductServlet extends HttpServlet {
                 
         //Report Product
         request.setAttribute("listPro", productsFacade.showAllProduct());
+        //report Cus
+        request.setAttribute("listCus", customersFacade.findAll());
         
         request.getRequestDispatcher("reportPage.jsp").forward(request, response);
     }

@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>Product Report - ${pro_name} - (${dateRange})</title>
+        <title>Customer Report</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -81,36 +81,40 @@
 
         <!-- Page Content -->
         <div class="container">
-            <h1><fmt:message key="admin.productreport.textpro"/> (${dateRange})</h1>
-            <h4><fmt:message key="admin.productreport.textproname"/>: ${pro_name}</h4>
-            <h4><fmt:message key="admin.productreport.textcate"/>: ${pro_cate}</h4>
-            <h4><fmt:message key="admin.productreport.textid"/>: ${pro_id}</h4>
+            <h1>Customer Report (${dateRange})</h1>
+            <h4>Customer Name: ${cus_name}</h4>
+            <h4>Email: ${email}</h4>
+            <h4>Phone: ${phone}</h4>
             <div class="row" style="margin-top:100px;">
                 <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th><fmt:message key="admin.productreport.saleno"/></th>
-                            <th><fmt:message key="admin.productreport.date"/></th>
-                            <th><fmt:message key="admin.productreport.price"/></th>
-                            <th><fmt:message key="admin.productreport.quantity"/></th>
-                            <th><fmt:message key="admin.productreport.discount"/> (%)</th>
-                            <th><fmt:message key="admin.productreport.profit"/></th>
+                            <th>Sale No.</th>
+                            <th>Customer Name</th>
+                            <th>Product Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Discount (%)</th>
+                            <th>Time</th>
+                            <th>Total</th>
                         </tr>
                     </thead>                  
                     <tbody>
-                        <c:forEach var="p" items="${listProReport}">               
+                        <c:forEach var="p" items="${listCusReport}">               
                             <tr>
                                 <td>${p.orderId}</td>
-                                <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
+                                <td>${p.cusName}</td>
+                                <td>${p.proName}</td>
                                 <td><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
                                 <td>${p.quantity}</td>
                                 <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/> %</td>
+                                <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
                                 <td><fmt:formatNumber value="${p.price*p.quantity*(100-p.discount)/100}" maxFractionDigits="0"/> VND</td>
                             </tr>                                                   
                         </c:forEach>
                     </tbody>                    
                 </table>
-                <h1>Total Profit : <span class="ReportTotal"><fmt:formatNumber value="${TotalProfit}" maxFractionDigits="0"/> VND</span></h1>
+                <h1>Total : <span class="ReportTotal"><fmt:formatNumber value="${Total}" maxFractionDigits="0"/> VND</span></h1>
                 <br>
                 <br>
                 <br>

@@ -6,6 +6,8 @@
 
 package entity;
 
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -46,5 +48,14 @@ public class CustomersFacade extends AbstractFacade<Customers> implements Custom
             e.printStackTrace();
         }
         return false;
+    }
+    
+    @Override
+    public List<SalesByCustomer> vCusReport(String cus_id, Date startDate, Date endDate) {
+        Query q=em.createQuery("SELECT s FROM SalesByCustomer s WHERE s.cusId = :cus and s.ordertime >= :startDate and s.ordertime <= :endDate");
+        q.setParameter("cus", cus_id);
+        q.setParameter("startDate", startDate);
+        q.setParameter("endDate", endDate);
+        return q.getResultList();
     }
 }

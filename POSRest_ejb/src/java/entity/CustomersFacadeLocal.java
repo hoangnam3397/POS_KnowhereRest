@@ -5,6 +5,7 @@
  */
 package entity;
 
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,4 +31,6 @@ public interface CustomersFacadeLocal {
     int count();
 
     boolean chkEmailCusUnique(String id, String email);
+    
+    List<SalesByCustomer> vCusReport(String cus_id, Date startDate, Date endDate);
 }

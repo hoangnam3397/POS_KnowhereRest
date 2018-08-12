@@ -135,7 +135,7 @@
                 <form action="getProductReport" method="post">
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="customerSelect"><fmt:message key="admin.reportpage.report.selectPro"/></label>
+                            <label for="proSelect"><fmt:message key="admin.reportpage.report.selectPro"/></label>
                             <select class="js-select-options form-control" name="productSelect" id="productSelect">                        
                                 <c:forEach var="pro" items="${listPro}">
                                     <option value="${pro.proId}">${pro.proName}</option>
@@ -157,7 +157,34 @@
                     </div>
                 </form>
             </div>
-
+               <!-- ******************************************Report Customer************************************************* -->      
+            <div class="row rangeStat" style="margin-top:50px;">
+                <h3 class="col-sm-12">Customer Report</h3>
+                <form action="getCustomerReport" method="post">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="customerSelect">Select Customer</label>
+                            <select class="js-select-options form-control" name="cusSelect" id="cusSelect">                        
+                                <c:forEach var="cus" items="${listCus}">
+                                    <option value="${cus.cusId}">${cus.cusName} / phone:${cus.phone}</option>
+                                </c:forEach>                                                        
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label><fmt:message key="admin.reportpage.report.selectRange"/></label>
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon RangePicker"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+                                <input class="form-control" id="CustomerRange" type="text" name="daterange" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="cancelBtn btn btn-picker" type="submit"><fmt:message key="admin.reportpage.report.submitReport"/></button>
+                    </div>
+                </form>
+            </div>
 
             <br><br><br>
         </div>
