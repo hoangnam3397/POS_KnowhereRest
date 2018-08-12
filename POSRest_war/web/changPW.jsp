@@ -75,7 +75,10 @@
         <div class="row" style="margin-top:100px;">
             <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
                 <i class="fa fa-arrow-left"></i> Back</a>
-            <form action="changPWServlet?emp_id=<%= session.getAttribute("userid") %>" method="post" onsubmit="return checkForm();">
+            <form action="changPWServlet" method="post" onsubmit="return checkForm();">
+                <div class="form-group">
+                    <input class="form-control" value="<%= session.getAttribute("loginEmpId") %>"  name="empid"  placeholder="Old Password" type="hidden"/>
+                </div>
                 <div class="form-group">
                     <label>Old Password</label>
                     <input class="form-control" id="oldpassword"  name="oldpassword"  placeholder="Old Password" type="password"/>
@@ -102,20 +105,12 @@
 </div>
 <script type="text/javascript">
     function checkForm(){
-        var oldpass=$('#oldpassword').val();
-        var newpass=$('#password').val();
-        $.ajax({
-                    url: "changPWServlet?emp_id="+"<%= session.getAttribute("userid") %>"+"&oldpassword="+oldpass +"&password="+newpass ,
-                    type: "GET",
-                    success: function()
-                    {
-                        alert("${warrning}");
-                    },
-                    error: function(jqXHR, textStatus, errorThrown)
-                    {
-                        alert("error")
-                    }
-                });
+       var oldPass=$('#oldpassword').val();
+       if(oldPass != "<%= session.getAttribute("loginPass") %>"){
+           alert("Old password don't Match");
+       }else{
+           alert("Change Password successfully!!!");
+       }
     }
 </script>
 <!-- /.Modal -->
