@@ -18,23 +18,13 @@
                 <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text"><fmt:message key="admin.navbar.pos"/></span></a></li>                                    
                 <li class="flat-box"><a href="getProductServlet"><i class="fa fa-archive"></i> <span class="menu-text"><fmt:message key="admin.navbar.product"/></span></a></li>
                 <li class="flat-box"><a href="getCategoriesServlet"><i class="fa fa-bookmark"></i> <span class="menu-text"><fmt:message key="admin.navbar.categories"/></span></a></li>
-                <li class="flat-box"><a href="viewStoreServlet"><i class="fa fa-hospital-o"></i> <span class="menu-text"><fmt:message key="admin.navbar.store"/></span></a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-users"></i> 
-                        <span class="menu-text"><fmt:message key="admin.navbar.people"/></span> 
-                        <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="flat-box"><a href="getEmployeesServlet"><i class="fa fa-user"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.emp"/></span></a></li>
-                        <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-user"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.cus"/></span></a></li>
-                    </ul>
-                </li>                                           
-                <li class="flat-box"><a href="GetTopProductServlet"><i class="fa fa-line-chart"></i> <span class="menu-text"><fmt:message key="admin.navbar.report"/></span></a></li>                                </ul>
+                <li class="flat-box"><a href="getCustomerServlet"><i class="fa fa-users"></i> <span class="menu-text"><fmt:message key="admin.navbar.people.cus"/></span></a></li>                                          
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown language">
                     <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <span class="hidden-xs"><fmt:message key="admin.navbar.language"/></span>
+                        <img class="flag" src="images/en.png" width="30px" height="30px">
+                        <span class="hidden-xs" width="30px" height="30px"><fmt:message key="admin.navbar.language"/></span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="flat-box"><a href="setLocalen"><img src="images/en.png" class="flag" alt="language"> English</a></li>
@@ -44,15 +34,15 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                        <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("loginImage") %>" width="30px" height="30px">
-                        <span class="menu-text">&nbsp;&nbsp;<%= session.getAttribute("loginUser") %></span> 
+                        <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("loginImage")%>" width="30px" height="30px">
+                        <span class="hidden-xs">&nbsp;&nbsp;<%= session.getAttribute("loginUser")%></span> 
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Change password</span></a></li>
                     </ul>
-                </li>            
-                <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
+                </li>                
+                <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>               
             </ul>
         </div>
         <div id="loadingimg"></div>

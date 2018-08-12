@@ -15,11 +15,12 @@
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text"><fmt:message key="admin.navbar.pos"/></span></a></li>                                                                           
+                <li class="flat-box"><a href="getStoreServlet"><i class="fa fa-credit-card"></i> <span class="menu-text"><fmt:message key="admin.navbar.pos"/></span></a></li>                                    
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown language">
                     <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="flag" src="images/en.png" width="30px" height="30px">
                         <span class="hidden-xs"><fmt:message key="admin.navbar.language"/></span>
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -28,10 +29,15 @@
 
                     </ul>
                 </li>
-                <li><a href="">
-                        <img class="img-circle topbar-userpic hidden-xs" src="http://www.dar-elweb.com/demos/zarest/files/Avatars/9fff9cc26e539214e9a5fd3b6a10cde9.jpg" width="30px" height="30px">
-                        <span class="hidden-xs"> &nbsp;&nbsp;admin Doe </span>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle flat-box" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <img class="img-circle topbar-userpic hidden-xs" src="<%= session.getAttribute("loginImage")%>" width="30px" height="30px">
+                        <span class="hidden-xs">&nbsp;&nbsp;<%= session.getAttribute("loginUser")%></span> 
+                        <span class="caret"></span>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li class="flat-box"><a href="#"><i class="fa fa-user"></i> <span class="menu-text">Change password</span></a></li>
+                    </ul>
                 </li>               
                 <li class="flat-box"><a href="index.html" title="Logout"><i class="fa fa-sign-out fa-lg"></i></a></li>
             </ul>
