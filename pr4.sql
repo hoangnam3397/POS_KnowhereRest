@@ -103,7 +103,7 @@ create table Order_Details
 	quantity int not null,
 	price money not null,
 	discount float not null,
-	optionvalue nvarchar(150),
+	optionvalue nvarchar(150)
 )
 ALter table [dbo].[Order_Details] add constraint [FK_dbo.Order_Details.dbo.Orders_order_id] foreign key (order_id) references [dbo].[Orders](order_id)
 
@@ -138,11 +138,15 @@ ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Products_
 	go
 
 	create view vProductReport as
-	Select a.order_id,b.pro_id,a.ordertime,b.price,b.quantity,b.discount,c.pro_name,d.cus_name from Orders a join Order_Details b on a.order_id = b.order_id join Products c on b.pro_id=c.pro_id join Customers d on a.cus_id =d.cus_id
+	Select row_number() over (order by a.order_id) as rowid,a.order_id,b.pro_id,a.ordertime,b.price,b.quantity,discountC=(a.discount*100),tax=(a.order_tax*100),discountP=(b.discount),c.pro_name,d.cus_name,Total=( (((100-b.discount)/100)*(b.price*b.quantity)) -  ((  a.discount-a.order_tax )* (((100-b.discount)/100)*(b.price*b.quantity)))     ) 
+	from Orders a join Order_Details b on a.order_id = b.order_id join Products c on b.pro_id=c.pro_id join Customers d on a.cus_id =d.cus_id
 	go
 	
-	create view SalesByCustomer as
-  select o.order_id,o.pro_id,o.quantity,o.price,o.discount,c.cus_id,c.cus_name,p.pro_name,b.ordertime from Order_Details o join Orders b on o.order_id=b.order_id join Customers c on c.cus_id=b.cus_id join Products p on p.pro_id=o.pro_id
+
+  create view SalesByCustomer as
+  select row_number() over (order by o.order_id) as rowid, o.order_id,o.pro_id,o.quantity,o.price,discountP=(o.discount),tax=(b.order_tax*100),discountC=(b.discount*100),b.cus_id,e.cus_name,p.pro_name,b.ordertime,Total=( (((100-o.discount)/100)*(o.price*o.quantity)) - ((  b.discount-b.order_tax )* (((100-o.discount)/100)*(o.price*o.quantity)))     )
+  from Order_Details o join Orders b on o.order_id=b.order_id join Products p on p.pro_id=o.pro_id join Customers e on b.cus_id=e.cus_id
+  go
 
 	insert into Stores values('S001','Store CMT8','590 CMT8 Q3','083852222',0)
     insert into Stores values('S002','Store Tay Ninh','Go Dau,Tay Ninh','0663852223',0)
@@ -191,7 +195,7 @@ ALter table [dbo].[HideProduct] add constraint [FK_dbo.HideProduct.dbo.Products_
     insert into Products values('P00005','Hotdog','CAT00003',20000,'images/default-food.png',0,0,null,color04)
     insert into Products values('P00004','Coffee Milk','CAT00001',16000,'images/default-food.png',0,0,null,color05)
 
-	insert into employees values('EMP00001','Admin','admin','123456','rol01','admin@gmail.com',123456789,null,0)
-	insert into employees values('EMP00002','Duy','duy','123456','rol01','duy@gmail.com',096845215,null,0)
-	insert into employees values('EMP00003','Nam','nam','123456','rol01','nam@gmail.com',098554545,null,0)
+	insert into employees values('EMP00001','Admin','admin','123456','R001','admin@gmail.com',123456789,null,0)
+	insert into employees values('EMP00002','Duy','duy','123456','R002','duy@gmail.com',096845215,null,0)
+	insert into employees values('EMP00003','Nam','nam','123456','R003','nam@gmail.com',098554545,null,0)
 
