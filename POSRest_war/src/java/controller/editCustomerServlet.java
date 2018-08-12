@@ -24,9 +24,10 @@ public class editCustomerServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         String action = request.getParameter("action");
+        cus_id = request.getParameter("cus_id");
         if (action.equals("get")) {
             //load page editProduct
-            cus_id = request.getParameter("cus_id");
+            request.setAttribute("cusid", customersFacade.find(cus_id).getCusId());
             request.setAttribute("phone", customersFacade.find(cus_id).getPhone());
             request.setAttribute("email", customersFacade.find(cus_id).getEmail());
             request.setAttribute("dis", customersFacade.find(cus_id).getDiscount());

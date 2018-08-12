@@ -74,7 +74,10 @@
             <div class="row" style="margin-top:100px;">
                 <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
                     <i class="fa fa-arrow-left"></i> Back</a>
-                <form action="editCustomerServlet" method="post" enctype="multipart/form-data">      
+                <form action="editCustomerServlet?action=Submit" method="post" >      
+                    <div class="form-group" >
+                        <input type="hidden" step="any" value="${cusid}" maxlength="50" Required name="cus_id"  class="form-control" id="email" placeholder="Email">
+                    </div>
                     <div class="form-group" id="pushaceP">
                         <label for="email">Email<a style="color:red">*</a></label>
                         <input type="email" step="any" value="${email}" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "changPWServlet", urlPatterns = {"/changPWServlet"})
 public class changPWServlet extends HttpServlet {
@@ -24,6 +25,7 @@ public class changPWServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+        HttpSession session = request.getSession(true);
         String emp_id = request.getParameter("empid");
         String oldpass = request.getParameter("oldpassword");
         String newpass = request.getParameter("password");
@@ -32,6 +34,7 @@ public class changPWServlet extends HttpServlet {
             Employees emp = employeesFacade.find(emp_id);
             emp.setPassword(newpass);
             employeesFacade.edit(emp);
+            session.setAttribute("loginPass", newpass);
             request.getRequestDispatcher("getStoreServlet").forward(request, response);
         } else {
             request.getRequestDispatcher("changPW.jsp").forward(request, response);
