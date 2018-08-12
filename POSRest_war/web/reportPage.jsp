@@ -159,14 +159,14 @@
             </div>
                <!-- ******************************************Report Customer************************************************* -->      
             <div class="row rangeStat" style="margin-top:50px;">
-                <h3 class="col-sm-12">Customer Report</h3>
+                <h3 class="col-sm-12"><fmt:message key="admin.reportPage.reportcus.title"/></h3>
                 <form action="getCustomerReport" method="post">
                     <div class="col-md-5">
                         <div class="form-group">
-                            <label for="customerSelect">Select Customer</label>
+                            <label for="customerSelect"><fmt:message key="admin.reportPage.reportcus.select"/></label>
                             <select class="js-select-options form-control" name="cusSelect" id="cusSelect">                        
                                 <c:forEach var="cus" items="${listCus}">
-                                    <option value="${cus.cusId}">${cus.cusName} / phone:${cus.phone}</option>
+                                    <option value="${cus.cusId}">${cus.cusName} / Phone:${cus.phone}</option>
                                 </c:forEach>                                                        
                             </select>
                         </div>

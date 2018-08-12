@@ -36,7 +36,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "VProductReport.findByOrdertime", query = "SELECT v FROM VProductReport v WHERE v.ordertime = :ordertime"),
     @NamedQuery(name = "VProductReport.findByPrice", query = "SELECT v FROM VProductReport v WHERE v.price = :price"),
     @NamedQuery(name = "VProductReport.findByQuantity", query = "SELECT v FROM VProductReport v WHERE v.quantity = :quantity"),
-    @NamedQuery(name = "VProductReport.findByDiscount", query = "SELECT v FROM VProductReport v WHERE v.discount = :discount")})
+    @NamedQuery(name = "VProductReport.findByDiscount", query = "SELECT v FROM VProductReport v WHERE v.discount = :discount"),
+    @NamedQuery(name = "VProductReport.findByProName", query = "SELECT v FROM VProductReport v WHERE v.proName = :proName"),
+    @NamedQuery(name = "VProductReport.findByCusName", query = "SELECT v FROM VProductReport v WHERE v.cusName = :cusName")})
 public class VProductReport implements Serializable {
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
@@ -66,6 +68,16 @@ public class VProductReport implements Serializable {
     @NotNull
     @Column(name = "discount", nullable = false)
     private double discount;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "pro_name", nullable = false, length = 50)
+    private String proName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(name = "cus_name", nullable = false, length = 50)
+    private String cusName;
 
     public VProductReport() {
     }
@@ -116,6 +128,22 @@ public class VProductReport implements Serializable {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public String getProName() {
+        return proName;
+    }
+
+    public void setProName(String proName) {
+        this.proName = proName;
+    }
+
+    public String getCusName() {
+        return cusName;
+    }
+
+    public void setCusName(String cusName) {
+        this.cusName = cusName;
     }
     
 }

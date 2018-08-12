@@ -46,6 +46,7 @@ public class SalesByCustomer implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "order_id", nullable = false, length = 10)
+    @Id
     private String orderId;
     @Basic(optional = false)
     @NotNull
@@ -69,7 +70,6 @@ public class SalesByCustomer implements Serializable {
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "cus_id", nullable = false, length = 10)
-    @Id
     private String cusId;
     @Basic(optional = false)
     @NotNull
