@@ -83,14 +83,14 @@
 
                 <div class="form-group" id="pushaceP">
                     <label for="email">Email <a style="color:red">*</a></label>
-                    <input type="email" step="any" maxlength="50" minlength="15" Required name="email"  class="form-control" id="email" placeholder="Email">
-                    <span id="Email-result" value="false"></span>
+                    <input type="email" step="any" maxlength="50" minlength="15"  Required name="email"  class="form-control" id="email" placeholder="Email">
+                    <span id="Emailresult"></span>
                 </div>
                 <script type="text/javascript">
                     /*************** check userName unique **********/
                     $(document).ready(function() {
                         var x_timer;
-                        $("#email").keyup(function(e) {
+                        $('#email').keyup(function(e) {
                             clearTimeout(x_timer);
 
                             var email = $(this).val();
@@ -99,9 +99,9 @@
                             }, 1000);
                         });
                         function check_email_cus_ajax(email) {
-                            $("#Email-result").html('<img src="images/ajax-loader.gif" />');
+                            $('#Emailresult').html('<img src="images/ajax-loader.gif" />');
                             $.post('ChkInsertEmailCus', {'email': email}, function(data) {
-                                $("#Email-result").html(data);
+                                $('#Emailresult').html(data);
                             });
                         }
                     });
