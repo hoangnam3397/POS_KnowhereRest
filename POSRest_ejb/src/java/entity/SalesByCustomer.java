@@ -8,6 +8,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,22 +32,28 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "SalesByCustomer.findAll", query = "SELECT s FROM SalesByCustomer s"),
+    @NamedQuery(name = "SalesByCustomer.findByRowid", query = "SELECT s FROM SalesByCustomer s WHERE s.rowid = :rowid"),
     @NamedQuery(name = "SalesByCustomer.findByOrderId", query = "SELECT s FROM SalesByCustomer s WHERE s.orderId = :orderId"),
     @NamedQuery(name = "SalesByCustomer.findByProId", query = "SELECT s FROM SalesByCustomer s WHERE s.proId = :proId"),
     @NamedQuery(name = "SalesByCustomer.findByQuantity", query = "SELECT s FROM SalesByCustomer s WHERE s.quantity = :quantity"),
     @NamedQuery(name = "SalesByCustomer.findByPrice", query = "SELECT s FROM SalesByCustomer s WHERE s.price = :price"),
-    @NamedQuery(name = "SalesByCustomer.findByDiscount", query = "SELECT s FROM SalesByCustomer s WHERE s.discount = :discount"),
+    @NamedQuery(name = "SalesByCustomer.findByDiscountP", query = "SELECT s FROM SalesByCustomer s WHERE s.discountP = :discountP"),
+    @NamedQuery(name = "SalesByCustomer.findByTax", query = "SELECT s FROM SalesByCustomer s WHERE s.tax = :tax"),
+    @NamedQuery(name = "SalesByCustomer.findByDiscountC", query = "SELECT s FROM SalesByCustomer s WHERE s.discountC = :discountC"),
     @NamedQuery(name = "SalesByCustomer.findByCusId", query = "SELECT s FROM SalesByCustomer s WHERE s.cusId = :cusId"),
     @NamedQuery(name = "SalesByCustomer.findByCusName", query = "SELECT s FROM SalesByCustomer s WHERE s.cusName = :cusName"),
     @NamedQuery(name = "SalesByCustomer.findByProName", query = "SELECT s FROM SalesByCustomer s WHERE s.proName = :proName"),
-    @NamedQuery(name = "SalesByCustomer.findByOrdertime", query = "SELECT s FROM SalesByCustomer s WHERE s.ordertime = :ordertime")})
+    @NamedQuery(name = "SalesByCustomer.findByOrdertime", query = "SELECT s FROM SalesByCustomer s WHERE s.ordertime = :ordertime"),
+    @NamedQuery(name = "SalesByCustomer.findByTotal", query = "SELECT s FROM SalesByCustomer s WHERE s.total = :total")})
 public class SalesByCustomer implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Column(name = "rowid")
+    @Id
+    private BigInteger rowid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "order_id", nullable = false, length = 10)
-    @Id
     private String orderId;
     @Basic(optional = false)
     @NotNull
@@ -64,12 +71,18 @@ public class SalesByCustomer implements Serializable {
     private BigDecimal price;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "discount", nullable = false)
-    private double discount;
+    @Column(name = "discountP", nullable = false)
+    private double discountP;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "cus_id", nullable = false, length = 10)
+    @Column(name = "tax", nullable = false)
+    private double tax;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "discountC", nullable = false)
+    private double discountC;
+    @Size(max = 10)
+    @Column(name = "cus_id", length = 10)
     private String cusId;
     @Basic(optional = false)
     @NotNull
@@ -84,8 +97,18 @@ public class SalesByCustomer implements Serializable {
     @Column(name = "ordertime")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ordertime;
+    @Column(name = "Total", precision = 53)
+    private Double total;
 
     public SalesByCustomer() {
+    }
+
+    public BigInteger getRowid() {
+        return rowid;
+    }
+
+    public void setRowid(BigInteger rowid) {
+        this.rowid = rowid;
     }
 
     public String getOrderId() {
@@ -120,12 +143,28 @@ public class SalesByCustomer implements Serializable {
         this.price = price;
     }
 
-    public double getDiscount() {
-        return discount;
+    public double getDiscountP() {
+        return discountP;
     }
 
-    public void setDiscount(double discount) {
-        this.discount = discount;
+    public void setDiscountP(double discountP) {
+        this.discountP = discountP;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public double getDiscountC() {
+        return discountC;
+    }
+
+    public void setDiscountC(double discountC) {
+        this.discountC = discountC;
     }
 
     public String getCusId() {
@@ -158,6 +197,14 @@ public class SalesByCustomer implements Serializable {
 
     public void setOrdertime(Date ordertime) {
         this.ordertime = ordertime;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
     
 }

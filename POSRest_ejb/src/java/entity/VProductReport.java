@@ -8,6 +8,7 @@ package entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -31,21 +32,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "VProductReport.findAll", query = "SELECT v FROM VProductReport v"),
+    @NamedQuery(name = "VProductReport.findByRowid", query = "SELECT v FROM VProductReport v WHERE v.rowid = :rowid"),
     @NamedQuery(name = "VProductReport.findByOrderId", query = "SELECT v FROM VProductReport v WHERE v.orderId = :orderId"),
     @NamedQuery(name = "VProductReport.findByProId", query = "SELECT v FROM VProductReport v WHERE v.proId = :proId"),
     @NamedQuery(name = "VProductReport.findByOrdertime", query = "SELECT v FROM VProductReport v WHERE v.ordertime = :ordertime"),
     @NamedQuery(name = "VProductReport.findByPrice", query = "SELECT v FROM VProductReport v WHERE v.price = :price"),
     @NamedQuery(name = "VProductReport.findByQuantity", query = "SELECT v FROM VProductReport v WHERE v.quantity = :quantity"),
-    @NamedQuery(name = "VProductReport.findByDiscount", query = "SELECT v FROM VProductReport v WHERE v.discount = :discount"),
+    @NamedQuery(name = "VProductReport.findByDiscountC", query = "SELECT v FROM VProductReport v WHERE v.discountC = :discountC"),
+    @NamedQuery(name = "VProductReport.findByTax", query = "SELECT v FROM VProductReport v WHERE v.tax = :tax"),
+    @NamedQuery(name = "VProductReport.findByDiscountP", query = "SELECT v FROM VProductReport v WHERE v.discountP = :discountP"),
     @NamedQuery(name = "VProductReport.findByProName", query = "SELECT v FROM VProductReport v WHERE v.proName = :proName"),
-    @NamedQuery(name = "VProductReport.findByCusName", query = "SELECT v FROM VProductReport v WHERE v.cusName = :cusName")})
+    @NamedQuery(name = "VProductReport.findByCusName", query = "SELECT v FROM VProductReport v WHERE v.cusName = :cusName"),
+    @NamedQuery(name = "VProductReport.findByTotal", query = "SELECT v FROM VProductReport v WHERE v.total = :total")})
 public class VProductReport implements Serializable {
     private static final long serialVersionUID = 1L;
+    @Column(name = "rowid")
+    @Id
+    private BigInteger rowid;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
     @Column(name = "order_id", nullable = false, length = 10)
-    @Id
     private String orderId;
     @Basic(optional = false)
     @NotNull
@@ -66,8 +73,16 @@ public class VProductReport implements Serializable {
     private int quantity;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "discount", nullable = false)
-    private double discount;
+    @Column(name = "discountC", nullable = false)
+    private double discountC;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "tax", nullable = false)
+    private double tax;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "discountP", nullable = false)
+    private double discountP;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
@@ -78,8 +93,18 @@ public class VProductReport implements Serializable {
     @Size(min = 1, max = 50)
     @Column(name = "cus_name", nullable = false, length = 50)
     private String cusName;
+    @Column(name = "Total", precision = 53)
+    private Double total;
 
     public VProductReport() {
+    }
+
+    public BigInteger getRowid() {
+        return rowid;
+    }
+
+    public void setRowid(BigInteger rowid) {
+        this.rowid = rowid;
     }
 
     public String getOrderId() {
@@ -122,12 +147,28 @@ public class VProductReport implements Serializable {
         this.quantity = quantity;
     }
 
-    public double getDiscount() {
-        return discount;
+    public double getDiscountC() {
+        return discountC;
     }
 
-    public void setDiscount(double discount) {
-        this.discount = discount;
+    public void setDiscountC(double discountC) {
+        this.discountC = discountC;
+    }
+
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public double getDiscountP() {
+        return discountP;
+    }
+
+    public void setDiscountP(double discountP) {
+        this.discountP = discountP;
     }
 
     public String getProName() {
@@ -144,6 +185,14 @@ public class VProductReport implements Serializable {
 
     public void setCusName(String cusName) {
         this.cusName = cusName;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
     
 }

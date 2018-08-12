@@ -92,10 +92,12 @@
                             <th><fmt:message key="admin.productreport.saleno"/></th>
                             <th><fmt:message key="admin.reportPro.table.proname"/></th>
                             <th><fmt:message key="admin.productreport.date"/></th>
-                            <th><fmt:message key="admin.reportPro.table.cusname"/></th>
+                            <th><fmt:message key="admin.reportPro.table.cusname"/></th>                           
                             <th><fmt:message key="admin.productreport.price"/></th>
+                            <th><fmt:message key="admin.getproduct.table.cusdiscount"/></th>
                             <th><fmt:message key="admin.productreport.quantity"/></th>
-                            <th><fmt:message key="admin.productreport.discount"/> (%)</th>
+                            <th><fmt:message key="admin.productreport.discount"/></th>
+                            <td><fmt:message key="admin.getproduct.table.tax"/></td>
                             <th><fmt:message key="admin.productreport.profit"/></th>
                         </tr>
                     </thead>                  
@@ -105,11 +107,13 @@
                                 <td>${p.orderId}</td>
                                 <td>${p.proName}</td>
                                 <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
-                                <td>${p.cusName}</td>
+                                <td>${p.cusName}</td>                             
                                 <td><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
+                                <td><fmt:formatNumber value="${p.discountC}" minFractionDigits="0"/> %</td>
                                 <td>${p.quantity}</td>
-                                <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/> %</td>
-                                <td><fmt:formatNumber value="${p.price*p.quantity*(100-p.discount)/100}" maxFractionDigits="0"/> VND</td>
+                                <td><fmt:formatNumber value="${p.discountP}" minFractionDigits="0"/> %</td>
+                                <td><fmt:formatNumber value="${p.tax}" minFractionDigits="0"/> %</td>
+                                <td><fmt:formatNumber value="${p.total}" maxFractionDigits="0"/> VND</td>
                             </tr>                                                   
                         </c:forEach>
                     </tbody>                    
