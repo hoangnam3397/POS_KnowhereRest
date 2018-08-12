@@ -54,8 +54,8 @@
         <!-- Custom CSS -->
         <link href="css/Style-Light.css" rel="stylesheet">
         <!-- favicon -->
-        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
-        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+        <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -65,29 +65,29 @@
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
-        <!-- Page Content -->
-
-
-        <!-- Page Content -->
-        <div class="container container-small">
-            <div class="row" style="margin-top:100px;">
-                <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
-                    <i class="fa fa-arrow-left"></i> Back</a>
-                <form action="editCustomerServlet?action=Submit" method="post" >      
-                    <div class="form-group" >
-                        <input type="hidden" step="any" value="${cusid}" maxlength="50" Required name="cus_id"  class="form-control" id="email" placeholder="Email">
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
+            <!-- Page Content -->
+            
+            <!-- Page Content -->
+            <div class="container container-small">
+                <div class="row" style="margin-top:100px;">
+                    <a class="btn btn-default float-right" href="#" onclick="history.back(-1)"style="margin-bottom:10px;">
+                        <i class="fa fa-arrow-left"></i> Back</a>
+                    <form id="editCusForm" action="editCustomerServlet?action=Submit" method="post" >      
+                        <div class="form-group" >
+                            <input type="hidden" step="any" value="${cus_id}" maxlength="50" Required name="cus_id"  class="form-control" id="cus_id" placeholder="Email">
                     </div>
                     <div class="form-group" id="pushaceP">
                         <label for="email">Email<a style="color:red">*</a></label>
                         <input type="email" step="any" value="${email}" maxlength="50" Required name="email"  class="form-control" id="email" placeholder="Email">
+                        <span id="Emailresult" value="false"></span>
                     </div>
                     <div class="form-group">
                         <label for="phone">Phone<a style="color:red">*</a></label>
                         <input type="number" name="phone" maxlength="15" minlength="10"  value="${phone}" class="form-control" id="phone" placeholder="Phone Number">
                     </div>
                     <div class="form-group">
-                        <label for="Discount"> (%)<a style="color:red">*</a></label>
+                        <label for="Discount">Discount (%)<a style="color:red">*</a></label>
                         <input type="number" name="discount" max="90" min="0" maxlength="2" value="${dis}" class="form-control" id="Discount" placeholder="discount (%)">
                     </div>
 
@@ -98,12 +98,34 @@
             </div>
         </div>
         <!-- /.Modal -->
+        <script type="text/javascript">
+                    /*************** check userName unique **********/
+                    $(document).ready(function() {
+                        var x_timer;
+                        $('#email').keyup(function(e) {
+                            clearTimeout(x_timer);
 
-
-        <!-- Modal close register -->
-
-        <!-- /.Modal -->
-
+                            var email = $(this).val();
+                            var cus_id = "${cus_id}";
+                            x_timer = setTimeout(function() {
+                                check_email_cus_ajax(cus_id,email);
+                            }, 1000);
+                        });
+                        function check_email_cus_ajax(cus_id,email) {
+                            $('#Emailresult').html('<img src="images/ajax-loader.gif" />');
+                            $.post('ChkCusEditEmail', {'cus_id':cus_id,'email': email}, function(data) {
+                                $('#Emailresult').html(data);
+                            });
+                        }
+                    });
+                    $('#editCusForm').submit(function(event) {
+                        var errors = $('#Email-resultError').attr('value');                     
+                        if (errors == 'false') {
+                            $('#email').focus();
+                            event.preventDefault();
+                        }
+                    });
+                </script>
 
 
 

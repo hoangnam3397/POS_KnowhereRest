@@ -1,6 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package controller;
 
-import entity.Customers;
 import entity.CustomersFacadeLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,42 +16,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "editCustomerServlet", urlPatterns = {"/editCustomerServlet"})
-public class editCustomerServlet extends HttpServlet {
+/**
+ *
+ * @author Duy
+ */
+@WebServlet(name = "ChkCusEditEmail", urlPatterns = {"/ChkCusEditEmail"})
+public class ChkCusEditEmail extends HttpServlet {
 
-    @EJB
-    private CustomersFacadeLocal customersFacade;
-    String cus_id = "";
-
+    @EJB CustomersFacadeLocal cusFacade;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
-        String action = request.getParameter("action");
-        cus_id = request.getParameter("cus_id");
-        if (action.equals("get")) {
-            //load page editProduct
-            request.setAttribute("cus_id", cus_id);
-            request.setAttribute("phone", customersFacade.find(cus_id).getPhone());
-            request.setAttribute("email", customersFacade.find(cus_id).getEmail());
-            request.setAttribute("dis", customersFacade.find(cus_id).getDiscount());
-
-            request.getRequestDispatcher("editCustomer.jsp").forward(request, response);
-        } else if (action.equals("Submit")) {
-            //edit Product
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            double discount = Double.parseDouble(request.getParameter("discount"));
-
-            Customers cus = customersFacade.find(cus_id);
-            cus.setPhone(phone);
-            cus.setEmail(email);
-            cus.setDiscount(discount);
-           
-            customersFacade.edit(cus);
-            request.getRequestDispatcher("getCustomerServlet").forward(request, response);
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,6 +57,13 @@ public class editCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        String id =request.getParameter("cus_id");
+        String email= request.getParameter("email");
+        if (cusFacade.chkEmailCusUnique(id, email)==true) {
+            response.getWriter().write("<img src=\"images/available.png\" /><span id=\"Email-resultError\" value=\"true\" style=\"color: green\">You can use Email. </span>");
+       } else {           
+            response.getWriter().write("<img src=\"images/not-available.png\" /><span id=\"Email-resultError\" value=\"false\" style=\"color: red\">Email already exists.</span>");
+       }
     }
 
     /**

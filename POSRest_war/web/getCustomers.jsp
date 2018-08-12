@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>POS - point of sale Dar Elweb</title>
+        <title>WAPOS - point of sale</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -54,8 +54,8 @@
         <!-- Custom CSS -->
         <link href="css/Style-Light.css" rel="stylesheet">
         <!-- favicon -->
-        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
-        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+        <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>

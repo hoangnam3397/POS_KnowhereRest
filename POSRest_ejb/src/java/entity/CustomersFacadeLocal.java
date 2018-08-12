@@ -30,7 +30,7 @@ public interface CustomersFacadeLocal {
 
     int count();
 
-    boolean chkEmailCusUnique(String email);
+    boolean chkEmailCusUnique(String id, String email);
     
     List<SalesByCustomer> vCusReport(String cus_id, Date startDate, Date endDate);
 }

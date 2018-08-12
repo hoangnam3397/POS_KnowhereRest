@@ -31,15 +31,15 @@ public class CustomersFacade extends AbstractFacade<Customers> implements Custom
         super(Customers.class);
     }
      @Override
-    public boolean chkEmailCusUnique(String email) {
+    public boolean chkEmailCusUnique(String id, String email) {
         try {
-            
-            Query q = em.createQuery("SELECT c FROM Customers c WHERE c.email = :email");
+            Query q = em.createQuery("SELECT c FROM Customers c WHERE c.cusId != :cus and c.email = :email");
+            q.setParameter("cus", id);
             q.setParameter("email", email);
-            if (q.getResultList().size()!=0) {
-                return false;
-            } else {
+            if (q.getResultList().size() == 0) {
                 return true;
+            } else {
+                return false;
             }
         } catch (Exception e) {
             e.printStackTrace();

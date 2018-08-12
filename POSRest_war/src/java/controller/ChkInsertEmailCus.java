@@ -47,10 +47,10 @@ public class ChkInsertEmailCus extends HttpServlet {
             }
         String cus_id = "Cus" + id;        
         String email= request.getParameter("email");
-        if (customersFacade.chkEmailCusUnique(email)==true) {
-            response.getWriter().write("<span style=\"color: green\">You can use Email. </span>");
+        if (customersFacade.chkEmailCusUnique(cus_id,email)==true) {
+            response.getWriter().write("<img src=\"images/available.png\" /><span id=\"Email-resultError\" value=\"true\" style=\"color: green\">You can use Email. </span>");
        } else {           
-            response.getWriter().write("<span style=\"color: red\">Email already exists.</span>");
+            response.getWriter().write("<img src=\"images/not-available.png\" /><span id=\"Email-resultError\" value=\"false\" style=\"color: red\">Email already exists.</span>");
        }
     }
 

@@ -15,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title>POS - point of sale Dar Elweb</title>
+        <title>WAPOS - point of sale</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -54,8 +54,8 @@
         <!-- Custom CSS -->
         <link href="css/Style-Light.css" rel="stylesheet">
         <!-- favicon -->
-        <link rel="shortcut icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
-        <link rel="icon" href="http://www.dar-elweb.com/demos/zarest//favicon.ico?v=2" type="image/x-icon">
+        <link rel="shortcut icon" href="images/icon.png" type="image/x-icon">
+        <link rel="icon" href="images/icon.png" type="image/x-icon">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -75,7 +75,7 @@
         <div class="row" style="margin-top:100px;">
             <a class="btn btn-default float-right" href="getCustomerServlet" onclick="history.back(-1)"style="margin-bottom:10px;">
                 <i class="fa fa-arrow-left"></i> Back</a>
-            <form action="insertCustomerServlet" method="post" >      
+            <form id="insertCus-form" action="insertCustomerServlet" method="post" >      
                 <div class="form-group">
                     <label for="cus_name">Customer Name<a style="color:red">*</a></label>
                     <input type="text" name="cus_name" maxlength="50" Required class="form-control" id="name" placeholder="Full Name!!!!">         
@@ -103,6 +103,13 @@
                             $.post('ChkInsertEmailCus', {'email': email}, function(data) {
                                 $('#Emailresult').html(data);
                             });
+                        }
+                    });
+                    $('#insertCus-form').submit(function(event) {
+                        var errors = $('#Email-resultError').attr('value');                     
+                        if (errors == 'false') {
+                            $('#email').focus();
+                            event.preventDefault();
                         }
                     });
                 </script>
