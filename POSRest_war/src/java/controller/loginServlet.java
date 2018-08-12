@@ -45,18 +45,24 @@ public class loginServlet extends HttpServlet {
                 session.setAttribute("loginImage",emp.get(0).getAvatarlink());
                 session.setAttribute("loginPass", password);
                 session.setAttribute("loginRole", emp.get(0).getRoleId().getRoleId());
+                session.setAttribute("loginEmpId", emp.get(0).getEmpId());
+                session.setAttribute("loginNavbar", "admin_navbar.jsp");
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
             } else if (emp.get(0).getRoleId().getRoleId().equals("R002")) {
                 session.setAttribute("loginUser",username);
                 session.setAttribute("loginImage",emp.get(0).getAvatarlink());
                 session.setAttribute("loginPass", password);
                 session.setAttribute("loginRole", emp.get(0).getRoleId().getRoleId());
+                session.setAttribute("loginEmpId", emp.get(0).getEmpId());
+                session.setAttribute("loginNavbar", "waiter_navbar.jsp");
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
             } else if (emp.get(0).getRoleId().getRoleId().equals("R003")) {
                 session.setAttribute("loginUser",username);
                 session.setAttribute("loginImage",emp.get(0).getAvatarlink());
                 session.setAttribute("loginPass", password);
                 session.setAttribute("loginRole", emp.get(0).getRoleId().getRoleId());
+                session.setAttribute("loginEmpId", emp.get(0).getEmpId());
+                session.setAttribute("loginNavbar", "sale_navbar.jsp");
                 request.getRequestDispatcher("getStoreServlet").forward(request, response);
             }
         } else {

@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:import url="set_Locale.jsp"/>
-<fmt:setBundle basename="i18n/myLanguage"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,6 +63,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -124,7 +125,7 @@
                     </tbody>                    
                 </table>
             </div>
-           
+
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-add btn-lg" data-toggle="modal" data-target="#Addproduct"><fmt:message key="admin.product.button.addpro"/></button>
 
@@ -238,29 +239,29 @@
             </div>
         </div>
 
-        
+
         <!-- Modal barcode -->
-  <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-   <div class="modal-dialog" role="document" id="stockModal">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="barcodeP"><fmt:message key="admin.getproduct.dialogbarcode.title"/></h4>
+        <div class="modal fade" id="barcode" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document" id="stockModal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="barcodeP"><fmt:message key="admin.getproduct.dialogbarcode.title"/></h4>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        <div id="printSection" style="text-align: center;">
+                            <img id="imgBarcode1" src="" class="img-responsive center" alt="">
+                            <img id="imgBarcode2" src="" class="img-responsive center" alt="">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal"><fmt:message key="admin.getproduct.dialogbarcode.close"/></button>
+                        <button type="button" class="btn btn-add hiddenpr" onclick="Printbarcode()"><fmt:message key="admin.getproduct.dialogbarcode.print"/></button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="modal-body" id="modal-body">
-           <div id="printSection" style="text-align: center;">
-                <img id="imgBarcode1" src="" class="img-responsive center" alt="">
-                <img id="imgBarcode2" src="" class="img-responsive center" alt="">
-           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default hiddenpr" data-dismiss="modal"><fmt:message key="admin.getproduct.dialogbarcode.close"/></button>
-          <button type="button" class="btn btn-add hiddenpr" onclick="Printbarcode()"><fmt:message key="admin.getproduct.dialogbarcode.print"/></button>
-        </div>
-      </div>
-   </div>
-  </div>
-  <!-- /.Modal -->
+        <!-- /.Modal -->
 
         <div class="modal fade" id="PrintMenu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg" role="document">
@@ -439,39 +440,39 @@
                 }
             });
         </script>
-         <script type="text/javascript">
-                $(function() {
-                    /*************** edit check box **********/
-                    $(document).on('click', '.checkboxPro', function() {
+        <script type="text/javascript">
+            $(function() {
+                /*************** edit check box **********/
+                $(document).on('click', '.checkboxPro', function() {
 
-                        var pro_id = $(this).attr('proid');
-                        var pro_name = $(this).attr('proname');
-                        swal({title: 'WARNING',
-                            text: 'You have changed display ' + pro_name + ' in POS',
-                            type: "warning",
-                            showCancelButton: false,
-                            confirmButtonColor: "#DD6B55",
-                            confirmButtonText: 'OK !!!',
-                            closeOnConfirm: false},
-                        function() {
-                            // ajax delete data to database
-                            $.ajax({
-                                url: "http://localhost:8080/POSRest_war/hideProductToOrder?proid=" + pro_id,
-                                type: "POST",
-                                success: function(data) {
+                    var pro_id = $(this).attr('proid');
+                    var pro_name = $(this).attr('proname');
+                    swal({title: 'WARNING',
+                        text: 'You have changed display ' + pro_name + ' in POS',
+                        type: "warning",
+                        showCancelButton: false,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: 'OK !!!',
+                        closeOnConfirm: false},
+                    function() {
+                        // ajax delete data to database
+                        $.ajax({
+                            url: "http://localhost:8080/POSRest_war/hideProductToOrder?proid=" + pro_id,
+                            type: "POST",
+                            success: function(data) {
 
-                                },
-                                error: function(jqXHR, textStatus, errorThrown) {
-                                    alert("error");
-                                }
-                            });
-                            swal.close();
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert("error");
+                            }
                         });
+                        swal.close();
                     });
                 });
-            </script>
+            });
+        </script>
 
-            
+
         <!-- slim scroll script -->
         <script type="text/javascript" src="js/jquery.slimscroll.min.js"></script>
         <!-- waves material design effect -->

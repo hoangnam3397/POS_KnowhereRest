@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:import url="set_Locale.jsp"/>
-<fmt:setBundle basename="i18n/myLanguage"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,6 +63,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -115,8 +116,8 @@
                                                 </div>
                                             </td>
                                         </tr>    
-                                     </c:if>
-                                 </c:forEach>
+                                    </c:if>
+                                </c:forEach>
                             </c:forEach>
                         </tbody>                       
                     </table>
@@ -125,121 +126,124 @@
         </div>
         <script type="text/javascript">
 
-$(function() {
-   /*************** edit zone **********/
-$(document).on('click', '.deletezone', function () {
+            $(function() {
+                /*************** edit zone **********/
+                $(document).on('click', '.deletezone', function() {
 
-         var zone_id = $(this).attr('id');
-         swal({   title: 'Are you sure ?',
-         text: 'All the tables related to this zone will be deleted',
-         type: "warning",
-         showCancelButton: true,
-         confirmButtonColor: "#DD6B55",
-         confirmButtonText: 'Yes, delete it!',
-         closeOnConfirm: false },
-         function(){
-           // ajax delete data to database
-            $.ajax({
-                url : "http://localhost:8080/POSRest_war/deleteZoneServlet?zone_id="+zone_id,
-                type: "POST",
-                success: function(data){
-                   location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown){alert("error");}
-           });
-     swal.close(); });
-  });
-  /*************** delete zone **********/
-  $(document).on('click', '.editzone', function () {
-     var id = $(this).attr('id');
-     var name = $(this).attr('zone-name');
-     $("#zone_id").val(id);
-     $("#ZoneName").val(name);
-     $('#EditZone').modal('show');
-});
-});
+                    var zone_id = $(this).attr('id');
+                    swal({title: 'Are you sure ?',
+                        text: 'All the tables related to this zone will be deleted',
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: 'Yes, delete it!',
+                        closeOnConfirm: false},
+                    function() {
+                        // ajax delete data to database
+                        $.ajax({
+                            url: "http://localhost:8080/POSRest_war/deleteZoneServlet?zone_id=" + zone_id,
+                            type: "POST",
+                            success: function(data) {
+                                location.reload();
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert("error");
+                            }
+                        });
+                        swal.close();
+                    });
+                });
+                /*************** delete zone **********/
+                $(document).on('click', '.editzone', function() {
+                    var id = $(this).attr('id');
+                    var name = $(this).attr('zone-name');
+                    $("#zone_id").val(id);
+                    $("#ZoneName").val(name);
+                    $('#EditZone').modal('show');
+                });
+            });
 
 
-</script>
-       <!-- add table Modal -->
-<div class="modal fade" id="Addtable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialog.titleadd"/></h4>
-      </div>
-      <form action="insertTableServlet?sto_id=${sto_id}" method="post">      
-      <div class="modal-body">
-            <div class="form-group">
-             <label for="TableName"><fmt:message key="admin.gettable.dialog.tabname"/> *</label>
-             <input type="text" name="tab_name" class="form-control" id="TableName" maxlength="50" placeholder="Table name/number" required>
-           </div>
-           <label for="Zones"><fmt:message key="admin.gettable.dialog.zonename"/> *</label>
-          <select class="form-control" id="Zones" name="zone_id" required>
-             <c:forEach var="z" items="${listZone}">
-                                <option value="${z.zoneId}" >${z.zoneName}</option>                                
-                            </c:forEach>                               
-                       </select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialog.close"/></button>
-        <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialog.submit"/></button>
-      </div>
-   </form>    
-    </div>
- </div>
-</div>
-<!-- /.Modal -->
+        </script>
+        <!-- add table Modal -->
+        <div class="modal fade" id="Addtable" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialog.titleadd"/></h4>
+                    </div>
+                    <form action="insertTableServlet?sto_id=${sto_id}" method="post">      
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="TableName"><fmt:message key="admin.gettable.dialog.tabname"/> *</label>
+                                <input type="text" name="tab_name" class="form-control" id="TableName" maxlength="50" placeholder="Table name/number" required>
+                            </div>
+                            <label for="Zones"><fmt:message key="admin.gettable.dialog.zonename"/> *</label>
+                            <select class="form-control" id="Zones" name="zone_id" required>
+                                <c:forEach var="z" items="${listZone}">
+                                    <option value="${z.zoneId}" >${z.zoneName}</option>                                
+                                </c:forEach>                               
+                            </select>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialog.close"/></button>
+                            <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialog.submit"/></button>
+                        </div>
+                    </form>    
+                </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
 
-<!-- add Zone Modal -->
-<div class="modal fade" id="AddZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialogz.title"/></h4>
-      </div>
-      <form action="insertZoneServlet?sto_id=${sto_id}" method="post">      
-          <div class="modal-body">
-            <div class="form-group">
-             <label for="ZonesName"><fmt:message key="admin.gettable.dialogz.zonename"/> *</label>
-             <input type="text" name="zone_name" maxlength="50" placeholder="Zone name" class="form-control" required>
-           </div>
-          </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogz.close"/></button>
-        <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogz.submit"/></button>
-      </div>
-   </form>    
-    </div>
- </div>
-</div>
-<!-- /.Modal -->
+        <!-- add Zone Modal -->
+        <div class="modal fade" id="AddZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialogz.title"/></h4>
+                    </div>
+                    <form action="insertZoneServlet?sto_id=${sto_id}" method="post">      
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="ZonesName"><fmt:message key="admin.gettable.dialogz.zonename"/> *</label>
+                                <input type="text" name="zone_name" maxlength="50" placeholder="Zone name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogz.close"/></button>
+                            <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogz.submit"/></button>
+                        </div>
+                    </form>    
+                </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
 
-<!-- edit Zone Modal -->
-<div class="modal fade in" id="EditZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
- <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialogez.title"/></h4>
-      </div>
-      <form action="editZoneServlet" method="post">      <div class="modal-body">
-            <div class="form-group">
-             <label for="ZoneName"><fmt:message key="admin.gettable.dialogez.zonename"/> *</label>
-             <input type="text" name="zone_name" maxlength="50" class="form-control" id="ZoneName" placeholder="Zone name" required>
-             <input type="hidden" name="zone_id" id="zone_id" >
-           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogez.close"/></button>
-        <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogez.submit"/></button>
-      </div>
-   </form>    </div>
- </div>
-</div>
-<!-- /.Modal -->
+        <!-- edit Zone Modal -->
+        <div class="modal fade in" id="EditZone" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel"><fmt:message key="admin.gettable.dialogez.title"/></h4>
+                    </div>
+                    <form action="editZoneServlet" method="post">      <div class="modal-body">
+                            <div class="form-group">
+                                <label for="ZoneName"><fmt:message key="admin.gettable.dialogez.zonename"/> *</label>
+                                <input type="text" name="zone_name" maxlength="50" class="form-control" id="ZoneName" placeholder="Zone name" required>
+                                <input type="hidden" name="zone_id" id="zone_id" >
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><fmt:message key="admin.gettable.dialogez.close"/></button>
+                            <button type="submit" class="btn btn-add"><fmt:message key="admin.gettable.dialogez.submit"/></button>
+                        </div>
+                    </form>    </div>
+            </div>
+        </div>
+        <!-- /.Modal -->
 
 
 

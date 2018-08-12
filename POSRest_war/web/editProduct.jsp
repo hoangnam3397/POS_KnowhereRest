@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:import url="set_Locale.jsp"/>
-<fmt:setBundle basename="i18n/myLanguage"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,6 +63,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -145,9 +146,9 @@
                     <button type="submit" name="action" id="submitProduct" value="Submit" class="btn btn-green col-md-6 flat-box-btn"><fmt:message key="admin.editproduct.button.submit"/></button>
                 </div>
             </form>
-                <br>
-                <br>
-                <br>
+            <br>
+            <br>
+            <br>
         </div>
     </div>
     <!-- /.Modal -->
@@ -178,26 +179,26 @@
             }
         }
         $('#submitProduct').click(function() {
-                //kiem tra trinh duyet co ho tro File API
-                if (window.File && window.FileReader && window.FileList && window.Blob)
-                {
-                    // lay dung luong va kieu file tu the input file
-                    var fsize = $('#imageInput')[0].files[0].size;
-                    var ftype = $('#imageInput')[0].files[0].type;
-                    var fname = $('#imageInput')[0].files[0].name;
+            //kiem tra trinh duyet co ho tro File API
+            if (window.File && window.FileReader && window.FileList && window.Blob)
+            {
+                // lay dung luong va kieu file tu the input file
+                var fsize = $('#imageInput')[0].files[0].size;
+                var ftype = $('#imageInput')[0].files[0].type;
+                var fname = $('#imageInput')[0].files[0].name;
 
-                    if (fsize > 1048576)  //thuc hien dieu gi do neu dung luong file vuot qua 1MB
-                    {
-                        alert("Type :" + ftype + " | " + fsize + " bites\n(File: " + fname + ") Too big!");
-                        event.preventDefault();
-                    } else {
-                        //alert("Type :" + ftype + " | " + fsize + " bites\n(File :" + fname + ") You are good to go!");
-                       
-                    }
+                if (fsize > 1048576)  //thuc hien dieu gi do neu dung luong file vuot qua 1MB
+                {
+                    alert("Type :" + ftype + " | " + fsize + " bites\n(File: " + fname + ") Too big!");
+                    event.preventDefault();
                 } else {
-                    alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+                    //alert("Type :" + ftype + " | " + fsize + " bites\n(File :" + fname + ") You are good to go!");
+
                 }
-            });
+            } else {
+                alert("Please upgrade your browser, because your current browser lacks some new features we need!");
+            }
+        });
     </script>
     <script type="text/javascript">
         /*************** check proName unique **********/

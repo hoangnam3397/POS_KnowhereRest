@@ -7,8 +7,7 @@
 <%@page language="java" contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:import url="set_Locale.jsp"/>
-<fmt:setBundle basename="i18n/myLanguage"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,6 +63,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -81,7 +82,7 @@
             <div class="row">
                 <ul class="cbp-vimenu2">
                     <li data-toggle="tooltip"  data-html="true" data-placement="left" title="Return"><a href="getTableOfZoneFromStore?storeid=${storeid}"><i class="fa fa-reply" aria-hidden="true"></i></a></li>
-                    
+
                 </ul>
                 <div class="col-md-5 left-side">
                     <div class="col-xs-8">
@@ -354,8 +355,8 @@
                     $('#tax').val(10);
                     swal("Tax range from 0% to 20%");
 
-                } 
-                else{
+                }
+                else {
                     $('#total').text((parseFloat(subtot) + Math.floor(tax)) - discount);
                 }
 
@@ -503,7 +504,7 @@
                 $('#printSection').html();
                 $('#printSection').load("showTicketServlet?tableid=" + tableid + "&storeid=" + storeid + "&discount=" + Discount + "&Tax=" + Tax + "&paid=" + paid + "&change=" + change + "&customerid=" + Cusid);
                 $.ajax({
-                    url: "AddnewSaleServlet?tableid=" + tableid + "&paymethod=Cash" + "&discount=" + Discount + "&tax=" + Tax+"&cusId="+Cusid+"&empId="+Empid,
+                    url: "AddnewSaleServlet?tableid=" + tableid + "&paymethod=Cash" + "&discount=" + Discount + "&tax=" + Tax + "&cusId=" + Cusid + "&empId=" + Empid,
                     type: "POST",
                     success: function()
                     {

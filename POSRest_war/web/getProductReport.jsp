@@ -2,8 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:import url="set_Locale.jsp"/>
-<fmt:setBundle basename="i18n/myLanguage"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <title><fmt:message key="admin.productreport.title"/></title>
+        <title>Product Report - ${pro_name} - (${dateRange})</title>
         <!-- jQuery -->
         <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
         <script type="text/javascript" src="js/loading.js"></script>
@@ -71,6 +70,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -98,14 +99,14 @@
                     </thead>                  
                     <tbody>
                         <c:forEach var="p" items="${listProReport}">               
-                                <tr>
-                                    <td>${p.orderId}</td>
-                                    <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
-                                    <td><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
-                                    <td>${p.quantity}</td>
-                                    <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/> %</td>
-                                    <td><fmt:formatNumber value="${p.price*p.quantity*(100-p.discount)/100}" minFractionDigits="0"/> VND</td>
-                                </tr>                                                   
+                            <tr>
+                                <td>${p.orderId}</td>
+                                <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
+                                <td><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
+                                <td>${p.quantity}</td>
+                                <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/> %</td>
+                                <td><fmt:formatNumber value="${p.price*p.quantity*(100-p.discount)/100}" minFractionDigits="0"/> VND</td>
+                            </tr>                                                   
                         </c:forEach>
                     </tbody>                    
                 </table>

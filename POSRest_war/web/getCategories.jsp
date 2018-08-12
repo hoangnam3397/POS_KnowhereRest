@@ -7,8 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:import url="set_Locale.jsp"/>
-<fmt:setBundle basename="i18n/myLanguage"/>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,6 +63,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <c:import url="set_Locale.jsp"/>
+        <fmt:setBundle basename="i18n/myLanguage"/>
     </head>
     <body>
         <!-- Navigation -->
@@ -127,39 +128,42 @@
         </div>
         <!-- /.Modal -->
         <script>
-$(function() {
-    /*************** delete cate **********/
-    $(document).on('click', '.delCate', function () {
+            $(function() {
+                /*************** delete cate **********/
+                $(document).on('click', '.delCate', function() {
 
-      var cat_id = $(this).attr('cat-id');
-         swal({   title: 'Are you sure ?',
-         text: 'All the product related to this category will be deleted',
-         type: "warning",
-         showCancelButton: true,
-         confirmButtonColor: "#DD6B55",
-         confirmButtonText: 'Yes, delete it!',
-         closeOnConfirm: false },
-         function(){
-           // ajax delete data to database
-            $.ajax({
-                url : "http://localhost:8080/POSRest_war/deleteCategoryServlet?cate_id="+cat_id,
-                type: "POST",
-                success: function(data){
-                   location.reload();
-                },
-                error: function (jqXHR, textStatus, errorThrown){alert("error");}
-           });
-     swal.close(); });
-  });
-  /*************** edit cate **********/
-  $(document).on('click', '.editCate', function () {
-     var id = $(this).attr('cat-id');
-     var name = $(this).attr('cat-name');
-     $("#cat_id").val(id);
-     $("#cat_Name").val(name);
-     $('#EditCate').modal('show');
-});
-});
+                    var cat_id = $(this).attr('cat-id');
+                    swal({title: 'Are you sure ?',
+                        text: 'All the product related to this category will be deleted',
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#DD6B55",
+                        confirmButtonText: 'Yes, delete it!',
+                        closeOnConfirm: false},
+                    function() {
+                        // ajax delete data to database
+                        $.ajax({
+                            url: "http://localhost:8080/POSRest_war/deleteCategoryServlet?cate_id=" + cat_id,
+                            type: "POST",
+                            success: function(data) {
+                                location.reload();
+                            },
+                            error: function(jqXHR, textStatus, errorThrown) {
+                                alert("error");
+                            }
+                        });
+                        swal.close();
+                    });
+                });
+                /*************** edit cate **********/
+                $(document).on('click', '.editCate', function() {
+                    var id = $(this).attr('cat-id');
+                    var name = $(this).attr('cat-name');
+                    $("#cat_id").val(id);
+                    $("#cat_Name").val(name);
+                    $('#EditCate').modal('show');
+                });
+            });
         </script>
         <!-- edit cate Modal -->
         <div class="modal fade" id="EditCate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -187,7 +191,7 @@ $(function() {
         </div>
         <!-- /.Modal -->
 
-        
+
         <!-- Modal close register -->
 
         <!-- /.Modal -->
