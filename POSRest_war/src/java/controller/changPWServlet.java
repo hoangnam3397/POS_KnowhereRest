@@ -19,28 +19,27 @@ public class changPWServlet extends HttpServlet {
     @EJB
     private EmployeesFacadeLocal employeesFacade;
 
-    String emp_id = "";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        emp_id = request.getParameter("emp_id");
+        String emp_id = request.getParameter("empid");
         String oldpass = request.getParameter("oldpassword");
         String newpass = request.getParameter("password");
-        String warrning = "Old password don't Match";
 
         if (employeesFacade.find(emp_id).getPassword().equals(oldpass)) {
-            warrning = "Change Password successfully!!!";
             Employees emp = employeesFacade.find(emp_id);
             emp.setPassword(newpass);
             employeesFacade.edit(emp);
-            request.setAttribute("warrning", warrning);
-            request.getRequestDispatcher("changPW.jsp").forward(request, response);
+            request.getRequestDispatcher("getStoreServlet").forward(request, response);
         } else {
-            request.setAttribute("warrning", warrning);
             request.getRequestDispatcher("changPW.jsp").forward(request, response);
+            
         }
+        
+                    
+
 
     }
 
