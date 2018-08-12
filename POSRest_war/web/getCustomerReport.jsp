@@ -91,10 +91,12 @@
                         <tr>
                             <th><fmt:message key="admin.cusreport.table.saleno"/></th>
                             <th><fmt:message key="admin.cusreport.table.cusname"/></th>
+                            <th><fmt:message key="admin.cusreport.table.discountC"/></th>
                             <th><fmt:message key="admin.cusreport.table.proname"/></th>
                             <th><fmt:message key="admin.cusreport.table.price"/></th>
                             <th><fmt:message key="admin.cusreport.table.quantity"/></th>
-                            <th><fmt:message key="admin.cusreport.table.discount"/> (%)</th>
+                            <th><fmt:message key="admin.cusreport.table.discountP"/></th>
+                            <th><fmt:message key="admin.cusreport.table.tax"/></th>
                             <th><fmt:message key="admin.cusreport.table.time"/></th>
                             <th><fmt:message key="admin.cusreport.table.total"/></th>
                         </tr>
@@ -104,12 +106,14 @@
                             <tr>
                                 <td>${p.orderId}</td>
                                 <td>${p.cusName}</td>
+                                <td><fmt:formatNumber value="${p.discountC}" minFractionDigits="0"/> %</td>
                                 <td>${p.proName}</td>
                                 <td><fmt:formatNumber value="${p.price}" minFractionDigits="0"/> VND</td>
                                 <td>${p.quantity}</td>
-                                <td><fmt:formatNumber value="${p.discount}" minFractionDigits="0"/> %</td>
-                                <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>
-                                <td><fmt:formatNumber value="${p.price*p.quantity*(100-p.discount)/100}" maxFractionDigits="0"/> VND</td>
+                                <td><fmt:formatNumber value="${p.discountP}" minFractionDigits="0"/> %</td>
+                                <td><fmt:formatNumber value="${p.tax}" minFractionDigits="0"/> %</td>
+                                <td><fmt:formatDate value="${p.ordertime}" pattern="yyyy-MM-dd HH:mm" /></td>                              
+                                <td><fmt:formatNumber value="${p.total}" maxFractionDigits="0"/> VND</td>
                             </tr>                                                   
                         </c:forEach>
                     </tbody>                    

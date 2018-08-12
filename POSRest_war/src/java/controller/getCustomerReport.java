@@ -52,14 +52,8 @@ public class getCustomerReport extends HttpServlet {
         }
         List<SalesByCustomer> listVcus =cusFacade.vCusReport(cus_id,Startdate,Enddate);
         float Total=0;
-        float Price;
-        float Quantity;
-        Double Discount;
         for (int i = 0; i < listVcus.size(); i++) {
-            Price=listVcus.get(i).getPrice().floatValue();
-            Quantity=listVcus.get(i).getQuantity();
-            Discount=listVcus.get(i).getDiscount();
-            Total+=Price*Quantity*(100-Discount)/100;
+            Total+=listVcus.get(i).getTotal();;
         }
         request.setAttribute("Total", Total);
         request.setAttribute("dateRange", date);

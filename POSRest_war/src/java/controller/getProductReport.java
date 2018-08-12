@@ -53,14 +53,8 @@ public class getProductReport extends HttpServlet {
         }
         List<VProductReport> listVpro =proFacade.vProReport(pro_id,Startdate,Enddate);
         float TotalProfit=0;
-        float Price;
-        float Quantity;
-        Double Discount;
         for (int i = 0; i < listVpro.size(); i++) {
-            Price=listVpro.get(i).getPrice().floatValue();
-            Quantity=listVpro.get(i).getQuantity();
-            Discount=listVpro.get(i).getDiscount();
-            TotalProfit+=Price*Quantity*(100-Discount)/100;
+            TotalProfit+=listVpro.get(i).getTotal();
         }
         request.setAttribute("TotalProfit", TotalProfit);
         request.setAttribute("dateRange", date);

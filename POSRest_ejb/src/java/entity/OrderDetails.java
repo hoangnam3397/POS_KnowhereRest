@@ -161,5 +161,5 @@ public class OrderDetails implements Serializable {
     public String toString() {
         return "entity.OrderDetails[ orderDetailsPK=" + orderDetailsPK + " ]";
     }
-    
+   
 }
