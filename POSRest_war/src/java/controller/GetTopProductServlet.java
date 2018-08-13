@@ -120,9 +120,9 @@ public class GetTopProductServlet extends HttpServlet {
         request.setAttribute("Valproduct3", list.get(2).getQSum());
         request.setAttribute("Valproduct4", list.get(3).getQSum());
         request.setAttribute("Valproduct5", list.get(4).getQSum());
-        request.setAttribute("numCus", customersFacade.findAll().size()+1);
-        request.setAttribute("numPro", productsFacade.findAll().size()+1);
-        request.setAttribute("numCat", categoriesFacade.findAll().size()+1);
+        request.setAttribute("numCus", customersFacade.findAll().size());
+        request.setAttribute("numPro", productsFacade.findAll().size());
+        request.setAttribute("numCat", categoriesFacade.findAll().size());
         request.setAttribute("list", list);
                 
         //Report Product

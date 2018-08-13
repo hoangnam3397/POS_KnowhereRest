@@ -498,7 +498,7 @@
                     type: "POST",
                     success: function()
                     {
-
+                        $('#ItemsNum').text('');
                         $('#productList').html("");
                         $('#Subtot').load("subTotServlet?tableid=" + tableid, null, total_change);
                         $('#ItemsNum span, #ItemsNum2 span').load("loadItemServlet?tableid=" + tableid);

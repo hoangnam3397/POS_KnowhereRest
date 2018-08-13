@@ -16,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -65,6 +66,7 @@ public class editEmployeesServlet extends HttpServlet {
             throws ServletException, IOException {
         processRequest(request, response);
         // checks if the request actually contains upload file
+        HttpSession session = request.getSession(true);
         if (!ServletFileUpload.isMultipartContent(request)) {
             // if not, we stop here
             PrintWriter writer = response.getWriter();
@@ -72,6 +74,7 @@ public class editEmployeesServlet extends HttpServlet {
             writer.flush();
             return;
         }
+        
 
         // configures upload settings
         DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -120,11 +123,15 @@ public class editEmployeesServlet extends HttpServlet {
                             item.write(storeFile);
                             String empLink = (UPLOAD_DIRECTORY + "/" + emp_id + "-" + fileName);
                             emp.setAvatarlink(empLink);
+                           
                             // add images vao POS goc
                             String filePath2 = getServletContext().getRealPath("")
                                     + File.separator + UPLOAD_DIRECTORY2 + File.separator + emp_id + "-" + fileName;
                             File storeFile2 = new File(filePath2);
                             item.write(storeFile2);
+                             if(emp_id.equals(session.getAttribute("loginEmpId").toString())){
+                                 session.setAttribute("loginImage",empLink);
+                            }
                         }
                     } else {
                         // Process regular form field (input type="text|radio|checkbox|etc", select, etc).
