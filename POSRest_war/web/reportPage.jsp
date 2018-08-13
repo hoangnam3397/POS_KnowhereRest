@@ -68,17 +68,17 @@
     </head>
     <body>
         <!-- Navigation -->
-        <jsp:include page="<%= session.getAttribute("loginNavbar").toString() %>"></jsp:include>   
-        <!-- Page Content -->
+        <jsp:include page="<%= session.getAttribute("loginNavbar").toString()%>"></jsp:include>   
+            <!-- Page Content -->
 
 
-        <!-- Page Content -->
-        <div class="container">
-            <div class="row" style="margin-top:60px;">
-                <div class="col-md-4">
-                    <div class="statCart Statcolor01">
-                        <i class="fa fa-users" aria-hidden="true"></i>
-                        <h1 class="count">${numCus}</h1><br>
+            <!-- Page Content -->
+            <div class="container">
+                <div class="row" style="margin-top:60px;">
+                    <div class="col-md-4">
+                        <div class="statCart Statcolor01">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <h1 class="count">${numCus}</h1><br>
                         <span><fmt:message key="admin.reportpage.chart.customer"/></span>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
                     </div>
                 </form>
             </div>
-               <!-- ******************************************Report Customer************************************************* -->      
+            <!-- ******************************************Report Customer************************************************* -->      
             <div class="row rangeStat" style="margin-top:50px;">
                 <h3 class="col-sm-12"><fmt:message key="admin.reportPage.reportcus.title"/></h3>
                 <form action="getCustomerReport" method="post">
@@ -185,7 +185,30 @@
                     </div>
                 </form>
             </div>
-
+            <div class="row rangeStat" style="margin-top:50px;">
+                <h3 class="col-sm-12"><fmt:message key="admin.report.title.order"/></h3>
+                <form action="getOrderReport" method="post">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label for="proSelect"><fmt:message key="admin.reportPage.noselect"/></label>
+                            <select class="js-select-options form-control" name="orSelect" id="orSelect" disabled="true">                                                                                                                                       
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            <label><fmt:message key="admin.reportpage.report.selectRange"/></label>
+                            <div class="input-group margin-bottom-sm">
+                                <span class="input-group-addon RangePicker"><i class="fa fa-calendar fa-fw" aria-hidden="true"></i></span>
+                                <input class="form-control" id="OrderRange" type="text" name="daterangeR" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <button class="cancelBtn btn btn-picker" type="submit"><fmt:message key="admin.reportpage.report.submitReport"/></button>
+                    </div>
+                </form>
+            </div>
             <br><br><br>
         </div>
 
@@ -209,7 +232,7 @@
                 var d = new Date().getFullYear();
                 $('#ProductRange').val('01/01/' + d + ' - 12/31/' + d);
                 $('#CustomerRange').val('01/01/' + d + ' - 12/31/' + d);
-                $('#RegisterRange').val('01/01/' + d + ' - 12/31/' + d);
+                $('#OrderRange').val('01/01/' + d + ' - 12/31/' + d);
 
             });
             /************************ Chart Data *************************/
