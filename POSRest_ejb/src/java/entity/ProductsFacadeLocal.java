@@ -40,4 +40,6 @@ public interface ProductsFacadeLocal {
     List<VProductReport> vProReport(String pro_id, Date startDate, Date endDate);
     
     List<Products> showProductToOrder();
+    
+    List<VProductReport> vOrderReport(Date startDate, Date endDate) ;
 }

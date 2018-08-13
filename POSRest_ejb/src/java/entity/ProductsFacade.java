@@ -95,4 +95,12 @@ public class ProductsFacade extends AbstractFacade<Products> implements Products
         q.setParameter("show", show);
         return q.getResultList();
     }
+    
+    @Override
+    public List<VProductReport> vOrderReport(Date startDate, Date endDate) {
+        Query q=em.createQuery("SELECT v FROM VProductReport v WHERE v.ordertime >= :startDate and v.ordertime <= :endDate");
+        q.setParameter("startDate", startDate);
+        q.setParameter("endDate", endDate);
+        return q.getResultList();
+    }
 }
